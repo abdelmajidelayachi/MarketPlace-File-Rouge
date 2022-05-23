@@ -15,7 +15,6 @@ class User extends DB
   }
   function validationPassword($password)
   {
-    // $pattern = "/^(?=.*[!@#$%^&*-])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/";
     $pattern = '/^.{8,}$/';
     if (preg_match($pattern, $password)) {
       return true;
@@ -30,26 +29,47 @@ class User extends DB
     $last_name = $data['last_name'];
     $email = $data['email'];
     $password = $data['password'];
-    
+
     if ($this->checkEmail($email) == FALSE) {
-      echo "Invalid Email";
+      $json = json_encode([
+        'fNameError' => '',
+        'lNameError' => '',
+        'emailError' => 'email is not valid',
+        'passwordError' => '',
+        'confirmPasswordError' => '',
+        'success' => ''
+      ]);
+      echo $json;
       return;
-    }
-    
-    elseif($this->validationPassword($password) == FALSE)
-    {
-      $json = json_encode(['message' => 'Password must have at least 8 character']);
+    } elseif ($this->validationPassword($password) == FALSE) {
+      $json = json_encode([
+      'fNameError' => '',
+      'lNameError' => '',
+      'emailError' => '',
+      'passwordError' => 'Password must have at least 8 character', 
+      'confirmPasswordError' => '',
+      'success' => ''
+    ]);
       echo $json;
       return;
     }
-    
-    
+
+
     $password = password_hash($password, PASSWORD_DEFAULT);
     $emails = $this->conn->prepare('SELECT * FROM `' . $this->table . '` where email=:email');
     $emails->bindParam(':email', $email);
     $emails->execute();
     if ($emails->fetch()) {
-      echo "Email already exists";
+      $json = json_encode([
+        'fNameError' => '',
+        'lNameError' => '',
+        'emailError' => 'Email already exist',
+        'passwordError' => '',
+        'confirmPasswordError' => '',
+        'success' => '',
+        ]);
+      echo $json;
+      return;
     } else {
       $account = $this->conn->prepare('INSERT INTO `' . $this->table . '`(first_name,last_name,email,password) VALUES(:first_name,:last_name,:email,:password)');
       $account->bindParam(':first_name', $first_name);
@@ -57,7 +77,15 @@ class User extends DB
       $account->bindParam(':email', $email);
       $account->bindParam(':password', $password);
       $account->execute();
-      echo "Account created";
+      $json = json_encode([
+        'fNameError' => '',
+        'lNameError' => '',
+        'emailError' => '',
+        'passwordError' => '',
+        'confirmPasswordError' => '',
+        'success' => 'Account created successfully']);
+      echo $json;
+      return;
     }
   }
 
@@ -75,14 +103,27 @@ class User extends DB
       $account->execute();
       $row = $account->fetch();
       if (password_verify($password, $row['password'])) {
-        $json = json_encode(['message' => 'You logged in']);
+        $json = json_encode([
+          'emailError' => '',
+          'passwordError' => '',
+          'success' => 'Login successfully',
+          'user' => $row
+        ]);
         echo $json;
       } else {
-        $json = json_encode(['message' => 'Password is incorrect']);
+        $json = json_encode([
+          'emailError' => '',
+          'passwordError' => 'password is incorrect',
+          'success' => ''
+        ]);
         echo $json;
       }
     } else {
-      $json = json_encode(['message' => 'Email is not exists']);
+      $json = json_encode([
+        'emailError' => 'Email does not exist',
+        'passwordError' => '',
+        'success' => ''
+      ]);
       echo $json;
     }
   }

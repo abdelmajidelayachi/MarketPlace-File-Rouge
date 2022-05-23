@@ -3,26 +3,28 @@ import React from "react";
 import logo from "../../assets/images/logo/logo.jpg";
 // importing Icons
 import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import account from "../../assets/profile/account.jpg";
+// import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+// import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import account from "../../assets/images/profiles/default_profile.png";
 import Navigation from "./Navigation";
+import { Link } from "react-router-dom";
 export default function Nav({ fixed }) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   const [dropdownCategory,setDropdownCategory] = React.useState(false);
   
+  const user = localStorage.getItem("user");
   return (
     <>
       <div className="border-b py-7"></div>
       <nav className="relative flex flex-wrap items-center justify-around px-2 py-3  mb-3">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
-            <a
+            <Link
               className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 w-28 h-10 whitespace-nowrap uppercase text-gray-900"
-              href="#pablo"
+              to="/"
             >
               <img src={logo} alt="MShop" />
-            </a>
+            </Link>
             <button
               className="text-gray-900 cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
               type="button"
@@ -146,19 +148,20 @@ export default function Nav({ fixed }) {
                 </form>
               </div>
 
-              <ul className="flex flex-col lg:flex-row list-none lg:ml-auto w-1/5 justify-between">
+              <ul className="flex flex-col lg:flex-row list-none lg:ml-auto w-1/5 justify-around">
+                {user === null && (
                 <li className="nav-item">
-                  <a
+                  <Link
                     className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
-                    href="#pablo"
+                    to="/sign-in"
                   >
                     <FontAwesomeIcon
                       className="text-2xl leading-lg text-gray-900 opacity-7"
                       icon={faUser}
                     />
                     <span className="ml-2">Sign In</span>
-                  </a>
-                </li>
+                  </Link>
+                </li>)}
                 <li className="nav-item">
                   <a
                     className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
@@ -184,7 +187,7 @@ export default function Nav({ fixed }) {
                     <div className="rounded-full w-12 h-12">
                       <img
                         className="rounded-full"
-                        src={account}
+                        src={require("../../assets/images/profiles/default_profile.png")}
                         alt="account"
                       />
                     </div>

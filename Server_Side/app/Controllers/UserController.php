@@ -13,19 +13,47 @@ class UserController
       'email' => $_POST['email'],
       'password' => $_POST['password']
     ];
+
     if (trim($data['first_name']) == '') {
-      echo "first name is required";
+      $json = json_encode([
+        'fNameError' => 'first name is required',
+        'lNameError' => '',
+        'emailError' => '',
+        'passwordError' => '',
+        'confirmPasswordError' => '',
+        'success' => ''
+      ]);
+      echo $json;
       return;
     }
     if (trim($data['last_name']) == '') {
-      echo "last name is required";
+      $json = json_encode([
+        'fNameError' => '',
+        'lNameError' => 'last name is required',
+        'emailError' => '',
+        'passwordError' => '',
+        'confirmPasswordError' => '',
+        'success' => ''
+        
+      ]);
+      echo $json;
       return;
     }
     if (trim($data['email']) == '') {
-      echo "email is required";
+      $json = json_encode([
+        'fNameError' => '',
+        'lNameError' => '',
+        'emailError' => 'email is required',
+        'passwordError' => '',
+        'confirmPasswordError' => '',
+        'success' => ''
+        
+      ]);
+      echo $json;
       return;
     } else {
-      $user = new User();      return $user->register($data);
+      $user = new User();
+      return $user->register($data);
     }
   }
 
@@ -37,11 +65,20 @@ class UserController
       'password' => $_POST['password']
     ];
     if (trim($data['email']) == '') {
-      echo "email is required";
+      $json = json_encode([
+        'emailError' => 'email is required',
+        'passwordError' => '',
+        'success' => ''
+      ]);
+      echo $json;
       return;
     }
     if (trim($data['password']) == '') {
-      echo "password is required";
+      $json = json_encode([
+        'emailError' => '',
+        'passwordError' => 'password is required',
+        'success' => ''
+      ]);
       return;
     } else {
       $user = new User();
