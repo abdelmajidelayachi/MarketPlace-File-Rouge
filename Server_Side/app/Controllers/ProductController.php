@@ -1,6 +1,15 @@
 <?php
 class ProductController
 {
+  public function get_products($id)
+  {
+    $products = new Product();
+    $products = $products->getUserProducts($id);
+    $json = json_encode($products);
+    echo $json;
+    return;
+
+  }
   function create_product()
   {
     $data = [
@@ -12,6 +21,8 @@ class ProductController
       'owner_id' => $_POST['owner_id'],
       'quantity' => $_POST['quantity'],
     ];
+    // var_dump($data);
+    // exit;
     if (trim($data['product_name']) == '') {
       echo "product_name is required";
       return;
@@ -67,6 +78,17 @@ class ProductController
       echo $json;
       return;
     }
+  }
+  public function delete_product($id)
+  {
+    $product = new Product();
+    $result = $product->delete_product($id);
+    $json = json_encode([
+      'status' => 'success',
+      'message' => $result
+    ]);
+    echo $json;
+    return;
   }
 }
   

@@ -3,20 +3,20 @@ import React from "react";
 import logo from "../../assets/images/logo/logo.jpg";
 // importing Icons
 import { faUser } from "@fortawesome/free-regular-svg-icons";
-// import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-// import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import account from "../../assets/images/profiles/default_profile.png";
 import Navigation from "./Navigation";
 import { Link } from "react-router-dom";
+import Wrapper from "../UI/Wrapper";
 export default function Nav({ fixed }) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
-  const [dropdownCategory,setDropdownCategory] = React.useState(false);
-  
+  const [dropdownCategory, setDropdownCategory] = React.useState(false);
+
   const user = localStorage.getItem("user");
   return (
-    <>
-      <div className="border-b py-7"></div>
-      <nav className="relative flex flex-wrap items-center justify-around px-2 py-3  mb-3">
+    <Wrapper className=" w-full">
+      <div className="absolute border-b top-14 left-0 w-full z-10" />
+      <div className="absolute border-b top-40 mt-2 left-0 w-full z-10" />
+      <div className=" py-7"></div>
+      <nav className="relative flex flex-wrap items-center justify-around px-2 pt-3">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
             <Link
@@ -26,7 +26,7 @@ export default function Nav({ fixed }) {
               <img src={logo} alt="MShop" />
             </Link>
             <button
-              className="text-gray-900 cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
+              className="text-gray-900 cursor-pointer text-xl leading-none px-3 p-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
               type="button"
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
@@ -41,9 +41,9 @@ export default function Nav({ fixed }) {
             }
             id="example-navbar-danger"
           >
-            <div className="flex w-full justify-around">
-              <div className="w-2/3">
-                <form className="w-2/3 float-right">
+            <div className="flex w-full justify-between">
+              <div className="w-10/12">
+                <form className="w-2/3 mx-auto">
                   <div className="flex">
                     <label
                       htmlFor="search-dropdown"
@@ -51,9 +51,9 @@ export default function Nav({ fixed }) {
                     >
                       Your Email
                     </label>
-                    <button onClick={()=>setDropdownCategory(!dropdownCategory)}
-                      
-                      className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100  rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 border-2 border-mainBlue"
+                    <button
+                      onClick={() => setDropdownCategory(!dropdownCategory)}
+                      className="flex-shrink-0 z-10 inline-flex items-center py-2 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100  rounded-l-lg focus:ring-4 focus:outline-none border-2 border-mainBlue"
                       type="button"
                     >
                       All categories{" "}
@@ -70,78 +70,59 @@ export default function Nav({ fixed }) {
                         ></path>
                       </svg>
                     </button>
-                    {dropdownCategory &&<div
-                    
-                      className="absolute top-14 z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow "
-                    
-                     
-                    >
-                      {/* {showCategory} */}
-                      
-                      <ul
-                        className="py-1 text-sm text-gray-700"
-                        
-                      >
-                        <li>
-                          <button
-                            type="button"
-                            className="inline-flex py-2 px-4 w-full hover:bg-gray-100 "
-                          >
-                            Mockups
-                          </button>
-                        </li>
-                        <li>
-                          <button
-                            type="button"
-                            className="inline-flex py-2 px-4 w-full hover:bg-gray-100 "
-                          >
-                            Templates
-                          </button>
-                        </li>
-                        <li>
-                          <button
-                            type="button"
-                            className="inline-flex py-2 px-4 w-full hover:bg-gray-100 "
-                          >
-                            Design
-                          </button>
-                        </li>
-                        <li>
-                          <button
-                            type="button"
-                            className="inline-flex py-2 px-4 w-full hover:bg-gray-100 "
-                          >
-                            Logos
-                          </button>
-                        </li>
-                      </ul>
-                    </div>}
+                    {dropdownCategory && (
+                      <div className="absolute top-14 z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow ">
+                        {/* {showCategory} */}
+
+                        <ul className="py-1 text-sm text-gray-700">
+                          <li>
+                            <button
+                              type="button"
+                              className="inline-flex py-2 px-4 w-full hover:bg-gray-100 "
+                            >
+                              Mockups
+                            </button>
+                          </li>
+                          <li>
+                            <button
+                              type="button"
+                              className="inline-flex py-2 px-4 w-full hover:bg-gray-100 "
+                            >
+                              Templates
+                            </button>
+                          </li>
+                          <li>
+                            <button
+                              type="button"
+                              className="inline-flex py-2 px-4 w-full hover:bg-gray-100 "
+                            >
+                              Design
+                            </button>
+                          </li>
+                          <li>
+                            <button
+                              type="button"
+                              className="inline-flex py-2 px-4 w-full hover:bg-gray-100 "
+                            >
+                              Logos
+                            </button>
+                          </li>
+                        </ul>
+                      </div>
+                    )}
                     <div className="relative w-full">
                       <input
                         type="search"
                         id="search-dropdown"
-                        className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border-2 border-mainBlue focus:border-blue-500"
+                        className="block p-2 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg  border-l-2 border-2 focus:outline-none focus:bg-bgBlue border-mainBlue focus:border-mainBlue"
                         placeholder="Search..."
                         required
                       />
                       <button
                         type="submit"
-                        className="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                        className="absolute top-0 right-0 py-2 px-4 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
                       >
-                        <svg
-                          className="w-5 h-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                          ></path>
-                        </svg>
+                        <i className="fas fa-search fa-lg text-2xl"></i>
                       </button>
                     </div>
                   </div>
@@ -150,55 +131,68 @@ export default function Nav({ fixed }) {
 
               <ul className="flex flex-col lg:flex-row list-none lg:ml-auto w-1/5 justify-around">
                 {user === null && (
+                  <li className="nav-item">
+                    <Link
+                      className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
+                      to="/sign-in"
+                    >
+                      <FontAwesomeIcon
+                        className="text-2xl leading-lg text-gray-900 opacity-7"
+                        icon={faUser}
+                      />
+                      <span className="ml-2">Sign In</span>
+                    </Link>
+                  </li>
+                )}
                 <li className="nav-item">
                   <Link
                     className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
-                    to="/sign-in"
+                    to="/card"
                   >
-                    <FontAwesomeIcon
-                      className="text-2xl leading-lg text-gray-900 opacity-7"
-                      icon={faUser}
-                    />
-                    <span className="ml-2">Sign In</span>
-                  </Link>
-                </li>)}
-                <li className="nav-item">
-                  <a
-                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
-                    href="#pablo"
-                  >
-                    
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 22 22" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-            <span className="flex absolute -mt-5 ml-4">
-              <span className="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-btn opacity-75"></span>
-                <span className="relative inline-flex rounded-full text-white justify-center items-center h-5 w-5 bg-btn">11
-                </span>
-              </span>
-          </a>
-                  
-                </li>
-                <li className="nav-item">
-                  <a
-                    className="px-3 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
-                    href="#pablo"
-                  >
-                    <div className="rounded-full w-12 h-12">
-                      <img
-                        className="rounded-full"
-                        src={require("../../assets/images/profiles/default_profile.png")}
-                        alt="account"
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 22 22"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                       />
-                    </div>
-                  </a>
+                    </svg>
+                    <span className="flex absolute -mt-5 ml-4">
+                      <span className="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-btn opacity-75"></span>
+                      <span className="relative inline-flex rounded-full text-white justify-center items-center h-5 w-5 bg-btn">
+                        11
+                      </span>
+                    </span>
+                  </Link>
                 </li>
+                {user !== null && (
+                  <li className="nav-item">
+                    <a
+                      className="px-3 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
+                      href="#pablo"
+                    >
+                      <div className="rounded-full w-12 h-12">
+                        <img
+                          className="rounded-full"
+                          src={require("../../assets/images/profiles/default_profile.png")}
+                          alt="account"
+                        />
+                      </div>
+                    </a>
+                  </li>
+                )}
               </ul>
             </div>
           </div>
         </div>
-        <Navigation/>
       </nav>
-    </>
+      <Navigation />
+    </Wrapper>
   );
 }

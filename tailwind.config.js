@@ -4,16 +4,28 @@ module.exports = {
   ],
   theme: {
     extend: {
+      animation: {
+        scale: 'scale .5s ease-in-out',
+      }, 
+      keyframes: {
+        scale: {
+          from: { transform: 'scale(0)' },
+          to: { transform: 'scale(1)' },
+        }
+
+      },
       colors:{
         mainBlue : '#3A36DB',
         bgBlue : '#F2F2F2', 
-        btn:'#FF9C01'
+        btn:'#FF9C01',
+        dropdown :  'rgba(0, 0, 0, 0.75)',
 
       },
       boxShadow: {
         '3xl': '0px 2px 4px 4px rgba(0, 0, 0, 0.1)',
         'modal': '0 2px 8px rgba(0,0,0,0.26)',
       },
+      
       theme: {
         screens: {
           'sm': '640px',
@@ -31,9 +43,13 @@ module.exports = {
           '2xl': '1536px',
           // => @media (min-width: 1536px) { ... }
         }
-      }
+      },
+   
+
 
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar-hide'),
+  ],
 }

@@ -1,17 +1,36 @@
-import { Route,  Routes } from "react-router-dom";
-import Home from "./layouts/client/Home";
-import SignIn from "./layouts/client/SignIn";
-import Register from "./layouts/client/Register";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/client/Home";
+import SignIn from "./pages/client/SignIn";
+import Register from "./pages/client/Register";
+import New from "./pages/client/New";
+import TopSeller from "./pages/client/TopSeller";
+import Error from "./pages/Error";
+import Basket from "./pages/client/Basket";
+import Dashboard from "./pages/admin/Dashboard";
+import Products from "./pages/admin/Products";
+import AOS from 'aos'
+import 'aos/dist/aos.css';
+AOS.init();
+
 
 function App() {
+  
   return (
     <div className="App">
-
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/register" element={<Register/>} />
-        </Routes>
+      <Routes>
+        <Route index path="/" element={<Home />} />
+        <Route path="/new-products" element={<New />} />
+        <Route path="/top-seller" element={<TopSeller />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/card" element={<Basket />} />
+        <Route
+          path="/dashboard"
+          element={<Dashboard />}
+        />
+        <Route path="/dashboard/products" element={<Products />} />
+        <Route path="*" element={<Error />} />
+      </Routes>
     </div>
   );
 }
