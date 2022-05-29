@@ -1,16 +1,32 @@
 <?php
 class ProductController
 {
+  public function get_new_products()
+  {
+    $product = new Product();
+    $result = $product->select_new_products();
+    $images = new Product_images();
+    foreach ($result as $key => $value) {
+      $result[$key]['images'] = $images->get_product_images($value['id']);
+    }
+    echo json_encode($result);
+    return;
+  }
   public function get_products($id)
   {
     $products = new Product();
     $products = $products->getUserProducts($id);
+    foreach ($products as $key => $value) {
+      $product_images = new Product_images();
+      $images = $product_images->get_product_images($value['id']);
+      $products[$key]['images'] = $images;
+    }
     $json = json_encode($products);
     echo $json;
     return;
 
   }
-  function create_product()
+  public function create_product()
   {
     $data = [
       'product_name' => $_POST['product_name'],
@@ -21,43 +37,28 @@ class ProductController
       'owner_id' => $_POST['owner_id'],
       'quantity' => $_POST['quantity'],
     ];
-    // var_dump($data);
-    // exit;
-    if (trim($data['product_name']) == '') {
-      echo "product_name is required";
-      return;
-    }
-    if (trim($data['description']) == '') {
-      echo "description is required";
-      return;
-    }
-    if (trim($data['price']) == '') {
-      echo "price is required";
-      return;
-    }
-    if (trim($data['category_id']) == '') {
-      echo "category_id is required";
-      return;
-    }
-    if (trim($data['status']) == '') {
-      echo "status is required";
-      return;
-    }
-    if (trim($data['owner_id']) == '') {
-      echo "owner is required";
-      return;
-    }
-    if (trim($data['quantity']) == '') {
-      echo "quantity is required";
-      return;
-    } else {
-      $product = new Product();
-      $result = $product->insert_Product($data);
-      $json = json_encode(['message'=>$result]);
+
+    $filename = $_FILES["image"]["name"];
+    $tempname = $_FILES["image"]["tmp_name"];
+    $folder = APP . "/../../src/assets/images/uploads/" . $filename;
+    $product = new Product();
+    $result = $product->insert_Product($data);
+    $image = new Product_images();
+    if($result['status'] == true){
+      $image->insert_image(['product_id'=>$result['id']['id'], 'path'=>$filename]);
+      move_uploaded_file($tempname, $folder);
+      $json = json_encode(['message'=>['success'=>'Product created successfully']]);
       echo $json;
       return;
       
     }
+    else{
+        echo json_encode(['error'=>'ERROR img']);
+        return;
+    }
+
+    
+    
   }
 
   public function create_category()
@@ -78,6 +79,28 @@ class ProductController
       echo $json;
       return;
     }
+  }
+  public function update_product($id)
+  {
+    $data = [
+      'product_name' => $_POST['product_name'],
+      'description' => $_POST['description'],
+      'price' => $_POST['price'],
+      'category_id' => $_POST['category_id'],
+      'status' => $_POST['status'],
+      'owner_id' => $_POST['owner_id'],
+      'quantity' => $_POST['quantity'],
+    ];
+
+    $product = new Product();
+    $result = $product->update_product($data, $id);
+    $json = json_encode([
+      'status' => 'success',
+      'message' => $result
+    ]);
+    echo $json;
+    return;
+
   }
   public function delete_product($id)
   {

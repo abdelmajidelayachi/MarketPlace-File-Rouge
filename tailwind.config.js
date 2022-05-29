@@ -25,6 +25,9 @@ module.exports = {
         '3xl': '0px 2px 4px 4px rgba(0, 0, 0, 0.1)',
         'modal': '0 2px 8px rgba(0,0,0,0.26)',
       },
+      width: {
+        'width_22': '23%',
+      },
       
       theme: {
         screens: {

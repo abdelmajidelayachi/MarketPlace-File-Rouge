@@ -26,6 +26,24 @@ function AddProductModal(props) {
     productCategory: Yup.string().required("Category Required"),
   });
 
+  const submitEditProductHandler = (values) => {
+       const data =new FormData();
+       data.append("product_name", values.productName);
+       data.append("price", values.productPrice);
+       data.append("quantity", values.productQuantity);
+       data.append("description", values.productDescription);
+       data.append('owner_id', JSON.parse(localStorage.getItem('user')).id);
+       data.append("category", values.productCategory);
+       data.append("category_id", '1');
+       data.append("status", '1');
+
+        axios.post(`http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/update_product/${props.product.id}`, data).then(res => {
+        console.log(res);
+        props.onClose();
+      });
+
+  }
+
   const submitAddProductHandler = async(values) => {
        const data = new FormData();
         data.append("product_name", values.productName);
@@ -34,14 +52,23 @@ function AddProductModal(props) {
         data.append("description", values.productDescription);
         data.append('owner_id', JSON.parse(localStorage.getItem('user')).id);
         data.append("category", values.productCategory);
+        data.append("image", values.productImage);
         data.append("category_id", '1');
         data.append("status", '1');
 
-        const response =await axios.post("http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/create_product", data);
+        const response =await axios.post("http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/create_product", data
+        ,{ headers: {
+          'Content-Type': 'multipart/form-data'
+        },}
+        );
+        console.log(response);
         if(response.status === 200){
+          console.log(response.data);
           props.onClose();
         }
   };
+
+
 
   return (
     <Wrapper>
@@ -69,7 +96,7 @@ function AddProductModal(props) {
               productQuantity: props.product.quantity !==undefined ? props.product.quantity : "",
             }}
             validationSchema={validate}
-            onSubmit={submitAddProductHandler}
+            onSubmit={props.edit?submitEditProductHandler:submitAddProductHandler}
           >
             {(formik) => (
               <Form>

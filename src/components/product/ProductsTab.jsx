@@ -35,16 +35,16 @@ function ProductsTab() {
      axios.get(`http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/get_products/${JSON.parse(localStorage.getItem('user')).id}`).then(res => {  
     setProducts(res.data);
     console.log(res.data);
-  })}, [addProductModal,productDeleted]);
+  })}, [addProductModal,productDeleted,showEditModel]);
   
   return (
     <Wrapper>
-      {addProductModal &&<AddProductModal title="Add Product" product="" buttonText='Add product' onClose={cancelModalHandler} onClick={cancelModalHandler}/>}
+      {addProductModal &&<AddProductModal edit={false} title="Add Product" product="" buttonText='Add product' onClose={cancelModalHandler} onClick={cancelModalHandler}/>}
       {productDeleted && <MessageModal title="Product Deleted" message="Product Deleted Successfully" onClick={() => setProductDeleted(false)}/>}
       <div className="flex justify-between m-5"> 
         <div className="text-3xl font-bold">Products</div>
         <div> 
-          <button onClick={ShowAddProductModelHandler} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          <button onClick={ShowAddProductModelHandler} className="hover:bg-blue-500 bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Add Product
           </button>
         </div>
@@ -102,7 +102,7 @@ function ProductsTab() {
 
                 <td className="px-1 py-4">
                   <span onClick={()=>setShowEditModel(product.id)} className="px-5 py-2 rounded-full cursor-pointer text-green-600"><FontAwesomeIcon size="xl" icon={faPenToSquare}/></span>
-                  {showEditModel===product.id && <AddProductModal product={product}  buttonText='Update' onClick={()=>setShowEditModel(false)}/>}
+                  {showEditModel===product.id && <AddProductModal edit={true} product={product}  buttonText='Update' onClose={()=>setShowEditModel(false)} onClick={()=>setShowEditModel(false)}/>}
                 </td>
                
                 <td className="px-1 py-4">

@@ -193,9 +193,9 @@ function Footer() {
           <img className="mx-auto md:h-20 h-14 object-cover" src={mastercard} alt="payment" />
         </div>
         <div className="text-center p-3 bg-zinc-800 w-full">
-          <span className="text-gray-400 font-semibold">© 2021 Copyright : </span>
+          <span className="text-gray-300 font-semibold">© 2021 Copyright&nbsp;&nbsp;</span>
           <a
-            className="text-gray-400 font-semibold"
+            className="text-gray-300 font-semibold"
             href="/home"
           >
             MShop
