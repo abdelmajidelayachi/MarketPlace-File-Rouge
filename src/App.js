@@ -10,10 +10,12 @@ import Dashboard from "./pages/admin/Dashboard";
 import Products from "./pages/admin/Products";
 import AOS from 'aos'
 import 'aos/dist/aos.css';
+import ShowProduct from "./pages/client/ShowProduct";
 AOS.init();
 
 
 function App() {
+  // let { id } = useParams();
   
   return (
     <div className="App">
@@ -24,6 +26,7 @@ function App() {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/register" element={<Register />} />
         <Route path="/card" element={<Basket />} />
+        <Route path="/show-product/:id" element = {<ShowProduct/>}/>
         <Route
           path="/dashboard"
           element={<Dashboard />}

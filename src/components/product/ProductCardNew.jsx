@@ -1,25 +1,28 @@
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ProductCardNew = (props) => {
+  const linkProduct = props.product.product_name +'-'+props.product.id
   return (
       <div className="md:w-width_22 p-3 w-full rounded bg-gray-100 shadow-md width_22" key={props.product.id}>
-        <a href="/" className="block relative h-48  rounded overflow-hidden">
+        <Link to={`/show-product/${linkProduct}`} className="block relative h-48  rounded overflow-hidden">
          {props.product.images[0].path!==undefined && <img
             alt="e-commerce"
             className="object-cover object-center mx-auto h-full block"
             src={require(`../../assets/images/uploads/${props.product.images[0].path}`)}
           />}
         
-        </a>
+        </Link>
         <div className="mt-4">
           <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">
           </h3>
-          <h2 className="text-gray-900 title-font text-lg font-bold">
+         
+          <Link to={`/show-product/${linkProduct}`} ><h2 className="text-gray-900 title-font text-lg font-semibold hover:text-mainBlue">
             {props.product.product_name}
-          </h2>
-          <p className="text-2xs font-semibold mt-2.5 h-12">{props.product.description}</p>
+          </h2></Link>
+          {/* <p className="text-sm font-semibold mt-2.5 h-14">{props.product.description}</p> */}
           <div className="flex items-center my-2.5">
             <svg
               className="w-5 h-5 text-yellow-300"

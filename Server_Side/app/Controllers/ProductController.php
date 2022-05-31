@@ -12,6 +12,16 @@ class ProductController
     echo json_encode($result);
     return;
   }
+  public function get_Product($id)
+  {
+    $product = new Product();
+    $product  = $product->selectOne($id);
+    $product_images = new Product_images();
+    $images = $product_images->get_product_images($id);
+    $product['images'] = $images;
+    echo json_encode($product);
+    return;
+  }
   public function get_products($id)
   {
     $products = new Product();

@@ -9,6 +9,7 @@ import Wrapper from "../UI/Wrapper";
 export default function Nav({ fixed }) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   const [dropdownCategory, setDropdownCategory] = React.useState(false);
+  const [cart, setCart] = React.useState(JSON.parse(localStorage.getItem("product")));
 
   const user = localStorage.getItem("user");
   return (
@@ -166,7 +167,7 @@ export default function Nav({ fixed }) {
                     <span className="flex absolute -mt-5 ml-4">
                       <span className="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-btn opacity-75"></span>
                       <span className="relative inline-flex rounded-full text-white justify-center items-center h-5 w-5 bg-btn">
-                        11
+                        {/* {cart !== undefined ? cart.length: 0} */}
                       </span>
                     </span>
                   </Link>

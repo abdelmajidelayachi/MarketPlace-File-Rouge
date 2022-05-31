@@ -19,7 +19,8 @@ module.exports = {
         bgBlue : '#F2F2F2', 
         btn:'#FF9C01',
         dropdown :  'rgba(0, 0, 0, 0.75)',
-
+        firstColor : '#FF9C01',
+        buttonColor : '#FFF6E9'
       },
       boxShadow: {
         '3xl': '0px 2px 4px 4px rgba(0, 0, 0, 0.1)',

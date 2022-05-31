@@ -43,6 +43,17 @@ class Product extends DB
       return ['id'=>$result, 'status'=>true];
     }
   }
+  public function selectOne($id)
+  {
+    $sql = "SELECT * FROM $this->table WHERE id=:id";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result;
+
+
+  }
 
   public function select_new_products()
   {
