@@ -1,15 +1,42 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "../../assets/images/logo/logo.jpg";
 // importing Icons
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import Navigation from "./Navigation";
 import { Link } from "react-router-dom";
 import Wrapper from "../UI/Wrapper";
+import { useSelector, useDispatch } from "react-redux";
 export default function Nav({ fixed }) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   const [dropdownCategory, setDropdownCategory] = React.useState(false);
-  const [cart, setCart] = React.useState(JSON.parse(localStorage.getItem("product")));
+  // const [cart, setCart] = React.useState(JSON.parse(localStorage.getItem("product")));
+
+  const storedProducts = useDispatch();
+
+  useEffect(() => {
+    if (localStorage.getItem("cartItems") === null) {
+      localStorage.setItem("cartItems", JSON.stringify([]));
+    } else {
+      storedProducts({
+        type: "GET_PRODUCTS",
+        payload:
+          JSON.parse(localStorage.getItem("cartItems")) !== undefined
+            ? JSON.parse(localStorage.getItem("cartItems"))
+            : [],
+      });
+    }
+  }, []);
+
+  const countItems = useSelector((state) => {
+     let countItem = 0;
+      state.cartItems.map((item) => {
+        countItem += item.quantity;
+      });
+    return countItem;
+  
+  }
+  );
 
   const user = localStorage.getItem("user");
   return (
@@ -168,6 +195,7 @@ export default function Nav({ fixed }) {
                       <span className="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-btn opacity-75"></span>
                       <span className="relative inline-flex rounded-full text-white justify-center items-center h-5 w-5 bg-btn">
                         {/* {cart !== undefined ? cart.length: 0} */}
+                        {countItems}
                       </span>
                     </span>
                   </Link>

@@ -1,15 +1,17 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Nav from "../../components/clients/Nav";
-import Recommended from "../../components/product/Recommended";
 import Wrapper from "../../components/UI/Wrapper";
 import Footer from "../../layouts/Footer";
+import { useDispatch } from "react-redux";
 
 const ShowProduct = () => {
   const [click, setClick] = useState(1);
   const [errorInput, setErrorInput] = useState(false);
   const [product, setProduct] = useState([]);
   const product_id_path = window.location.href.split("-").pop();
+  const [productExist, setProductExist] = useState(false);
+  const dispatch = useDispatch();
   useEffect(() => {
     axios
       .get(
@@ -17,14 +19,33 @@ const ShowProduct = () => {
       )
       .then((res) => {
         setProduct(res.data);
-        // console.log(res.data)
       })
       .catch((error) => console.log(error));
   }, []);
 
-  const  AddToCartHandler = () => {
-    localStorage.setItem("product", JSON.stringify(product));
-  }
+  const AddToCartHandler = (items, numberOfItems) => {
+    const storedProducts = JSON.parse(localStorage.getItem("cartItems"));
+    let productExistStatus = false;
+    storedProducts.forEach((item) => {
+      if (item.product.id === items.id) {
+        productExistStatus = true;
+      } else {
+        productExistStatus = false;
+      }
+    });
+    if (!productExistStatus) {
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: { product: items, quantity: numberOfItems },
+      });
+    } else {
+      dispatch({
+        type: "MODIFY_CART_ITEM",
+        payload: { id: items.id, quantity: numberOfItems },
+      });
+      setProductExist(false);
+    }
+  };
 
   return (
     <Wrapper className="">
@@ -42,44 +63,42 @@ const ShowProduct = () => {
               />
             </div>
           )}
-            <div className="flex gap-3"> 
+          <div className="flex gap-3">
             <div className="flex items-center h-10 my-auto cursor-pointer">
               <i className="fas fa-chevron-left text-2xl text-gray-500"></i>
+            </div>
+            {product.length !== 0 && (
+              <div className="p-1 w-24 my-4 bg-white border border-gray-600">
+                <img
+                  alt="e-commerce"
+                  className="mx-auto w-24"
+                  src={require(`../../assets/images/uploads/${product.images[0].path}`)}
+                />
               </div>
-              {product.length !== 0 && (
-            <div className="p-1 w-24 my-4 bg-white border border-gray-600">
-             
-              <img
-                alt="e-commerce"
-                className="mx-auto w-24"
-                src={require(`../../assets/images/uploads/${product.images[0].path}`)}
-              />
-            </div>
-          )}
-              {product.length !== 0 && (
-            <div className="p-1 w-24 my-4 bg-white border border-gray-600">
-              <img
-                alt="e-commerce"
-                className="mx-auto w-24"
-                src={require(`../../assets/images/uploads/${product.images[0].path}`)}
-              />
-            </div>
-          )}
-              {product.length !== 0 && (
-            <div className="p-1 w-24 my-4 bg-white border border-gray-600">
-              <img
-                alt="e-commerce"
-                className="mx-auto w-24"
-                src={require(`../../assets/images/uploads/${product.images[0].path}`)}
-              />
-            </div>
-          )}
-                      
-              <div className="flex items-center h-10 my-auto cursor-pointer">
+            )}
+            {product.length !== 0 && (
+              <div className="p-1 w-24 my-4 bg-white border border-gray-600">
+                <img
+                  alt="e-commerce"
+                  className="mx-auto w-24"
+                  src={require(`../../assets/images/uploads/${product.images[0].path}`)}
+                />
+              </div>
+            )}
+            {product.length !== 0 && (
+              <div className="p-1 w-24 my-4 bg-white border border-gray-600">
+                <img
+                  alt="e-commerce"
+                  className="mx-auto w-24"
+                  src={require(`../../assets/images/uploads/${product.images[0].path}`)}
+                />
+              </div>
+            )}
+
+            <div className="flex items-center h-10 my-auto cursor-pointer">
               <i className="fas fa-chevron-right text-2xl text-gray-500"></i>
-              </div>
             </div>
-          
+          </div>
         </div>
         <div className="md:mt-3 ">
           <h1 className="text-2xl font-semibold">{product.product_name}</h1>
@@ -233,15 +252,17 @@ const ShowProduct = () => {
             <button className="px-10 py-2.5 text-firstColor font-bold bg-buttonColor border-2 border-firstColor rounded-2">
               Buy Now
             </button>
-            <button type="button" onClick={()=>AddToCartHandler(product)} className="px-10 py-2.5 text-white font-bold bg-firstColor rounded-2">
+            <button
+              type="button"
+              onClick={() => AddToCartHandler(product, click)}
+              className="px-10 py-2.5 text-white font-bold bg-firstColor rounded-2"
+            >
               Add to cart
             </button>
           </div>
         </div>
       </div>
-      <div className="mt-16">
-        {/* <Recommended product = {product}/> */}
-      </div>
+      <div className="mt-16">{/* <Recommended product = {product}/> */}</div>
       <Footer />
     </Wrapper>
   );
