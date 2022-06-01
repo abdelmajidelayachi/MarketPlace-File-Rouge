@@ -11,6 +11,7 @@ import Products from "./pages/admin/Products";
 import AOS from 'aos'
 import 'aos/dist/aos.css';
 import ShowProduct from "./pages/client/ShowProduct";
+import CheckOut from "./pages/client/CheckOut";
 AOS.init();
 
 
@@ -18,7 +19,7 @@ function App() {
   // let { id } = useParams();
   
   return (
-    <div className="App">
+    <div className="">
       <Routes>
         <Route index path="/" element={<Home />} />
         <Route path="/new-products" element={<New />} />
@@ -26,6 +27,7 @@ function App() {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/register" element={<Register />} />
         <Route path="/card" element={<Basket />} />
+        <Route path="/checkout" element={<CheckOut/>} />
         <Route path="/show-product/:id" element = {<ShowProduct/>}/>
         <Route
           path="/dashboard"
