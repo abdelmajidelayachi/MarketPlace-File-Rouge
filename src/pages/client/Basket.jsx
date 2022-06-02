@@ -35,7 +35,7 @@ function Basket() {
       )}
       <div className="max-w-screen-xl m-auto ">
         <Nav />
-        <CheckoutNav/>
+        <CheckoutNav active='card'/>
         <div className="mx-auto w-10/12">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-semibold text-gray-800 mx-1 my-4">

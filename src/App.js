@@ -12,6 +12,7 @@ import AOS from 'aos'
 import 'aos/dist/aos.css';
 import ShowProduct from "./pages/client/ShowProduct";
 import CheckOut from "./pages/client/CheckOut";
+import PlaceOrder from "./pages/client/PlaceOrder";
 AOS.init();
 
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/card" element={<Basket />} />
         <Route path="/checkout" element={<CheckOut/>} />
+        <Route path = "place-order" element={<PlaceOrder/>} />
         <Route path="/show-product/:id" element = {<ShowProduct/>}/>
         <Route
           path="/dashboard"
