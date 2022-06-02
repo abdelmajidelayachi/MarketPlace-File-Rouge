@@ -6,6 +6,8 @@ import { MdOutlineCancel } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
 import MessageModal from "../../components/UI/MessageModal";
+import { Link } from "react-router-dom";
+import CheckoutNav from "../../components/clients/CheckoutNav";
 
 function Basket() {
   const [errorInput, setErrorInput] = useState(false);
@@ -33,6 +35,7 @@ function Basket() {
       )}
       <div className="max-w-screen-xl m-auto ">
         <Nav />
+        <CheckoutNav/>
         <div className="mx-auto w-10/12">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-semibold text-gray-800 mx-1 my-4">
@@ -163,7 +166,7 @@ function Basket() {
                     0
                   )}</span>
                 </span>
-                <span className=""><button type="button" className="py-2 px-4 text-xl font-semibold text-gray-100 bg-blue-600 rounded">Proceed to checkout</button></span>
+                <span className=""><Link to="/checkout" className="py-2 px-4 text-xl font-semibold text-gray-100 bg-blue-600 rounded">Proceed to checkout</Link></span>
             </div>
           )}
         </div>

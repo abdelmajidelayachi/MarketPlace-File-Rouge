@@ -80,7 +80,7 @@ function AddProductModal(props) {
       />
       <div
         data-aos="zoom-out-left"
-        className=" bg-white  shadow-modal fixed top-0 right-0 min-h-screen transform rounded-none  z-50 md:w-1/4 w-full overflow-y-scroll"
+        className=" bg-white  shadow-modal fixed top-0 right-0 max-h-full transform rounded-none  z-50 md:w-5/12 w-full overflow-y-scroll"
       >
         <header className={`p-3 ${props.className}`}>
           <h2 className={`font-bold text-2xl`}>{props.title}</h2>

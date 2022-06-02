@@ -3,27 +3,33 @@ import React, { useEffect, useState } from "react";
 import Nav from "../../components/clients/Nav";
 import ProductCardNew from "../../components/product/ProductCardNew";
 import Div from "../../components/UI/Div";
+import Loader from "../../components/UI/Loader";
 import Wrapper from "../../components/UI/Wrapper";
 import Footer from "../../layouts/Footer";
 
 function New() {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get(
         "http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/get_new_products"
       )
       .then((res) => {
         setProducts(res.data);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
+
       });
   }, []);
 
   return (
     <Wrapper className="">
+      {loading&&<Loader/>}
       <div className="max-w-screen-xl m-auto ">
         <Nav />
         <section className="text-gray-600 body-font">

@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect } from "react";
-import logo from "../../assets/images/logo/logo.jpg";
+import logo from "../../assets/images/logo/logoMshop.png";
 // importing Icons
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import Navigation from "./Navigation";
@@ -40,18 +40,17 @@ export default function Nav({ fixed }) {
 
   const user = localStorage.getItem("user");
   return (
-    <Wrapper className=" w-full">
+    <Wrapper className="w-full">
       <div className="absolute border-b top-14 left-0 w-full z-10" />
-      <div className="absolute border-b top-40 mt-2 left-0 w-full z-10" />
       <div className=" py-7"></div>
       <nav className="relative flex flex-wrap items-center justify-around px-2 pt-3">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
             <Link
-              className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 w-28 h-10 whitespace-nowrap uppercase text-gray-900"
+              className="text-sm font-bold leading-relaxed inline-block mr-4 w-32  whitespace-nowrap uppercase text-gray-900"
               to="/"
             >
-              <img src={logo} alt="MShop" />
+              <img src={logo} className="object-cover " alt="MShop" />
             </Link>
             <button
               className="text-gray-900 cursor-pointer text-xl leading-none px-3 p-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
