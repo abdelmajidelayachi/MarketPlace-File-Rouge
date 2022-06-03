@@ -7,7 +7,7 @@ import Navigation from "./Navigation";
 import { Link } from "react-router-dom";
 import Wrapper from "../UI/Wrapper";
 import { useSelector, useDispatch } from "react-redux";
-export default function Nav({ fixed }) {
+export default function Nav(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   const [dropdownCategory, setDropdownCategory] = React.useState(false);
   // const [cart, setCart] = React.useState(JSON.parse(localStorage.getItem("product")));
@@ -220,7 +220,7 @@ export default function Nav({ fixed }) {
           </div>
         </div>
       </nav>
-      <Navigation />
+      <Navigation active={props.active} />
     </Wrapper>
   );
 }

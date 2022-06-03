@@ -10,7 +10,7 @@ function Home() {
   return (
     <div>
       <div className=" max-w-screen-xl m-auto ">
-        <Nav />
+        <Nav active= 'home' />
       </div>
       <div className="w-full bg-gray-100">
         <div className="bg-gray-100 max-w-screen-xl m-auto mb-2">

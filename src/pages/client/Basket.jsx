@@ -166,7 +166,7 @@ function Basket() {
                     0
                   )}</span>
                 </span>
-                <span className=""><Link to="/checkout" className="py-2 px-4 text-xl font-semibold text-gray-100 bg-blue-600 rounded">Proceed to checkout</Link></span>
+                <span className=""><Link to="/place-order" className="py-2 px-4 text-xl font-semibold text-gray-100 bg-blue-600 rounded">Proceed to checkout</Link></span>
             </div>
           )}
         </div>

@@ -6,7 +6,7 @@ function TopSeller() {
   return (
     <Wrapper className="">
       <div className=" max-w-screen-xl m-auto ">
-        <Nav />
+        <Nav active='top' />
         top seller
       </div>
     </Wrapper>
