@@ -33,7 +33,7 @@ function Basket() {
           title="ERROR OF NUMBER OF PRODUCT"
         />
       )}
-      <div className="max-w-screen-xl m-auto ">
+      <div className="max-w-screen-xl m-auto">
         <Nav />
         <CheckoutNav active='card'/>
         <div className="mx-auto w-10/12">

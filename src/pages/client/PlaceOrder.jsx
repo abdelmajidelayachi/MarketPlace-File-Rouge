@@ -12,6 +12,7 @@ import FormAddress from "../../components/clients/placeOrder/FormAddress";
 const CheckOut = () => {
   const products = useSelector((state) => state.cartItems);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [addressForm, setAddressForm]= useState(false);
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("cartItems")).length > 0) {
@@ -42,7 +43,7 @@ const CheckOut = () => {
                 <button className="text-btn">
                   <FontAwesomeIcon size={"lg"} icon={faCheckCircle} />
                 </button>
-                <button className="text-blue-600 text-lg font-semibold hover:underline">
+                <button onClick={()=>{setAddressForm(!addressForm)}} className="text-blue-600 text-lg font-semibold hover:underline">
                   Edit Address
                 </button>
               </div>
@@ -59,11 +60,15 @@ const CheckOut = () => {
 
               </div>
             </div>
+            {addressForm&&
+          
             <div className="border rounded py-6 px-6 my-4 ">
               <div className="w-full">
+              
                 <FormAddress/>
               </div>
-            </div>
+            </div>  
+            }
             <div className="flex justify-between">
               <Link
                 to="/card"

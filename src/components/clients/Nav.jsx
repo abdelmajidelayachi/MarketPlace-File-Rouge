@@ -41,7 +41,7 @@ export default function Nav(props) {
   const user = localStorage.getItem("user");
   return (
     <Wrapper className="w-full">
-      <div className="absolute border-b top-14 left-0 w-full z-10" />
+      <div className="absolute border-b top-14 left-0 w-full z-0" />
       <div className=" py-7"></div>
       <nav className="relative flex flex-wrap items-center justify-around px-2 pt-3">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
@@ -80,7 +80,7 @@ export default function Nav(props) {
                     </label>
                     <button
                       onClick={() => setDropdownCategory(!dropdownCategory)}
-                      className="flex-shrink-0 z-10 inline-flex items-center py-2 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100  rounded-l-lg focus:ring-4 focus:outline-none border-2 border-mainBlue"
+                      className="flex-shrink-0 z-0 inline-flex items-center py-2 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100  rounded-l-lg focus:ring-4 focus:outline-none border-2 border-mainBlue"
                       type="button"
                     >
                       All categories{" "}

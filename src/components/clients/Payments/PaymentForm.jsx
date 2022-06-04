@@ -74,10 +74,14 @@ const PaymentForm = (props) => {
           <div className="FormRow">
             <CardElement options={CARD_OPTIONS} />
           </div>
+           
         </fieldset>
-        <button className="SubmitButton .button bg-pink-600 py-2 px-5 font-semibold text-xl rounded-md  hover:bg-pink-700 text-gray-100 w-full" type="submit">
+        <div className="flex justify-end mr-3">
+           <button className=" bg-blue-600 font-semibold text-xl  rounded-md  hover:bg-blue-700 text-gray-100 w-24  px-2 py-2 mx-0.5 " type="submit">
           Pay
         </button>
+        </div>
+      
       </form>
     ) : (
       <div>
