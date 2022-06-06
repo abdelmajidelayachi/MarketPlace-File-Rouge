@@ -4,7 +4,7 @@ import Wrapper from "../../components/UI/Wrapper";
 import { useSelector } from "react-redux";
 import CheckoutNav from "../../components/clients/CheckoutNav";
 import Div from "../../components/UI/Div";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FormAddress from "../../components/clients/placeOrder/FormAddress";
@@ -15,29 +15,32 @@ const CheckOut = () => {
   const [addressForm, setAddressForm]= useState(false);
   const [user, setUser]= useState(JSON.parse(localStorage.getItem("user")));
   const [hasAddress, setHasAddress]=useState(false)
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    if(!user)
+    if(user===null)
     {
-      window.location.href = "/sign-in";
+      navigate('/sign-in');
+     
 
     }else{
-    if (JSON.parse(localStorage.getItem("cartItems")).length > 0) {
-      const price = products.reduce(
-        (acc, item) => acc + item.product.price * item.quantity,
-        0
-      );
-      setUser(JSON.parse(localStorage.getItem("user")))
-      setTotalPrice(price);
-      if(user.tel !==undefined && user.address !==undefined)
-      {
-        setHasAddress(true);
+      if (JSON.parse(localStorage.getItem("cartItems")).length > 0) {
+        const price = products.reduce(
+          (acc, item) => acc + item.product.price * item.quantity,
+          0
+        );
+        setUser(JSON.parse(localStorage.getItem("user")))
+        setTotalPrice(price);
+        if(user.tel !==undefined && user.address !==undefined)
+        {
+          setHasAddress(true);
+        }
+      } else {
+        window.location.href = "/";
       }
-    } else {
-      window.location.href = "/";
     }
-    }
-  
+    
   }, [products, addressForm]);
 
   return (
@@ -66,10 +69,10 @@ const CheckOut = () => {
                   <span className="text-gray-600">First Name :</span> {" "} {user && user.first_name +' '+user.last_name}
                 </p>
                 <p className="text-base font-semibold px-5 pt-2 w-full">
-                <span className="text-gray-600"> TEL :</span>{" "} {user.tel && user.tel}
+                <span className="text-gray-600"> TEL :</span>{" "} {user && user.tel}
                 </p>
                 <p className="text-base font-semibold px-5 pt-2 w-full">
-                <span className="text-gray-600"> Address :</span>{" "} {user.tel && user.address}
+                <span className="text-gray-600"> Address :</span>{" "} {user && user.address}
                 </p>
 
               </div>

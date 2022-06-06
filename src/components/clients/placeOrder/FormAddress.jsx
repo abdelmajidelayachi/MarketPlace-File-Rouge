@@ -53,7 +53,7 @@ const FormAddress = (props) => {
             </label>
               <InputField
                     type="text"
-                    isInput={true}
+                    isInput="true"
                     name="firstName"
                     className="md:w-3/4 w-full py-2 px-3 border focus:outline-none rounded"
                     placeholder="First Name"
@@ -69,7 +69,7 @@ const FormAddress = (props) => {
             </label>
             <InputField
                     type="text"
-                    isInput={true}
+                    isInput="true"
                     name="lastName"
                     className="md:w-3/4 w-full py-2 px-3 border focus:outline-none rounded"
                     placeholder="Last Name"
@@ -85,7 +85,7 @@ const FormAddress = (props) => {
             </label>
             <InputField
                     type="text"
-                    isInput={true}
+                    isInput="true"
                     name="country"
                     className="md:w-3/4 w-full py-2 px-3 border focus:outline-none rounded"
                     placeholder="Country"
@@ -101,7 +101,7 @@ const FormAddress = (props) => {
             </label>
             <InputField
                     type="text"
-                    isInput={true}
+                    isInput="true"
                     name="city"
                     className="md:w-3/4 w-full py-2 px-3 border focus:outline-none rounded"
                     placeholder="City"
@@ -117,7 +117,7 @@ const FormAddress = (props) => {
             </label>
             <InputField
                     type="text"
-                    isInput={true}
+                    isInput="true"
                     name="address"
                     className="md:w-3/4 w-full py-2 px-3 border focus:outline-none rounded"
                     placeholder="Street address, company name, P.O. box, c/o, etc"
@@ -133,7 +133,7 @@ const FormAddress = (props) => {
             </label>
             <InputField
                     type="tel"
-                    isInput={true}
+                    isInput="true"
                     name="tel"
                     className="md:w-3/4 w-full py-2 px-3 border focus:outline-none rounded"
                     placeholder="+21260-000 0000"

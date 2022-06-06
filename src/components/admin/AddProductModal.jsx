@@ -137,7 +137,7 @@ function AddProductModal(props) {
                   </span>
                   <InputField
                     type="text"
-                    isInput={true}
+                    isInput="true"
                     name="productName"
                     className=" mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 "
                     placeholder="Product Name"
@@ -149,7 +149,7 @@ function AddProductModal(props) {
                   </span>
                   <InputField
                     type="text"
-                    isInput={true}
+                    isInput="true"
                     name="productCategory"
                     className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
                     placeholder="Category"
@@ -161,7 +161,7 @@ function AddProductModal(props) {
                   </span>
                   <InputField
                     type="number"
-                    isInput={true}
+                    isInput="true"
                     step="0.01"
                     name="productPrice"
                     className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
@@ -174,7 +174,7 @@ function AddProductModal(props) {
                   </span>
                   <InputField
                     type="number"
-                    isInput={true}
+                    isInput="true"
                     step="1"
                     min="1"
                     name="productQuantity"
@@ -187,7 +187,7 @@ function AddProductModal(props) {
                     Description
                   </span>
                   <InputField
-                    isInput={false}
+                    isInput="false"
                     className=""
                     rows="3"
                     name="productDescription"

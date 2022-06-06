@@ -1,6 +1,6 @@
 import axios from "axios";
-import React,{useState,useRef} from "react";
-import { Link } from "react-router-dom";
+import React,{useState,useRef, useEffect} from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo/logo.jpg";
 import ErrorInput from "../../components/UI/ErrorInput";
 
@@ -10,7 +10,18 @@ function SignIn() {
   const [passwordError, setPasswordError] = useState("");
   const [loggedIn,setLoggedIn] = useState(false);
 
+  const navigate =useNavigate();
+  const location = useLocation();
   // ref inputs
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'))
+    if(user){
+      setLoggedIn(true);
+      console.log(location)
+      navigate('location')
+    }
+
+  }, [])
   
   const email = useRef("");
   const password = useRef("");

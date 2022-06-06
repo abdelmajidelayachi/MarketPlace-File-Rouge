@@ -5,7 +5,7 @@ export const InputField = (props) => {
   const [field, meta] = useField(props);
   return (
     <div className="w-full flex flex-col">
-      {props.isInput && (
+      {props.isInput==="true" && (
         <input
           type={props.type}
           name={props.name}
@@ -18,7 +18,7 @@ export const InputField = (props) => {
           autoComplete="off"
         />
       )}
-      {!props.isInput && (
+      {props.isInput==="false" && (
         <textarea
           {...field}
           {...props}

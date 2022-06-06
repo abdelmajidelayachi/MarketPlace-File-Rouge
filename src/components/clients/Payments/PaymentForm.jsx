@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import "./PaymentForm.css";
 import MessageModal from "../../UI/MessageModal";
@@ -32,7 +32,8 @@ const PaymentForm = (props) => {
   const stripe = useStripe();
   const elements = useElements();
   const dispatch = useDispatch();
-  
+  const products = useSelector((state) => state.cartItems);
+
   const onCloseModal = () => {
     dispatch({ type: "CLEAR_CART" });
     window.location.href="/"; 
@@ -41,20 +42,7 @@ const PaymentForm = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    const userOrderData = JSON.parse(localStorage.getItem('user'));
-    console.log(userOrderData);
-    const data = new FormData();
-    data.append("orderOf",userOrderData.id)
-    data.append("tel",userOrderData.tel)
-    data.append("address",userOrderData.address)
-    data.append("city",userOrderData.city)
-    data.append("country",userOrderData.country)
-    try{
-      const response = await axios.post("http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/order/add_order",data)
-      console.log(response.data);
-    }catch{
-
-    }
+   
     
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
@@ -70,6 +58,25 @@ const PaymentForm = (props) => {
         });
         if (response.data.success) {
           console.log("payment  succeeded!!! ");
+          const userOrderData = JSON.parse(localStorage.getItem('user'));
+          // console.log(userOrderData);
+          const data = new FormData();
+          data.append("orderOf",userOrderData.id)
+          data.append("tel",userOrderData.tel)
+          data.append("address",userOrderData.address)
+          data.append("city",userOrderData.city)
+          data.append("country",userOrderData.country)
+          // data.append('amine', products)
+          data.append("products",JSON.stringify(products))
+          try{
+            const response = await axios.post("http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/order/add_order",data
+            )
+            console.log(response.data);
+          }catch(err){
+            console.log(err)
+      
+          }
+
           setSucceeded(true);
           setLoading(false);
         }
@@ -77,6 +84,7 @@ const PaymentForm = (props) => {
         console.log(err);
       }
     } else {
+      
       console.log(error.message);
     }
   };

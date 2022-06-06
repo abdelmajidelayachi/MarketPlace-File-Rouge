@@ -99,4 +99,17 @@ class Product extends DB
     $stmt->execute();
     return "Product deleted successfully";
   }
+  public function sub_buying_products($data)
+  {
+    $product = $this->selectOne($data['id']);
+    $product_cal = $product['quantity']- $data['quantity'];
+    $sql = "UPDATE $this->table SET quantity = :quantity WHERE id = :id";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':quantity',$product_cal);
+    $stmt->bindParam(':id', $data['id']);
+    $stmt->execute();
+    echo 'update prod';
+    return;
+  }
+  
 }
