@@ -3,7 +3,7 @@ import React from "react";
 import Wrapper from "../UI/Wrapper";
 import { Formik, Form } from "formik";
 import { InputField } from "./InputField";
-import * as Yup from "yup";
+  import * as Yup from "yup";
 import PreviewImage from "./PreviewImage";
 import axios from "axios";
 
@@ -76,11 +76,11 @@ function AddProductModal(props) {
       <div
 
         onClick={props.onClick}
-        className="fixed top-0 left-0 w-full h-screen z-50 bg-dropdown"
+        className="fixed top-0 left-0 w-full min-h-screen z-50 bg-dropdown"
       />
       <div
         data-aos="zoom-out-left"
-        className=" bg-white  shadow-modal fixed top-0 right-0 max-h-full transform rounded-none  z-50 md:w-5/12 w-full overflow-y-scroll"
+        className=" bg-white  shadow-modal fixed top-0 right-0 max  -h-full transform rounded-none  z-50 md:w-5/12 w-full overflow-y-scroll"
       >
         <header className={`p-3 ${props.className}`}>
           <h2 className={`font-bold text-2xl`}>{props.title}</h2>
@@ -139,7 +139,7 @@ function AddProductModal(props) {
                     type="text"
                     isInput={true}
                     name="productName"
-                    className=""
+                    className=" mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 "
                     placeholder="Product Name"
                   />
                 </label>
@@ -151,7 +151,7 @@ function AddProductModal(props) {
                     type="text"
                     isInput={true}
                     name="productCategory"
-                    className=""
+                    className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
                     placeholder="Category"
                   />
                 </label>
@@ -164,7 +164,7 @@ function AddProductModal(props) {
                     isInput={true}
                     step="0.01"
                     name="productPrice"
-                    className=""
+                    className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
                     placeholder="Price"
                   />
                 </label>
@@ -178,7 +178,7 @@ function AddProductModal(props) {
                     step="1"
                     min="1"
                     name="productQuantity"
-                    className=""
+                    className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
                     placeholder="Quantity"
                   />
                 </label>

@@ -13,18 +13,32 @@ const CheckOut = () => {
   const products = useSelector((state) => state.cartItems);
   const [totalPrice, setTotalPrice] = useState(0);
   const [addressForm, setAddressForm]= useState(false);
+  const [user, setUser]= useState(JSON.parse(localStorage.getItem("user")));
+  const [hasAddress, setHasAddress]=useState(false)
 
   useEffect(() => {
+    if(!user)
+    {
+      window.location.href = "/sign-in";
+
+    }else{
     if (JSON.parse(localStorage.getItem("cartItems")).length > 0) {
       const price = products.reduce(
         (acc, item) => acc + item.product.price * item.quantity,
         0
       );
+      setUser(JSON.parse(localStorage.getItem("user")))
       setTotalPrice(price);
+      if(user.tel !==undefined && user.address !==undefined)
+      {
+        setHasAddress(true);
+      }
     } else {
       window.location.href = "/";
     }
-  }, [products]);
+    }
+  
+  }, [products,addressForm]);
 
   return (
     <Wrapper>
@@ -49,23 +63,23 @@ const CheckOut = () => {
               </div>
               <div className="flex flex-col">
                 <p className="text-base font-semibold px-5 pt-2 w-full ">
-                  <span className="text-gray-600">First Name :</span> {" "} ABDELMAHID ELAYACHI
+                  <span className="text-gray-600">First Name :</span> {" "} {user && user.first_name +' '+user.last_name}
                 </p>
                 <p className="text-base font-semibold px-5 pt-2 w-full">
-                <span className="text-gray-600"> TEL :</span>{" "} 06525255252
+                <span className="text-gray-600"> TEL :</span>{" "} {user.tel && user.tel}
                 </p>
                 <p className="text-base font-semibold px-5 pt-2 w-full">
-                <span className="text-gray-600"> Address :</span>{" "} DOUAR KASBAT OULAD BELAID TERNATA Ainay Le Chateau Allier 47900,France
+                <span className="text-gray-600"> Address :</span>{" "} {user.tel && user.address}
                 </p>
 
               </div>
             </div>
             {addressForm&&
           
-            <div className="border rounded py-6 px-6 my-4 ">
+            <div className="border rounded py-6 px-2 my-4 ">
               <div className="w-full">
               
-                <FormAddress/>
+                <FormAddress user={user} onClose={()=>{setAddressForm(false)}}/>
               </div>
             </div>  
             }
@@ -76,12 +90,20 @@ const CheckOut = () => {
               >
                 Back to cart
               </Link>
-              <Link
+              {
+                hasAddress ?  <Link
                 to="/checkout"
-                className="px-6 py-1.5 rounded-lg  bg-blue-600 hover:bg-mainBlue text-gray-100 text-xl font-semibold"
+                className="px-6 py-1.5 rounded-lg  bg-blue-600 hover:bg-mainBlue text-gray-100 text-xl font-semibold "
               >
                 Place order
-              </Link>
+              </Link>: <button
+                
+                className="px-6 py-1.5 rounded-lg  bg-blue-600 text-gray-100 text-xl font-semibold "
+              >
+                Place order
+              </button>
+              }
+             
             </div>
           </div>
         </div>

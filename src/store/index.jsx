@@ -72,6 +72,14 @@ const cartReducer=(state={cartItems:[],countItems:0},action)=>{
       localStorage.setItem('countItems',JSON.stringify(state.countItems));
       return {cartItems:newCartItems,countItems:state.countItems};
     }
+// Order store
+    if(action.type==="ADD_ADDRESS_ORDER")
+    {
+      const user = JSON.parse(localStorage.getItem('user'));
+      const newUser = Object.assign(user,action.payload);
+      localStorage.setItem("user",JSON.stringify(newUser));
+    }
+
 
     return state;
 

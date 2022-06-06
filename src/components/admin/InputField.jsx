@@ -1,11 +1,10 @@
 import React from "react";
-import Wrapper from "../UI/Wrapper";
 import { ErrorMessage, useField } from "formik";
 
 export const InputField = (props) => {
   const [field, meta] = useField(props);
   return (
-    <Wrapper>
+    <div className="w-full flex flex-col">
       {props.isInput && (
         <input
           type={props.type}
@@ -13,7 +12,7 @@ export const InputField = (props) => {
           placeholder={props.placeholder}
           {...field}
           {...props}
-          className={`mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 ${
+          className={` ${
             props.className
           } ${meta.touched && meta.error ? "border-red-500" : ""}`}
           autoComplete="off"
@@ -50,6 +49,6 @@ export const InputField = (props) => {
         name={field.name}
         className="text-red-500 text-xs italic"
       />
-    </Wrapper>
+    </div>
   );
 };
