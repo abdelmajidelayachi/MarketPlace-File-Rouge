@@ -39,8 +39,23 @@ const PaymentForm = (props) => {
     setSucceeded(false);
   }
   const handleSubmit = async (event) => {
-    setLoading(true);
     event.preventDefault();
+    setLoading(true);
+    const userOrderData = JSON.parse(localStorage.getItem('user'));
+    console.log(userOrderData);
+    const data = new FormData();
+    data.append("orderOf",userOrderData.id)
+    data.append("tel",userOrderData.tel)
+    data.append("address",userOrderData.address)
+    data.append("city",userOrderData.city)
+    data.append("country",userOrderData.country)
+    try{
+      const response = await axios.post("http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/order/add_order",data)
+      console.log(response.data);
+    }catch{
+
+    }
+    
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),

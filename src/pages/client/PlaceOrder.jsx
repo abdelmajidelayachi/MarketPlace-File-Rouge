@@ -38,7 +38,7 @@ const CheckOut = () => {
     }
     }
   
-  }, [products,addressForm]);
+  }, [products, addressForm]);
 
   return (
     <Wrapper>

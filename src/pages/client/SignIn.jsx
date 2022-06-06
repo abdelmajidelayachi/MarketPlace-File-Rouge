@@ -11,6 +11,7 @@ function SignIn() {
   const [loggedIn,setLoggedIn] = useState(false);
 
   // ref inputs
+  
   const email = useRef("");
   const password = useRef("");
 
@@ -33,7 +34,7 @@ function SignIn() {
     try {
       const response = await axios.post("http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/user/login",data)
       console.log(response.data);
-      if(response.data.success !== '' )
+      if(response.data !== '' )
       {
         setLoggedIn(true);
         localStorage.setItem('user',JSON.stringify(response.data.user));

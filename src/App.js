@@ -17,7 +17,6 @@ AOS.init();
 
 
 function App() {
-  // let { id } = useParams();
   
   return (
     <div className="">
@@ -29,6 +28,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/card" element={<Basket />} />
         <Route path="/checkout" element={<CheckOut/>} />
+        
         <Route path = "place-order" element={<PlaceOrder/>} />
         <Route path="/show-product/:id" element = {<ShowProduct/>}/>
         <Route

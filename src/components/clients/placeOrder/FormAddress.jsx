@@ -1,6 +1,6 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import * as Yup from "yup";
+import * as Yup from "yup"
 import Div from '../../UI/Div'
 import { InputField } from "../../admin/InputField";
 import { useDispatch } from "react-redux";
