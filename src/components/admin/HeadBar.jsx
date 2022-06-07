@@ -1,29 +1,17 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import logo from "../../assets/images/logo/logoMshop.png";
 
 function HeadBar() {
   return (
     <div className="flex flex-wrap items-center">
       <div className="flex flex-shrink md:w-1/3 justify-center md:justify-start text-gray-900">
-        <a href="/">
-          <span className="">
-          <h6
-                className="
-              uppercase
-              font-semibold
-              mb-4
-              flex
-              items-center
-              justify-center
-              md:justify-start
-            "
-              >
-                <span className="text-white md:text-4xl text-xl font-bold ">
-                  M
-                </span>
-                <span className="md:text-4xl text-xl font-medium">Shop</span>
-              </h6>
-          </span>
-        </a>
+        <Link
+          className="text-sm font-bold leading-relaxed inline-block mr-4 w-32  whitespace-nowrap uppercase bg-white ml-3 px-1 mt-2 text-gray-900"
+          to="/"
+        >
+          <img src={logo} className="object-cover " alt="MShop" />
+        </Link>
       </div>
 
       <div className="flex md:w-1/3 justify-center md:justify-start text-white px-2">

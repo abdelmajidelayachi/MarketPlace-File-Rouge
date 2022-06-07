@@ -4,15 +4,17 @@ import logo from "../../assets/images/logo/logoMshop.png";
 // importing Icons
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import Navigation from "./Navigation";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Wrapper from "../UI/Wrapper";
 import { useSelector, useDispatch } from "react-redux";
 export default function Nav(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   const [dropdownCategory, setDropdownCategory] = React.useState(false);
+  const loginStatus = useSelector((state)=>state.login)
   // const [cart, setCart] = React.useState(JSON.parse(localStorage.getItem("product")));
 
   const storedProducts = useDispatch();
+  const navigate =useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem("cartItems") === null) {
@@ -26,17 +28,30 @@ export default function Nav(props) {
             : [],
       });
     }
-  }, []);
+    if(user===null)
+    {
+      // navigate('/');
+    }
+
+  }, [loginStatus]);
 
   const countItems = useSelector((state) => {
      let countItem = 0;
-      state.cartItems.map((item) => {
-        countItem += item.quantity;
-      });
+      state.cartItems.map((item) => 
+        countItem += item.quantity
+        );
     return countItem;
-  
+    
   }
   );
+
+  const logoutHandler = ()=>{
+      localStorage.removeItem("user");
+      storedProducts( {
+        type: "LOGIN_STATUS",
+        payload: false
+      })
+  }
 
   const user = localStorage.getItem("user");
   return (
@@ -157,7 +172,7 @@ export default function Nav(props) {
               </div>
 
               <ul className="flex flex-col lg:flex-row list-none lg:ml-auto w-1/5 justify-around">
-                {user === null && (
+                {user === null ? (
                   <li className="nav-item">
                     <Link
                       className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
@@ -170,7 +185,7 @@ export default function Nav(props) {
                       <span className="ml-2">Sign In</span>
                     </Link>
                   </li>
-                )}
+                ):(<button onClick={logoutHandler} className=" font-semibold text-xl text-red-600">logout</button>)}
                 <li className="nav-item">
                   <Link
                     className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"

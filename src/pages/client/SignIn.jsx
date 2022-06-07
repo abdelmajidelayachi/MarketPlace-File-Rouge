@@ -18,7 +18,7 @@ function SignIn() {
     if(user){
       setLoggedIn(true);
       console.log(location)
-      navigate('location')
+      navigate(location.state?location.state.from:'/')
     }
 
   }, [])
@@ -54,9 +54,6 @@ function SignIn() {
         setEmailError(response.data.emailError);
         setPasswordError(response.data.passwordError);
       }
-
-
-
     } catch (err) {
       console.log(err);
     }

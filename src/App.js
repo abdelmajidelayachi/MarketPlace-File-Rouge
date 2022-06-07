@@ -13,6 +13,7 @@ import 'aos/dist/aos.css';
 import ShowProduct from "./pages/client/ShowProduct";
 import CheckOut from "./pages/client/CheckOut";
 import PlaceOrder from "./pages/client/PlaceOrder";
+import Orders from "./pages/admin/Orders";
 AOS.init();
 
 
@@ -36,6 +37,7 @@ function App() {
           element={<Dashboard />}
         />
         <Route path="/dashboard/products" element={<Products />} />
+        <Route path="/dashboard/orders" element={<Orders />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </div>

@@ -74,7 +74,8 @@ const ProductCardNew = (props) => {
             <div className="flex justify-between mt-2">
               
               <div className="flex">
-                <button className="px-4 py-1 rounded-full bg-blue-600 text-white"><FontAwesomeIcon  icon={faCartShopping}/></button>
+              <Link to={`/show-product/${linkProduct}`}><button className="px-4 py-1 rounded-full bg-blue-600 text-white"><FontAwesomeIcon  icon={faCartShopping}/></button>
+              </Link>
               </div>
               <div className="flex">
                 <button className="px-4 py-1 rounded-full bg-white border-2 text-blue-600 hover:text-white hover:bg-red-600"><i className="far fa-heart"></i>

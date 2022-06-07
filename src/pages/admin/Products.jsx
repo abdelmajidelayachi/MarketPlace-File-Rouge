@@ -17,7 +17,7 @@ function Dashboard() {
       <main>
         <div className="flex flex-col md:flex-row">
           <nav aria-label="alternative nav">
-              <AsideBar />
+              <AsideBar active="products" />
           </nav>
           <section className="w-full">
           <div className="main-content flex-1 bg-gray-100 mt-10 md:mt-14 pb-24 md:pb-5">

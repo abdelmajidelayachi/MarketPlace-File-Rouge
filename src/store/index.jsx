@@ -1,6 +1,6 @@
 import {createStore} from 'redux';
 
-const cartReducer=(state={cartItems:[],countItems:0},action)=>{
+const cartReducer=(state={cartItems:[],countItems:0,login:'false'},action)=>{
     if(action.type==='ADD_TO_CART'){
       console.log(state.cartItems);
         const newCartItems=state.cartItems.concat(action.payload);
@@ -80,6 +80,16 @@ const cartReducer=(state={cartItems:[],countItems:0},action)=>{
       localStorage.setItem("user",JSON.stringify(newUser));
     }
 
+    if(action.type === "LOGIN_STATUS")
+    {
+      state.login ='true'
+
+    }
+
+    if(action.type === "LOGOUT_STATUS")
+    {
+      state.login ='false'
+    }
 
     return state;
 
