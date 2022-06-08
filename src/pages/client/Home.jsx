@@ -16,11 +16,11 @@ function Home() {
         <div className="bg-gray-100 max-w-screen-xl m-auto mb-2">
           <Ad />
           <Categories />
-          <Categories />
-          <ScrollListProducts/>
+
+          {/* <ScrollListProducts/> */}
         </div>
         <Footer/>
-      </div>
+      </div>  
     </div>
   );
 }

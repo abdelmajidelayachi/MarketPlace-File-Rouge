@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../assets/images/logo/logoMshop.png";
 // importing Icons
 import { faUser } from "@fortawesome/free-regular-svg-icons";
@@ -7,10 +7,12 @@ import Navigation from "./Navigation";
 import { Link, useNavigate } from "react-router-dom";
 import Wrapper from "../UI/Wrapper";
 import { useSelector, useDispatch } from "react-redux";
+import DropdownCategory from '../clients/DropdownCategory'
+import axios from "axios";
 export default function Nav(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
-  const [dropdownCategory, setDropdownCategory] = React.useState(false);
   const loginStatus = useSelector((state)=>state.login)
+  const [categories,setCategories]=useState([]);
   // const [cart, setCart] = React.useState(JSON.parse(localStorage.getItem("product")));
 
   const storedProducts = useDispatch();
@@ -32,8 +34,16 @@ export default function Nav(props) {
     {
       // navigate('/');
     }
+    // console.log(props.category)
+    
 
   }, [loginStatus]);
+  useEffect(()=>{
+    axios.get("http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/get_categories").then(res=>{
+      setCategories(res.data);
+    }).catch(err=>console.log(err))
+ },[])
+
 
   const countItems = useSelector((state) => {
      let countItem = 0;
@@ -93,65 +103,10 @@ export default function Nav(props) {
                     >
                       Your Email
                     </label>
-                    <button
-                      onClick={() => setDropdownCategory(!dropdownCategory)}
-                      className="flex-shrink-0 z-0 inline-flex items-center py-2 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100  rounded-l-lg focus:ring-4 focus:outline-none border-2 border-mainBlue"
-                      type="button"
-                    >
-                      All categories{" "}
-                      <svg
-                        className="ml-1 w-4 h-4"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                          clipRule="evenodd"
-                        ></path>
-                      </svg>
-                    </button>
-                    {dropdownCategory && (
-                      <div className="absolute top-14 z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow ">
-                        {/* {showCategory} */}
-
-                        <ul className="py-1 text-sm text-gray-700">
-                          <li>
-                            <button
-                              type="button"
-                              className="inline-flex py-2 px-4 w-full hover:bg-gray-100 "
-                            >
-                              Mockups
-                            </button>
-                          </li>
-                          <li>
-                            <button
-                              type="button"
-                              className="inline-flex py-2 px-4 w-full hover:bg-gray-100 "
-                            >
-                              Templates
-                            </button>
-                          </li>
-                          <li>
-                            <button
-                              type="button"
-                              className="inline-flex py-2 px-4 w-full hover:bg-gray-100 "
-                            >
-                              Design
-                            </button>
-                          </li>
-                          <li>
-                            <button
-                              type="button"
-                              className="inline-flex py-2 px-4 w-full hover:bg-gray-100 "
-                            >
-                              Logos
-                            </button>
-                          </li>
-                        </ul>
-                      </div>
-                    )}
+                   
+                   
+                      <DropdownCategory categories={categories}/>
+                   
                     <div className="relative w-full">
                       <input
                         type="search"
@@ -234,8 +189,8 @@ export default function Nav(props) {
             </div>
           </div>
         </div>
-      </nav>
-      <Navigation active={props.active} />
+      </nav> 
+      <Navigation categorySelected={props.category} active={props.active} />
     </Wrapper>
   );
 }

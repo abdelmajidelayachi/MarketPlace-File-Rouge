@@ -36,6 +36,20 @@ class ProductController
     return;
 
   }
+  public function get_products_by_category($id)
+  {
+    $products = new Product();
+    $products = $products->getProductsByCategory($id);
+    foreach ($products as $key => $value) {
+      $product_images = new Product_images();
+      $images = $product_images->get_product_images($value['id']);
+      $products[$key]['images'] = $images;
+    }
+    $json = json_encode($products);
+    echo $json;
+    return;
+
+  }
   public function create_product()
   {
     $data = [

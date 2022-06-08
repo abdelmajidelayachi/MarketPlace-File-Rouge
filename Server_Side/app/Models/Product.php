@@ -75,6 +75,17 @@ class Product extends DB
   }
 
 
+  public function getProductsByCategory($id)
+  {
+    $sql = "SELECT $this->table.*,`categories`.name FROM $this->table INNER JOIN `categories` ON $this->table.category_id = categories.id WHERE $this->table.category_id = :id AND $this->table.status = '1' ORDER BY $this->table.id DESC";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+  }
+
+
   public function update_product($data,$id)
   {
     $sql = "UPDATE $this->table SET product_name = :product_name, description = :description, price = :price, category_id = :category_id, status = :status, owner_id = :owner_id, quantity = :quantity WHERE id = :id";

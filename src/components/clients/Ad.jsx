@@ -11,7 +11,7 @@ function Ad() {
         <Slider/>
       </div>
       
-      <div className="md:w-1/3 w-full flex md:flex-col flex-row border-8 border-white mt-2">
+      <div className="md:w-1/3 w-full md:flex md:flex-col flex-row border-8 border-white mt-2 hidden">
         <img src={ad1} className='w-1/2 md:w-full' alt="adv1" />
         <img src={ad2} className='w-1/2 md:w-full mt-2' alt="adv1" />
       </div>
