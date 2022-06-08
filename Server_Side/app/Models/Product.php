@@ -57,7 +57,7 @@ class Product extends DB
 
   public function select_new_products()
   {
-    $sql = "SELECT * FROM $this->table WHERE status = '1' ORDER BY id DESC LIMIT 30";
+    $sql = "SELECT $this->table.*,`categories`.name FROM $this->table INNER JOIN `categories` ON $this->table.category_id = categories.id WHERE status = '1' ORDER BY $this->table.id DESC LIMIT 30";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

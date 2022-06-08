@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import Card from "../UI/Card";
 import Wrapper from "../UI/Wrapper";
-import { Formik, Form } from "formik";
+import { Formik, Form, Field } from "formik";
 import { InputField } from "./InputField";
   import * as Yup from "yup";
 import PreviewImage from "./PreviewImage";
 import axios from "axios";
 
 function AddProductModal(props) {
+
+  const [categories , setCategories]=useState([]);
   
   const validate = Yup.object({
     productName: Yup.string()
@@ -23,7 +25,7 @@ function AddProductModal(props) {
       .max(100, "Must be 100 characters or less")
       .required("Description Required"),
     productImage: Yup.string().required("Image Required"),
-    productCategory: Yup.string().required("Category Required"),
+    // productCategory: Yup.string().required("Category Required"),
   });
 
   const submitEditProductHandler = (values) => {
@@ -44,7 +46,8 @@ function AddProductModal(props) {
 
   }
 
-  const submitAddProductHandler = async(values) => {
+  const submitAddProductHandler = async (values) => {
+    console.log(values);
        const data = new FormData();
         data.append("product_name", values.productName);
         data.append("price", values.productPrice);
@@ -53,7 +56,7 @@ function AddProductModal(props) {
         data.append('owner_id', JSON.parse(localStorage.getItem('user')).id);
         data.append("category", values.productCategory);
         data.append("image", values.productImage);
-        data.append("category_id", '1');
+        data.append("category_id", values.productCategory);
         data.append("status", '1');
 
         const response =await axios.post("http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/create_product", data
@@ -67,6 +70,13 @@ function AddProductModal(props) {
           props.onClose();
         }
   };
+
+
+  useEffect(()=>{
+     axios.get("http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/get_categories").then(res=>{
+       setCategories(res.data);
+     }).catch(err=>console.log(err))
+  },[])
 
 
 
@@ -145,15 +155,17 @@ function AddProductModal(props) {
                 </label>
                 <label className="block mb-4">
                   <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
-                    Brand
+                    Category
                   </span>
-                  <InputField
-                    type="text"
-                    isInput="true"
-                    name="productCategory"
-                    className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
-                    placeholder="Category"
-                  />
+                  <Field className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" as="select"  name="productCategory" >
+                  <option disabled value="">(Select a category) </option>
+                  {categories&&
+                      categories.map((category)=>{
+                        return (<option key={category.id} value={category.id}>{category.name}</option>)
+                      })
+                    }
+                  </Field>
+                  
                 </label>
                 <label className="block mb-4">
                   <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">

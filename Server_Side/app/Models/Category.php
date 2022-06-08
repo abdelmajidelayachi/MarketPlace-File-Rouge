@@ -28,6 +28,14 @@ class Category extends DB
 
   }
 
+  public function select_categories()
+  {
+    $sql = "SELECT * FROM $this->table";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll();
+  }
+
 
   
   

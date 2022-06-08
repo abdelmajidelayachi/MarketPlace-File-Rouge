@@ -70,7 +70,15 @@ class ProductController
     
     
   }
+ // category 
 
+  public function get_categories()
+  {
+    $category = new Category();
+    $result = $category->select_categories();
+    echo json_encode($result);
+    return;
+  }
   public function create_category()
   {
     $data = [
