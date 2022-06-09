@@ -1,6 +1,7 @@
 import {createStore} from 'redux';
 
-const cartReducer=(state={cartItems:[],countItems:0,login:'false', category: "all"},action)=>{
+const cartReducer=(state={cartItems:[],countItems:0,login:'false', category: "all",search:""},action)=>{
+
     if(action.type==='ADD_TO_CART'){
       console.log(state.cartItems);
         const newCartItems=state.cartItems.concat(action.payload);
@@ -9,13 +10,12 @@ const cartReducer=(state={cartItems:[],countItems:0,login:'false', category: "al
         localStorage.setItem('cartItems',JSON.stringify(newCartItems));
         localStorage.setItem('countItems',JSON.stringify(newCountItems));
         return {cartItems:newCartItems,countItems:newCountItems};
-
     }
+
     if(action.type==='MODIFY_CART_ITEM'){
       const newCartItems=state.cartItems.map(item=>{
         if(item.product.id===action.payload.id){
           item.quantity+=action.payload.quantity;
-          
         }
         return item;
       });
@@ -23,6 +23,7 @@ const cartReducer=(state={cartItems:[],countItems:0,login:'false', category: "al
       localStorage.setItem('countItems',JSON.stringify(state.countItems));
       return {cartItems:newCartItems,countItems:state.countItems};
     }
+
     if(action.type==='REMOVE_FROM_CART'){
       console.log(action.payload);
       console.log(state.cartItems);
@@ -96,6 +97,12 @@ const cartReducer=(state={cartItems:[],countItems:0,login:'false', category: "al
       // console.log(action.payload);
       localStorage.setItem('category', action.payload);
 
+    }
+    //search term
+    if(action.type==="SEARCH_TERM")
+    {
+      state.search = action.payload;
+      // console.log(action.payload)
     }
     return state;
 

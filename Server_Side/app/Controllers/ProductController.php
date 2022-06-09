@@ -1,6 +1,20 @@
 <?php
 class ProductController
 {
+  public function get_all_products()
+  {
+    $product = new Product();
+    $products = $product->select_all_product();
+    foreach ($products as $key => $value) {
+      $product_images = new Product_images();
+      $images = $product_images->get_product_images($value['id']);
+      $products[$key]['images'] = $images;
+    }
+    $json = json_encode($products);
+    echo $json;
+    return;
+  }
+
   public function get_new_products()
   {
     $product = new Product();
@@ -84,6 +98,21 @@ class ProductController
     
     
   }
+  //
+    public function get_product_search($search)
+    {
+      $product = new Product();
+      $products = $product->search_product($search);
+      foreach ($products as $key => $value) {
+        $product_images = new Product_images();
+        $images = $product_images->get_product_images($value['id']);
+        $products[$key]['images'] = $images;
+      }
+      $json = json_encode($products);
+      echo $json;
+      return;
+    }
+
  // category 
 
   public function get_categories()

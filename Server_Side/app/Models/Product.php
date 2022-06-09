@@ -43,6 +43,29 @@ class Product extends DB
       return ['id'=>$result, 'status'=>true];
     }
   }
+
+  public function select_all_product()
+  {
+    $sql = "SELECT * FROM $this->table";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+  }
+
+
+  public function search_product($search)
+  {
+    $search = "%$search%";
+    $sql = "SELECT * FROM $this->table WHERE product_name LIKE :search OR description LIKE :search";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':search', $search);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+  }
+
+
   public function selectOne($id)
   {
     $sql = "SELECT * FROM $this->table WHERE id=:id";

@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import logo from "../../assets/images/logo/logoMshop.png";
 // importing Icons
 import { faUser } from "@fortawesome/free-regular-svg-icons";
@@ -9,14 +9,19 @@ import Wrapper from "../UI/Wrapper";
 import { useSelector, useDispatch } from "react-redux";
 import DropdownCategory from '../clients/DropdownCategory'
 import axios from "axios";
-export default function Nav(props) {
-  const [navbarOpen, setNavbarOpen] = React.useState(false);
-  const loginStatus = useSelector((state)=>state.login)
-  const [categories,setCategories]=useState([]);
-  // const [cart, setCart] = React.useState(JSON.parse(localStorage.getItem("product")));
 
+export default function Nav(props) {
+
+  const [navbarOpen, setNavbarOpen] = React.useState(true);
+  const [categories,setCategories]=useState([]);
+  const [reload, setReload] = useState(false)
+  
+  const loginStatus = useSelector((state)=>state.login)
   const storedProducts = useDispatch();
-  const navigate =useNavigate();
+
+  const navigate = useNavigate();
+
+  const search =useRef('')
 
   useEffect(() => {
     if (localStorage.getItem("cartItems") === null) {
@@ -32,17 +37,32 @@ export default function Nav(props) {
     }
     if(user===null)
     {
-      // navigate('/');
     }
-    // console.log(props.category)
-    
-
   }, [loginStatus]);
+
   useEffect(()=>{
     axios.get("http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/get_categories").then(res=>{
       setCategories(res.data);
     }).catch(err=>console.log(err))
  },[])
+
+ // search
+ const searchHandler = (e)=>{
+    setReload(true)
+    e.preventDefault();
+    if(search.current.value.trim()==="")
+    {
+      navigate(`/new-products`)
+      props.reload(reload)
+
+    }else
+    {
+      navigate(`/search/${search.current.value}`)
+      props.reload(reload)
+
+    }
+ }
+
 
 
   const countItems = useSelector((state) => {
@@ -68,7 +88,7 @@ export default function Nav(props) {
     <Wrapper className="w-full">
       <div className="absolute border-b top-14 left-0 w-full z-0" />
       <div className=" py-7"></div>
-      <nav className="relative flex flex-wrap items-center justify-around px-2 pt-3">
+      <nav className="relative flex md:flex-wrap items-center justify-around px-2 pt-3">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
             <Link
@@ -77,13 +97,13 @@ export default function Nav(props) {
             >
               <img src={logo} className="object-cover " alt="MShop" />
             </Link>
-            <button
+            {/* <button
               className="text-gray-900 cursor-pointer text-xl leading-none px-3 p-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
               type="button"
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
               <i className="fas fa-bars"></i>
-            </button>
+            </button> */}
           </div>
 
           <div
@@ -95,28 +115,21 @@ export default function Nav(props) {
           >
             <div className="flex w-full justify-between">
               <div className="w-10/12">
-                <form className="w-2/3 mx-auto">
+                <form onSubmit={searchHandler} className="w-2/3 mx-auto">
                   <div className="flex">
-                    <label
-                      htmlFor="search-dropdown"
-                      className="mb-2 text-sm font-medium text-gray-900 sr-only "
-                    >
-                      Your Email
-                    </label>
                    
-                   
-                      <DropdownCategory categories={categories}/>
+                      <DropdownCategory reload = {(e)=>props.reload(e)} categories={categories}/>
                    
                     <div className="relative w-full">
-                      <input
+                      <input ref={search}
                         type="search"
+                        
                         id="search-dropdown"
                         className="block p-2 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg  border-l-2 border-2 focus:outline-none focus:bg-bgBlue border-mainBlue focus:border-mainBlue"
                         placeholder="Search..."
-                        required
+                        
                       />
-                      <button
-                        type="submit"
+                      <button type="submit"
                         className="absolute top-0 right-0 py-2 px-4 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
                       >
                         <i className="fas fa-search fa-lg text-2xl"></i>

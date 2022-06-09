@@ -15,6 +15,7 @@ import CheckOut from "./pages/client/CheckOut";
 import PlaceOrder from "./pages/client/PlaceOrder";
 import Orders from "./pages/admin/Orders";
 import Category from './pages/client/Category';
+import Search from "./pages/client/Search";
 AOS.init();
 
 
@@ -33,7 +34,8 @@ function App() {
         
         <Route path = "place-order" element={<PlaceOrder/>} />
         <Route path="/show-product/:id" element = {<ShowProduct/>}/>
-        <Route path="category/:category" element = {<Category/>}/>
+        <Route path="/category/:category" element = {<Category/>}/>
+        <Route path="/search/:search" element = {<Search/>}/>
         <Route
           path="/dashboard"
           element={<Dashboard />}

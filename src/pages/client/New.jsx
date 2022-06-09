@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Nav from "../../components/clients/Nav";
 import ProductCardNew from "../../components/product/ProductCardNew";
 import Div from "../../components/UI/Div";
@@ -10,9 +11,12 @@ import Footer from "../../layouts/Footer";
 function New() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const searchTerm = useSelector(state=>state.search) 
+  
 
   useEffect(() => {
     setLoading(true);
+    // console.log(searchTerm)
     axios
       .get(
         "http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/get_new_products"
@@ -25,7 +29,7 @@ function New() {
         console.log(err);
 
       });
-  }, []);
+  }, [searchTerm]);
 
   return (
     <Wrapper className="">

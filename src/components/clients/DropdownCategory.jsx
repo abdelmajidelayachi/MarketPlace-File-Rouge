@@ -1,9 +1,15 @@
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function DropdownCategory(props) {
+  const navigate = useNavigate()
+  const selectCategory =(e)=>{
+    navigate(e)
+    props.reload(e)
+  }
+ 
   return (
     <div className=" top-16 left-52   w-56 text-right">
       <Menu as="div" className="relative inline-block text-left">
@@ -42,14 +48,14 @@ export default function DropdownCategory(props) {
               {props.categories.map((category, index) => (
                 <Menu.Item key={index}>
                   {({ active }) => (
-                    <Link
-                      to={`/category/${category.name}-${category.id}`}
+                    <button type="button"
+                      onClick={()=>selectCategory(`/category/${category.name}-${category.id}`)}
                       className={`${
                         active ? "bg-blue-500 text-white" : "text-gray-900"
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
                       {category.name}
-                    </Link>
+                    </button>
                   )}
                 </Menu.Item>
               ))}
