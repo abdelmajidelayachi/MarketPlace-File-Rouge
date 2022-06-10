@@ -84,7 +84,7 @@ function Basket() {
                         {product.product.product_name}
                       </span>
                       <span className="text-bold text-lg">
-                        {product.product.category_id}
+                        {product.product.category}
                       </span>
                       <span className="text-sm font-normal w-10/12">
                         {product.product.description}

@@ -36,6 +36,14 @@ class Category extends DB
     return $stmt->fetchAll();
   }
 
+  public function select_category($id)
+  {
+    $sql = "SELECT * FROM $this->table WHERE id = :id";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    return $stmt->fetch();
+  }
 
   
   

@@ -10,7 +10,7 @@ const ShowProduct = () => {
   const [errorInput, setErrorInput] = useState(false);
   const [product, setProduct] = useState([]);
   const product_id_path = window.location.href.split("-").pop();
-  const [productExist, setProductExist] = useState(false);
+  // const [productExist, setProductExist] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     axios
@@ -43,7 +43,7 @@ const ShowProduct = () => {
         type: "MODIFY_CART_ITEM",
         payload: { id: items.id, quantity: numberOfItems },
       });
-      setProductExist(false);
+      // setProductExist(false);
     }
   };
 
@@ -101,7 +101,7 @@ const ShowProduct = () => {
           </div>
         </div>
         <div className="md:mt-3 ">
-          <h1 className="text-2xl font-semibold">{product.product_name}</h1>
+          <h1 className="text-2xl flex justify-start font-semibold">{product.product_name}</h1>
           <div className="text-gray-500 text-xs font-medium mt-1 text-wrap">
             {product.description}
           </div>

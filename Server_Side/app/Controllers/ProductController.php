@@ -9,6 +9,8 @@ class ProductController
       $product_images = new Product_images();
       $images = $product_images->get_product_images($value['id']);
       $products[$key]['images'] = $images;
+      $category = new Category();
+      $products[$key]['category'] = $category->select_category($value['category_id']);
     }
     $json = json_encode($products);
     echo $json;
@@ -22,6 +24,8 @@ class ProductController
     $images = new Product_images();
     foreach ($result as $key => $value) {
       $result[$key]['images'] = $images->get_product_images($value['id']);
+      $category = new Category();
+      $products[$key]['category'] = $category->select_category($value['category_id']);
     }
     echo json_encode($result);
     return;
@@ -33,6 +37,8 @@ class ProductController
     $product_images = new Product_images();
     $images = $product_images->get_product_images($id);
     $product['images'] = $images;
+    $category = new Category();
+    $products['category'] = $category->select_category($product['category_id']);
     echo json_encode($product);
     return;
   }
@@ -44,6 +50,8 @@ class ProductController
       $product_images = new Product_images();
       $images = $product_images->get_product_images($value['id']);
       $products[$key]['images'] = $images;
+      $category = new Category();
+      $products[$key]['category'] = $category->select_category($value['category_id']);
     }
     $json = json_encode($products);
     echo $json;
@@ -58,6 +66,8 @@ class ProductController
       $product_images = new Product_images();
       $images = $product_images->get_product_images($value['id']);
       $products[$key]['images'] = $images;
+      $category = new Category();
+      $products[$key]['category'] = $category->select_category($value['category_id']);
     }
     $json = json_encode($products);
     echo $json;
@@ -107,6 +117,8 @@ class ProductController
         $product_images = new Product_images();
         $images = $product_images->get_product_images($value['id']);
         $products[$key]['images'] = $images;
+        $category = new Category();
+        $products[$key]['category'] = $category->select_category($value['category_id']);
       }
       $json = json_encode($products);
       echo $json;

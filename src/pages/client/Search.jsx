@@ -40,6 +40,7 @@ function Search() {
       {loading&&<Loader/>}
       <div className="max-w-screen-xl m-auto ">
         <Nav active ="new" reload = {reloadHandler}/>
+        {products.length>0&& 
         <section className="text-gray-600 body-font">
           <div className="container px-5 py-24 mx-auto">
             <div className="flex flex-wrap -m-4 gap-5">
@@ -51,7 +52,18 @@ function Search() {
                 ))}
             </div>
           </div>
-        </section>
+        </section>}
+        {products.length === 0 && (
+                <div className="flex flex-col items-center py-24 justify-center h-full">
+                  <h1 className="text-gray-500 text-xl title-font font-medium mb-5">
+                    No Products Found
+
+                  </h1>
+                  <p className="text-gray-500 text-lg">
+                    Sorry, we couldn't find any products matching your search.
+                  </p>
+                </div>
+              )}
       </div>
       <Footer/>
     </Wrapper>
