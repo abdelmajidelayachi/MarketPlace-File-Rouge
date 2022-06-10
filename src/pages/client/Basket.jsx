@@ -132,10 +132,10 @@ function Basket() {
                     </div>
                   </div>
 
-                  <div className="text-lg w-2/12 font-normal flex items-center justify-center">
+                  <div className="text-lg w-2/12 font-normal md:flex items-center justify-center hidden">
                     {product.product.price}
                   </div>
-                  <div className="text-lg w-2/12 font-normal flex items-center justify-center">
+                  <div className="text-lg w-2/12 font-normal md:flex items-center justify-center hidden">
                     {product.product.price * product.quantity}
                   </div>
                   <button
@@ -156,7 +156,7 @@ function Basket() {
             </div>
           )}
           {products.length > 0 && (
-              <div className="w-full flex justify-end items-center border-b border-gray-300 gap-3">
+              <div className="w-full flex md:flex-row flex-col justify-end items-center border-b border-gray-300 gap-3">
                 <span className="text-lg font-semibold text-gray-600 mx-2 py-4 "> You choose <span className="font-bold text-gray-900">{products.length}</span>  items</span>
                 <span className="text-xl font-semibold text-gray-600 mx-2 my-4">
                   Total:&nbsp;

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const ProductCardNew = (props) => {
   const linkProduct = props.product.product_name +'-'+props.product.id
   return (
-      <div className="md:w-width_22 p-3 w-full rounded bg-gray-100 shadow-md width_22" key={props.product.id}>
+      <div className="lg:w-width_22 md:w-width-30 sm:w-width-45 p-3 w-full rounded bg-gray-100 shadow-md " key={props.product.id}>
         <Link to={`/show-product/${linkProduct}`} className="block relative h-48  rounded overflow-hidden">
          {props.product.images[0].path!==undefined && <img
             alt="e-commerce"

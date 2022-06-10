@@ -58,7 +58,7 @@ function Category() {
                     No Products Found
 
                   </h1>
-                  <p className="text-gray-500 text-lg">
+                  <p className="text-gray-500 md:text-lg text-sm md:justify-start justify-center ">
                     Sorry, we couldn't find any products matching your search.
                   </p>
                 </div>

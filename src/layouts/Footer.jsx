@@ -3,6 +3,8 @@ import Wrapper from "../components/UI/Wrapper";
 import paypal from "../assets/PayPal.svg";
 import visa from "../assets/visa.svg";
 import mastercard from "../assets/mastercard.svg";
+import logo from "../assets/images/logo/logoMshop.png";
+import { Link } from "react-router-dom";
 function Footer() {
   return (
     <Wrapper className="mt-5 pt-6">
@@ -21,10 +23,12 @@ function Footer() {
               md:justify-start
             "
               >
-                <span className="text-mainBlue md:text-4xl text-xl font-bold ">
-                  M
-                </span>
-                <span className="md:text-4xl text-xl font-medium">Shop</span>
+                <Link
+                className="text-sm font-bold leading-relaxed inline-block mr-4 w-32  whitespace-nowrap uppercase text-gray-900"
+                to="/"
+              >
+                <img src={logo} className="object-cover " alt="MShop" />
+              </Link>
               </h6>
               <p>
                 Here you can use rows and columns to organize your footer

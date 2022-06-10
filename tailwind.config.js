@@ -28,6 +28,8 @@ module.exports = {
       },
       width: {
         'width_22': '23%',
+        'width-30': '30%',
+        'width-45': '45%',
       },
       
       theme: {

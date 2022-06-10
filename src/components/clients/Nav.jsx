@@ -107,8 +107,7 @@ export default function Nav(props) {
 
             <div
               className={
-                "lg:flex flex-grow items-center" +
-                (navbarOpen ? " flex" : " hidden")
+                "lg:flex flex-grow items-center" 
               }
               id="example-navbar-danger"
             >
@@ -185,7 +184,6 @@ export default function Nav(props) {
                       <span className="flex absolute -mt-5 ml-4">
                         <span className="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-btn opacity-75"></span>
                         <span className="relative inline-flex rounded-full text-white justify-center items-center h-5 w-5 bg-btn">
-                          {/* {cart !== undefined ? cart.length: 0} */}
                           {countItems}
                         </span>
                       </span>
@@ -245,7 +243,6 @@ export default function Nav(props) {
                 <span className="flex absolute -mt-5 ml-4">
                   <span className="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-btn opacity-75"></span>
                   <span className="relative inline-flex rounded-full text-white justify-center items-center h-5 w-5 bg-btn">
-                    {/* {cart !== undefined ? cart.length: 0} */}
                     {countItems}
                   </span>
                 </span>
