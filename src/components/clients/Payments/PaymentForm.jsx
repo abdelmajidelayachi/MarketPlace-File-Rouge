@@ -5,6 +5,7 @@ import axios from "axios";
 import "./PaymentForm.css";
 import MessageModal from "../../UI/MessageModal";
 import Loader from "../../UI/Loader";
+import { useNavigate } from "react-router-dom";
 
 const CARD_OPTIONS = {
   iconStyle: "solid",
@@ -33,10 +34,11 @@ const PaymentForm = (props) => {
   const elements = useElements();
   const dispatch = useDispatch();
   const products = useSelector((state) => state.cartItems);
+  const navigate=useNavigate();
 
   const onCloseModal = () => {
     dispatch({ type: "CLEAR_CART" });
-    window.location.href = "/";
+    navigate("/");
     setSucceeded(false);
   };
   const handleSubmit = async (event) => {

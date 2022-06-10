@@ -9,16 +9,15 @@ function SignIn() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [loggedIn,setLoggedIn] = useState(false);
+  const [location , setLocation] = useState(window.location.href.split("=")[1]);
 
   const navigate =useNavigate();
-  const location = useLocation();
   // ref inputs
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'))
     if(user){
-      setLoggedIn(true);
-      console.log(location)
-      navigate(location.state?location.state.from:'/')
+      // setLoggedIn(true);
+      // navigate('/')
     }
 
   }, [])
@@ -44,12 +43,12 @@ function SignIn() {
       data.append("password", password.current.value);
     try {
       const response = await axios.post("http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/user/login",data)
-      console.log(response.data);
       if(response.data !== '' )
       {
         setLoggedIn(true);
         localStorage.setItem('user',JSON.stringify(response.data.user));
-        window.location.href = "/";
+        const path = location?location:"";
+        navigate(`/${path}`)
       }else{
         setEmailError(response.data.emailError);
         setPasswordError(response.data.passwordError);

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const DropdownMenu = () => {
   return (
-    <div className="fixed z-50">
+    <div className="absolute z-50">
       <div className=" flex flex-col items-start justify-start h-full">
         <div className="ml-6 divide-gray-100 rounded-md bg-white  ring-1 ring-black ring-opacity-5">
           <Link to="/">

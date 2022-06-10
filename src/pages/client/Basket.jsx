@@ -38,12 +38,12 @@ function Basket() {
         <CheckoutNav active="card" />
         <div className="mx-auto w-10/12">
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-semibold text-gray-800 mx-1 my-4">
+            <h1 className="md:text-2xl text-lg font-semibold text-gray-800 mx-1 my-4">
               My card
             </h1>
             <span
               onClick={clearCartHandler}
-              className="text-xl flex items-center cursor-pointer gap-2 font-semibold text-gray-700 mx-2"
+              className="md:text-xl text-lg flex items-center cursor-pointer gap-2 font-semibold text-gray-700 mx-2"
             >
               <MdOutlineCancel />
               Clear Card
@@ -70,7 +70,7 @@ function Basket() {
               return (
                 <div
                   key={index}
-                  className="w-full flex md:flex-row flex-col my-5 py-2 border-b border-gray-300"
+                  className="w-full flex md:flex-row flex-col my-5 py-2 border-b border-gray-300 mobile_card"
                 >
                     <div className="md:w-6/12 w-full  flex md:flex-row flex-row-reverse">
                     <div className="w-1/3 pr-4">
@@ -132,8 +132,12 @@ function Basket() {
                     </div>
                   </div>
 
+                    {/* mobile */}
+                    {/* border-2 rounded p-4 border-gray-200 */}
+
                   <div className="w-full md:hidden flex flex-row">
-                    <div className="text-lg w-2/12 font-normal flex  flex-col items-center justify-center">
+
+                    <div className="text-lg  font-normal flex  flex-col items-center justify-center">
                       <div className="flex  rounded-sm h-7  w-24">
                         <button
                           onClick={() => {
@@ -181,13 +185,13 @@ function Basket() {
                         {product.product.price * product.quantity}
                       </div>
                     </div>
-                    <div className="text-lg w-2/12 font-normal md:flex hidden flex-col items-center justify-center">
+                    <div className="text-lg ml-5 font-normal md:flex hidden flex-col items-center justify-center">
                       <div className="flex  rounded-sm h-7 w-24">
                         <button
                           onClick={() => {
                             if (product.quantity < 20) {
                               dispatch({
-                                type: "INCREMENT_FROM_CART",
+                                type: "INCREMENT_FROM_CART",  
                                 payload: product.product.id,
                               });
                               setErrorInput(false);
@@ -233,7 +237,7 @@ function Basket() {
                   <button
                     type="button"
                     onClick={() => removeItemHandler(product.product.id)}
-                    className="text-lg md:w-2/12 w-full font-normal flex  items-center justify-center"
+                    className="text-lg md:w-2/12 w-full font-normal flex text-gray-800  items-center justify-center"
                   >
                     <RiDeleteBin6Line />
                   </button>
@@ -249,7 +253,8 @@ function Basket() {
           )}
           {products.length > 0 && (
             <div className="w-full flex md:flex-row flex-col justify-end items-center gap-3">
-              <span className="text-lg font-semibold text-gray-600 mx-2 py-4 ">
+              <div className="flex items-center">
+                 <span className="text-lg font-semibold text-gray-600 mx-2 py-4 ">
                 {" "}
                 You choose{" "}
                 <span className="font-bold text-gray-900">
@@ -257,6 +262,8 @@ function Basket() {
                 </span>{" "}
                 items
               </span>
+              </div>
+             <div className="flex items-center">
               <span className="text-xl font-semibold text-gray-600 mx-2 my-4">
                 Total:&nbsp;
                 <span className="text-red-500 text-2xl">
@@ -270,11 +277,13 @@ function Basket() {
               <span className="">
                 <Link
                   to="/place-order"
-                  className="py-2 px-4 text-xl font-semibold text-gray-100 bg-blue-600 rounded"
+                  className="md:py-2 md:px-4 py-1 px-2 md:text-xl text-sm font-semibold text-gray-100 bg-blue-600 rounded"
                 >
                   Proceed to checkout
                 </Link>
               </span>
+
+             </div>
             </div>
           )}
         </div>

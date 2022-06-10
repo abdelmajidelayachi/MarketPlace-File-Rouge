@@ -21,7 +21,7 @@ const CheckOut = () => {
   useEffect(() => {
     if(user===null)
     {
-      navigate('/sign-in');
+      navigate('/sign-in?from=place-order');
      
 
     }else{

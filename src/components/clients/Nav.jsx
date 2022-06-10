@@ -85,7 +85,7 @@ export default function Nav(props) {
     <Wrapper className="w-full">
       {/* disktop screen nav */}
       <div className="w-full md:block hidden">
-        <div className="absolute border-b top-14 left-0 w-full z-0" />
+        <div className="absolute md:block hidden border-b top-14 left-0 w-full z-0" />
         <div className=" py-7"></div>
         <nav className="relative flex md:flex-wrap items-center justify-around px-2 pt-3">
           <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
@@ -141,7 +141,7 @@ export default function Nav(props) {
                 </div>
 
                 <ul className="flex flex-col lg:flex-row list-none lg:ml-auto w-1/5 justify-around">
-                  {user === null ? (
+                  {user === null && (
                     <li className="nav-item">
                       <Link
                         className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
@@ -154,13 +154,6 @@ export default function Nav(props) {
                         <span className="ml-2">Sign In</span>
                       </Link>
                     </li>
-                  ) : (
-                    <button
-                      onClick={logoutHandler}
-                      className=" font-semibold text-xl text-red-600"
-                    >
-                      logout
-                    </button>
                   )}
                   <li className="nav-item">
                     <Link
@@ -191,9 +184,8 @@ export default function Nav(props) {
                   </li>
                   {user !== null && (
                     <li className="nav-item">
-                      <a
+                      <button  onClick={() => setNavProfile(!navProfile)}
                         className="px-3 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
-                        href="#pablo"
                       >
                         <div className="rounded-full w-12 h-12">
                           <img
@@ -202,7 +194,7 @@ export default function Nav(props) {
                             alt="account"
                           />
                         </div>
-                      </a>
+                      </button>
                     </li>
                   )}
                 </ul>
@@ -210,6 +202,7 @@ export default function Nav(props) {
             </div>
           </div>
         </nav>
+        {navProfile && <DropdownProfile onClickLogout={logoutHandler} />}
         <Navigation categorySelected={props.category} active={props.active} />
       </div>
       {/* mobile screen nav */}

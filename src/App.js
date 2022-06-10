@@ -10,12 +10,14 @@ import Dashboard from "./pages/admin/Dashboard";
 import Products from "./pages/admin/Products";
 import AOS from 'aos'
 import 'aos/dist/aos.css';
+import './App.css'
 import ShowProduct from "./pages/client/ShowProduct";
 import CheckOut from "./pages/client/CheckOut";
 import PlaceOrder from "./pages/client/PlaceOrder";
 import Orders from "./pages/admin/Orders";
 import Category from './pages/client/Category';
 import Search from "./pages/client/Search";
+import Profile from "./pages/client/Profile";
 AOS.init();
 
 
@@ -28,10 +30,10 @@ function App() {
         <Route path="/new-products" element={<New />} />
         <Route path="/top-seller" element={<TopSeller />} />
         <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/profile" element={<Profile/>}/>
         <Route path="/register" element={<Register />} />
         <Route path="/card" element={<Basket />} />
         <Route path="/checkout" element={<CheckOut/>} />
-        
         <Route path = "place-order" element={<PlaceOrder/>} />
         <Route path="/show-product/:id" element = {<ShowProduct/>}/>
         <Route path="/category/:category" element = {<Category/>}/>
