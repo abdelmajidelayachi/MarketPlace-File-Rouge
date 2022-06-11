@@ -35,7 +35,7 @@ function New() {
     <Wrapper className="">
       {loading&&<Loader/>}
       <div className="max-w-screen-xl m-auto ">
-        <Nav active ="new"/>
+        <Nav active ="top"/>
         {products.length >= 0 && (
         <section className="text-gray-600 body-font">
           <div className=" lg:px-5 md:px-3 px-2  py-24 mx-auto">

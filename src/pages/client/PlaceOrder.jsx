@@ -8,6 +8,7 @@ import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FormAddress from "../../components/clients/placeOrder/FormAddress";
+import MessageModal from "../../components/UI/MessageModal";
 
 const CheckOut = () => {
   const products = useSelector((state) => state.cartItems);
@@ -15,6 +16,8 @@ const CheckOut = () => {
   const [addressForm, setAddressForm]= useState(false);
   const [user, setUser]= useState(JSON.parse(localStorage.getItem("user")));
   const [hasAddress, setHasAddress]=useState(false)
+  const [addressInfo,setAddressInfo] = useState(false)
+  const [updateInfo, setUpdateInfo] = useState(false)
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -45,6 +48,7 @@ const CheckOut = () => {
 
   return (
     <Wrapper>
+      
       <div className=" max-w-screen-xl m-auto ">
         <Nav />
         <CheckoutNav active="order" />
@@ -55,13 +59,25 @@ const CheckOut = () => {
             <h1 className="md:text-xl text:lg font-semibold text-left">
               Shipping Address
             </h1>
+            {updateInfo?<div className='bg-green-100 border border-green-400 text-green-700 px-4 py-3 my-3 rounded relative' role='alert'>
+      <strong className='font-bold'>Success!</strong>
+      <span className='block sm:inline'>Your address has been updated.</span>
+      <span onClick={()=>setUpdateInfo(false)} className='absolute top-0 bottom-0 right-0 px-4 py-3'>
+        <svg className='fill-current h-6 w-6 text-green-500' role='button' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'>
+          <title>Close</title>
+          <path d='M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z'/>
+        </svg>
+      </span>
+
+      </div>:""
+      } 
             <div className="border rounded py-2 px-6 my-4 ">
               <div className="w-full flex justify-between">
                 <button className="text-btn">
                   <FontAwesomeIcon size={"lg"} icon={faCheckCircle} />
                 </button>
                 <button onClick={()=>{setAddressForm(!addressForm)}} className="text-blue-600 text-lg font-semibold hover:underline">
-                  Edit Address
+                  {hasAddress ?'Edit Address':'Add Address'}
                 </button>
               </div>
               <div className="flex flex-col">
@@ -82,7 +98,10 @@ const CheckOut = () => {
             <div className="border rounded py-6 px-2 my-4 ">
               <div className="w-full">
               
-                <FormAddress user={user} onClose={()=>{setAddressForm(false)}}/>
+                <FormAddress user={user} onClose={()=>{
+                  setHasAddress(true)
+                  setUpdateInfo(true)
+                  setAddressForm(false)}}/>
               </div>
             </div>  
             }
@@ -99,7 +118,7 @@ const CheckOut = () => {
                 className="px-6 py-1.5 rounded-lg  bg-blue-600 hover:bg-mainBlue text-gray-100 text-xl font-semibold "
               >
                 Place order
-              </Link>: <button
+              </Link>: <button onClick={()=>{setAddressInfo(true)}}
                 
                 className="px-6 py-1.5 rounded-lg  bg-blue-600 text-gray-100 text-xl font-semibold "
               >
@@ -108,6 +127,7 @@ const CheckOut = () => {
               }
              
             </div>
+            {addressInfo&&<MessageModal title="Please add your address" message="You need to add your address to place order" onClick={()=>{setAddressInfo(false)}}/>}
           </div>
         </div>
         <div className="md:w-6/12 w-full ">

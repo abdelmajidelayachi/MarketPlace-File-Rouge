@@ -1,3 +1,15 @@
+.animate_hover{
+  transition: 330ms;
+}
+
+.animate_hover:hover{
+  transform: scale(1.1);
+}
+
+
+
+
+
 @media(max-width: 768px)
 {
   /* md768:border-2 md768:rounded md768:p-4 md768:border-gray-200 md768:bg-red-600 */

@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/client/Home";
 import SignIn from "./pages/client/SignIn";
 import Register from "./pages/client/Register";
@@ -18,11 +18,11 @@ import Orders from "./pages/admin/Orders";
 import Category from './pages/client/Category';
 import Search from "./pages/client/Search";
 import Profile from "./pages/client/Profile";
+import ProfileRoutes from "./components/Router/ProfileRoutes";
 AOS.init();
 
 
 function App() {
-  
   return (
     <div className="">
       <Routes>
@@ -30,7 +30,10 @@ function App() {
         <Route path="/new-products" element={<New />} />
         <Route path="/top-seller" element={<TopSeller />} />
         <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/profile" element={
+        <Profile/>
+        } />
+
         <Route path="/register" element={<Register />} />
         <Route path="/card" element={<Basket />} />
         <Route path="/checkout" element={<CheckOut/>} />

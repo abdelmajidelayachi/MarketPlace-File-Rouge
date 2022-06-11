@@ -114,6 +114,7 @@ class UserController
         }
         else
         {
+
           echo json_encode(["success"=>false,"message"=>"Error inserting image"]);
           return;
         }

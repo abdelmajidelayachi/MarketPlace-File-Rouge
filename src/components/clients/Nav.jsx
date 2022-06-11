@@ -17,7 +17,7 @@ export default function Nav(props) {
   const [navProfile, setNavProfile] = useState(false);
   const [categories, setCategories] = useState([]);
   const [reload, setReload] = useState(false);
-  const [user, setUser] = useState(localStorage.getItem("user") || null);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
 
   const storedProducts = useDispatch();
 
@@ -37,6 +37,7 @@ export default function Nav(props) {
             : [],
       });
     }
+    console.log(user)
     if (user === null) {
     }
   }, [localStorage.getItem("user")]);
@@ -79,6 +80,7 @@ export default function Nav(props) {
       payload: false,
     });
     setNavProfile(false);
+    navigate("/");
   };
 
   return (
@@ -190,7 +192,7 @@ export default function Nav(props) {
                         <div className="rounded-full w-12 h-12">
                           <img
                             className="rounded-full"
-                            src={require("../../assets/images/profiles/default_profile.png")}
+                            src={require(`../../assets/images/profiles/${user.profile_photo_path}`)}
                             alt="account"
                           />
                         </div>

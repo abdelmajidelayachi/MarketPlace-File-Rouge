@@ -16,8 +16,7 @@ function SignIn() {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'))
     if(user){
-      // setLoggedIn(true);
-      // navigate('/')
+      navigate('/')
     }
 
   }, [])
@@ -123,8 +122,8 @@ function SignIn() {
             <span className="border-b border-gray-400 flex mt-3 items-center w-full"></span>
             <span className="absolute bg-white px-3 mb-0.5"> OR</span>
           </div>
-          <div className="flex justify-center mt-5">
-            <svg className="bg-white border rounded-full p-1 shadow-xl"
+          <div  className="flex justify-center mt-5 animate_hover">
+            <svg className="bg-white border rounded-full p-1 shadow-md"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 48 48"
               width="42px"
