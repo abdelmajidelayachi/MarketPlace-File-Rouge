@@ -22,6 +22,7 @@ class User extends DB
       return false;
     }
   }
+
   public function register($data)
   {
 
@@ -88,7 +89,13 @@ class User extends DB
       return;
     }
   }
-
+  public function getUserInfo($id)
+  {
+    $user = $this->conn->prepare('SELECT * FROM `' . $this->table . '` where id=:id');
+    $user->bindParam(':id', $id);
+    $user->execute();
+    return $user->fetch();
+  }
 
   public function login($data)
   {
@@ -126,5 +133,54 @@ class User extends DB
       ]);
       echo $json;
     }
+  }
+  // check current password
+  public function check_password_is_correct($email,$password)
+  {
+    $account = $this->conn->prepare('SELECT * FROM `' . $this->table . '` where email=:email');
+    $account->bindParam(':email', $email);
+    $account->execute();
+    $row = $account->fetch();
+    // var_dump( $row['password']);
+    if (password_verify($password, $row['password'])) {
+      // echo :"true";
+      return true;
+    } else {
+      // echo "false";
+      return false;
+    }
+
+  }
+  // update profile
+  public function update_profile($data)
+  {
+    $sql = "UPDATE `" . $this->table . "` SET `first_name`=:first_name,`last_name`=:last_name,`email`=:email WHERE `id`=:id";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':first_name', $data['first_name']);
+    $stmt->bindParam(':last_name', $data['last_name']);
+    $stmt->bindParam(':email', $data['email']);
+    $stmt->bindParam(':id', $data['id']);
+    $stmt->execute();
+    return true;
+  }
+  // update image
+  public function update_image($id,$photo)
+  {
+    $sql = "UPDATE `" . $this->table . "` SET `profile_photo_path` =:profile_photo_path WHERE `id`=:id";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':profile_photo_path',$photo);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    return true;
+  }
+  // change password
+  public function update_password($email,$password)
+  {
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    $account = $this->conn->prepare('UPDATE `' . $this->table . '` SET password=:password WHERE email=:email');
+    $account->bindParam(':email', $email);
+    $account->bindParam(':password', $password);
+    $account->execute();
+    return true;
   }
 }

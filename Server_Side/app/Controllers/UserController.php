@@ -85,132 +85,79 @@ class UserController
       return $user->login($data);
     }
   }
+  public function update_profile()
+  {
+    $data = [
+      'first_name'=> $_POST['first_name'],
+      'last_name'=> $_POST['last_name'],
+      'email'=> $_POST['email'],
+      'id'=> $_POST['id']
+    ];
+  
+   
+    $user = new User();
+    if($user->update_profile($data)===true)
+    {
 
+      if(isset($_FILES['image']["name"]))
+      {
+  
+        $filename = $_FILES["image"]["name"];
+        $tempname = $_FILES["image"]["tmp_name"];
+        $folder = APP . "/../../src/assets/images/profiles/" . $filename;
+        $photo = $filename;
 
+        if($user->update_image($data['id'],$photo))
+        {
+          move_uploaded_file($tempname, $folder);
+           
+        }
+        else
+        {
+          echo json_encode(["success"=>false,"message"=>"Error inserting image"]);
+          return;
+        }
+      }
+      $userInfo = $user->getUserInfo($data['id']);
+      $json = json_encode(["success"=>true,"message"=>"Profile updated successfully","user"=>$userInfo]);
+      
+    }else{
+      $json = json_encode(["success"=>false,"message"=>"Something went wrong"]);
+    }
 
+    echo $json;
+    return;
+    
+  }
+  public function update_password()
+  {
+    $data = [
+      'email'=> $_POST['email'],
+      'current_password' => $_POST['current_password'],
+      'new_password' => $_POST['new_password'],
+      'new_password_confirmation' => $_POST['new_password_confirmation']
+    ];
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // public function products()
-  // {
-  //   $db=new Product();
-  //   $data['products']=$db->getAllProducts();
-
-  //   echo json_encode($data['products']);
-  // //  View::load('product/index',$data);
-  // // header('location: '.BURL.'product/index');
-  // }
-  // public function index()
-  // {
-
-  //   View::load('product/index');
-  // }
-  // public function add()
-  // {
-
-  //   View::load('product/add');
-  // }
-  // public function store()
-  // {
-  //   if(isset($_POST['submit']))
-  //   {
-  //     $name = $_POST['name'];
-  //     $price =$_POST['price'];
-  //     $description = $_POST['description'];
-  //     $qty = $_POST['qty'];
-  //     $data=array("name"=>$name,"price"=>$price,"description"=>$description,"qty"=>$qty);
-
-  //     $db = new Product();
-  //     if($db->insertProduct($data))
-  //     {
-  //       // echo json_encode($data);
-  //       View::load("product/add",["success"=>"Data created Successfully"]);
-  //       // header('location: '.BURL.'product/add');
-
-  //     }else{
-  //       View::load("product/add");
-  //     }
-
-  //   }
-  // }
-  // // public function delete($id){
-  // //   $db = new Product();
-  // //   if($db->deleteProduct($id))
-  // //   {
-  // //     View::load("product/delete");
-  // //   }else
-  // //   {
-  // //     echo "Error";
-  // //   }
-
-  // // }
-  // public function edit($id)
-  // {
-  //   $db=new Product();
-  //   if($db->getRow($id))
-  //   {
-  //     $data['row']=$db->getRow($id);
-  //     View::load('Product/edit',$data);
-
-  //   }
-  //   else
-  //   {
-  //     echo "Error";
-  //   }
-
-  // }
-  // public function update($id){
-  //   if(isset($_POST['submit']))
-  //   {
-  //     $name = $_POST['name'];
-  //     $price =$_POST['price'];
-  //     $description = $_POST['description'];
-  //     $qty = $_POST['qty'];
-  //     $dataDelete=array("name"=>$name,"price"=>$price,"description"=>$description,"qty"=>$qty);
-
-  //     $db = new Product();
-  //     if($db->updateProduct($id,$dataDelete))
-  //     {
-  //       View::load("product/edit",["success"=>"Data updated Successfully",'row'=>$db->getRow($id)]);
-
-  //     }else{
-  //       View::load("product/edit",['row'=>$db->getRow($id)]);
-  //     }
-
-  //   }
-  // }
+    $user = new User();
+    // check old password is correct
+    if($user->check_password_is_correct($data['email'],$data['current_password']))
+    {
+      // update password
+      if($user->update_password($data['email'],$data['new_password']))
+      {
+        $json = json_encode(['success'=>true,'message'=>'success']);
+        echo $json;
+        return;
+      }else{
+        $json = json_encode(['success'=>false,'message'=>'error']);
+        echo $json;
+        return;
+      }
+    }else{
+      $json = json_encode(['success'=>false]);
+      echo $json;
+      return;
+    }
+  }
 
 }
