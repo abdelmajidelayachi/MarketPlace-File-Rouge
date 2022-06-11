@@ -24,7 +24,7 @@ const Profile = () => {
   return (
     <div>
       <div className=" max-w-screen-xl m-auto ">
-        <Nav active="home" />
+        <Nav user={user} active="home" />
 
       </div>
       <div className="flex justify-between md:flex-row flex-col md:w-10/12 mt-7 mx-auto ">

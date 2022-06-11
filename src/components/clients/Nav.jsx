@@ -40,7 +40,7 @@ export default function Nav(props) {
     console.log(user)
     if (user === null) {
     }
-  }, [localStorage.getItem("user")]);
+  }, [props.user]);
 
   useEffect(() => {
     axios
@@ -262,7 +262,7 @@ export default function Nav(props) {
                   <div className="rounded-full w-8 h-8">
                     <img
                       className="rounded-full"
-                      src={require("../../assets/images/profiles/default_profile.png")}
+                      src={require(`../../assets/images/profiles/${user.profile_photo_path}`)}
                       alt="account"
                     />
                   </div>
