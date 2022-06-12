@@ -44,10 +44,14 @@ function SignIn() {
       const response = await axios.post("http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/user/login",data)
       if(response.data !== '' )
       {
+        if(response.data.user !== null)
+        {
+          localStorage.setItem('user',JSON.stringify(response.data.user))
         setLoggedIn(true);
         localStorage.setItem('user',JSON.stringify(response.data.user));
         const path = location?location:"";
         navigate(`/${path}`)
+        }
       }else{
         setEmailError(response.data.emailError);
         setPasswordError(response.data.passwordError);

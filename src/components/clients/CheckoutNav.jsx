@@ -6,7 +6,6 @@ import Wrapper from "../UI/Wrapper";
 const CheckoutNav = (props) => {
   return (
     <Wrapper className="">
-        <div className="w-60 mx-auto border-t-2"></div>
         <ul className="flex justify-center items-center gap-3 w-10/12 mx-auto mt-10">
           <li className={`py-1 w-1/3 rounded-full font-semibold text-sm md:text-xl text-mainBlue`}>View Cart</li>
           <li className={`py-1 w-1/3 rounded-full font-semibold text-sm md:text-xl ${props.active==='payment'|| props.active==='order' ?"text-mainBlue":"text-gray-300"} `}>Place Order</li>

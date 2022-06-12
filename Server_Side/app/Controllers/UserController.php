@@ -110,7 +110,6 @@ class UserController
         if($user->update_image($data['id'],$photo))
         {
           move_uploaded_file($tempname, $folder);
-           
         }
         else
         {
@@ -133,7 +132,7 @@ class UserController
   public function update_password()
   {
     $data = [
-      'email'=> $_POST['email'],
+      'id'=> $_POST['id'],
       'current_password' => $_POST['current_password'],
       'new_password' => $_POST['new_password'],
       'new_password_confirmation' => $_POST['new_password_confirmation']
@@ -141,10 +140,10 @@ class UserController
 
     $user = new User();
     // check old password is correct
-    if($user->check_password_is_correct($data['email'],$data['current_password']))
+    if($user->check_password_is_correct($data['id'],$data['current_password']))
     {
       // update password
-      if($user->update_password($data['email'],$data['new_password']))
+      if($user->update_password($data['id'],$data['new_password']))
       {
         $json = json_encode(['success'=>true,'message'=>'success']);
         echo $json;
@@ -155,7 +154,7 @@ class UserController
         return;
       }
     }else{
-      $json = json_encode(['success'=>false]);
+      $json = json_encode(['success'=>false,'message'=>'error']);
       echo $json;
       return;
     }

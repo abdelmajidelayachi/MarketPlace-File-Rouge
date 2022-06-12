@@ -41,13 +41,13 @@ function Search() {
       <div className="max-w-screen-xl m-auto ">
         <Nav active ="new" reload = {reloadHandler}/>
         {products.length>0&& 
-        <section className="text-gray-600 body-font">
+        <section className="text-gray-600 body-font mx-5">
           <div className="container px-5 py-24 mx-auto">
             <div className="flex flex-wrap -m-4 gap-5">
              
               {products && products.map((product, index) => (
                 <Div key={index}>
-                  <ProductCardNew  product = {product}/>
+                  <ProductCardNew className=" lg:w-width_22 md:w-width-30 sm:w-width-45  p-3 w-full "  product = {product}/>
                 </Div>
                 ))}
             </div>

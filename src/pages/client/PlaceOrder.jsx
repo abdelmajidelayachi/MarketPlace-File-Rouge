@@ -108,19 +108,19 @@ const CheckOut = () => {
             <div className="flex justify-between">
               <Link
                 to="/card"
-                className="px-6 py-1.5 border-2 rounded-lg border-mainBlue text-mainBlue text-xl font-semibold"
+                className="md:px-6 px-4 md:py-1.5 pt-1 pb-0.5 rounded border-2  border-mainBlue text-mainBlue md:text-xl text-lg md:font-semibold font-medium"
               >
                 Back to cart
               </Link>
               {
                 hasAddress ?  <Link
                 to="/checkout"
-                className="px-6 py-1.5 rounded-lg  bg-blue-600 hover:bg-mainBlue text-gray-100 text-xl font-semibold "
+                className="md:px-6 px-4 md:py-1.5 pt-1 pb-0.5  rounded  bg-blue-600 hover:bg-mainBlue text-gray-100 md:text-xl text-lg md:font-semibold font-medium "
               >
                 Place order
               </Link>: <button onClick={()=>{setAddressInfo(true)}}
                 
-                className="px-6 py-1.5 rounded-lg  bg-blue-600 text-gray-100 text-xl font-semibold "
+                className="md:px-6 px-4 md:py-1.5 pt-1 pb-0.5  rounded  bg-blue-600 hover:bg-mainBlue text-gray-100 md:text-xl text-lg md:font-semibold font-medium "
               >
                 Place order
               </button>

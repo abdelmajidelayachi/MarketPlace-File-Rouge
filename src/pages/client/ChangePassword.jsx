@@ -17,19 +17,23 @@ const ChangePassword = () => {
     if(response.data.success == true){
       if(response.data.message==="success"){
         setPasswordUpdate(true);
+        setError(false);
+        setPasswordError(false);
       }else if(response.data.message==="error"){
         setPasswordUpdate(false);
         setError(true); 
+        setPasswordError(false);
       }
     }else{
       setPasswordUpdate(false); 
       setPasswordError(true);
+      setError(false);
       }
   }
   const submitChangePassword = (values) => {
     // console.log(values);
     const data = new FormData();
-    data.append('email',user.email);
+    data.append('id',user.id);
     data.append('current_password',values.current_password);
     data.append('new_password',values.password);
     data.append('new_password_confirmation',values.password_confirmation);
@@ -77,12 +81,12 @@ const ChangePassword = () => {
 
       <Formik 
         initialValues={{
-          old_password: '',
+          current_password: '',
           new_password: '',
           confirm_password: ''
         }}
         validationSchema={Yup.object({
-          old_password: Yup.string()
+          current_password: Yup.string()
             .required('Current password is required'),
           new_password: Yup.string()
             .required('New password is required'),
@@ -95,13 +99,13 @@ const ChangePassword = () => {
           {(formik)=>(
             <Form>
               <div className='my-4'>
-                <label htmlFor="old_password">Current Password</label>
+                <label htmlFor="current_password">Current Password</label>
                 <InputField
                 isInput ="true"
                 type="password"
                 className="md:w-3/4 w-full py-2 px-3 border focus:outline-none rounded"
-                name="old_password"
-                placeholder="Old Password"
+                name="current_password"
+                placeholder="current Password"
                 />
               </div>
               <div className='my-4'>

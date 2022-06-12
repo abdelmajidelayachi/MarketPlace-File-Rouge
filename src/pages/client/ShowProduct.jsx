@@ -4,15 +4,18 @@ import Nav from "../../components/clients/Nav";
 import Wrapper from "../../components/UI/Wrapper";
 import Footer from "../../layouts/Footer";
 import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 const ShowProduct = () => {
   const [click, setClick] = useState(1);
   const [errorInput, setErrorInput] = useState(false);
   const [product, setProduct] = useState([]);
-  const product_id_path = window.location.href.split("-").pop();
-  // const [productExist, setProductExist] = useState(false);
+  
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  
   useEffect(() => {
+    const product_id_path = window.location.href.split("-").pop();
     axios
       .get(
         `http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/get_Product/${product_id_path}`
@@ -43,10 +46,14 @@ const ShowProduct = () => {
         type: "MODIFY_CART_ITEM",
         payload: { id: items.id, quantity: numberOfItems },
       });
-      // setProductExist(false);
     }
   };
 
+  const buyProductHandler =(items, numberOfItems)=>{
+    AddToCartHandler(items, numberOfItems);
+    navigate("/card")
+    
+  }
   return (
     <Wrapper className="">
       <div className="max-w-screen-xl m-auto ">
@@ -169,7 +176,7 @@ const ShowProduct = () => {
             </div>
           </div>
 
-          <div className="flex gap-10 md:my-10 ">
+          {/* <div className="flex gap-10 md:my-10 ">
             <div className="text-gray-500 text-2sm font-normal">
               <p>Option :</p>
             </div>
@@ -187,7 +194,7 @@ const ShowProduct = () => {
                 Green
               </button>
             </div>
-          </div>
+          </div> */}
 
           <div className="flex gap-7 mt-10">
             <div className="text-gray-500 text-2sm font-normal">
@@ -242,14 +249,14 @@ const ShowProduct = () => {
             <div className="text-gray-500 text-2sm font-normal">
               <p>
                 Seller :{" "}
-                <span className="underline text-mainBlue">Mohammed01</span>
+                {product.length!==0&&<Link to={`/store/${product.owner.first_name}-${product.owner.id}-${product.owner.last_name}`} className="underline text-mainBlue">{product.length !== 0 &&product.owner.first_name+''+product.owner.last_name}</Link>}
               </p>
             </div>
             <div></div>
           </div>
 
           <div className="flex gap-5">
-            <button className="px-10 py-2.5 text-firstColor font-bold bg-buttonColor border-2 border-firstColor rounded-2">
+            <button onClick={()=>buyProductHandler(product,click)} className="px-10 py-2.5 text-firstColor font-bold bg-buttonColor border-2 border-firstColor rounded-2">
               Buy Now
             </button>
             <button

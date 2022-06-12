@@ -6,14 +6,24 @@ import { useSelector } from 'react-redux'
 import CheckoutNav from '../../components/clients/CheckoutNav'
 import Div from '../../components/UI/Div'
 import paymentMethod from '../../assets/useepaylog.jpg'
+import { useNavigate } from 'react-router-dom'
 
 
 const CheckOut = () => {
   const products=useSelector(state=>state.cartItems)
   const [totalPrice,setTotalPrice]=useState(0);
+  const [user,setUser]=useState(JSON.parse(localStorage.getItem("user"))||null)
   
-    
+  const navigate = useNavigate();
+
+  if(user===null || user===undefined)
+  {
+    navigate('/sign-in?from=place-order');
+  }
+
   useEffect(()=>{
+    
+
     if(JSON.parse(localStorage.getItem('cartItems')).length>0){
       const price = products.reduce(
         (acc, item) => acc + item.product.price * item.quantity,

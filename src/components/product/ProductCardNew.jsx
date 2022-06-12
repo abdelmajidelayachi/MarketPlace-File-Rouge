@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 const ProductCardNew = (props) => {
   const linkProduct = props.product.product_name +'-'+props.product.id
   return (
-      <div className="lg:w-width_22 md:w-width-30 sm:w-width-45 p-3 w-full rounded bg-gray-100 shadow-md " key={props.product.id}>
-        <Link to={`/show-product/${linkProduct}`} className="block relative h-48  rounded overflow-hidden">
+    // lg:w-width_22 md:w-width-30 sm:w-width-45  p-3 w-full 
+      <div className={`${props.className} p-4 rounded bg-gray-100 shadow-md `} key={props.product.id}>
+        <div className="flex justify-center h-52">
+          <Link to={`/show-product/${linkProduct}`} className="block relative h-48 z-50 rounded overflow-hidden">
          {props.product.images[0].path!==undefined && <img
             alt="e-commerce"
             className="object-cover object-center mx-auto h-full block"
@@ -15,6 +17,8 @@ const ProductCardNew = (props) => {
           />}
         
         </Link>
+        </div>
+        
         <div className="mt-4">
           <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">
           </h3>

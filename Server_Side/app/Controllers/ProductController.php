@@ -38,21 +38,27 @@ class ProductController
     $images = $product_images->get_product_images($id);
     $product['images'] = $images;
     $category = new Category();
-    $products['category'] = $category->select_category($product['category_id']);
+    $product['category'] = $category->select_category($product['category_id']);
+    $user = new User();
+    $product['owner'] = $user->getUserInfo($product['owner_id']);
     echo json_encode($product);
     return;
   }
   public function get_products($id)
   {
-    $products = new Product();
-    $products = $products->getUserProducts($id);
-    foreach ($products as $key => $value) {
+    $product = new Product();
+    $product = $product->getUserProducts($id);
+    foreach ($product as $key => $value) {
+      $products['products'][$key]= $value;
       $product_images = new Product_images();
       $images = $product_images->get_product_images($value['id']);
-      $products[$key]['images'] = $images;
+      $products['products'][$key]['images'] = $images;
       $category = new Category();
-      $products[$key]['category'] = $category->select_category($value['category_id']);
+      $products['products'][$key]['category'] = $category->select_category($value['category_id']);
     }
+    $user = new User();
+    $user = $user->getUserInfo($id);
+    $products['user'] = $user;
     $json = json_encode($products);
     echo $json;
     return;

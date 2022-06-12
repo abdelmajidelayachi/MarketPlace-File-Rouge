@@ -18,12 +18,12 @@ export default function Nav(props) {
   const [categories, setCategories] = useState([]);
   const [reload, setReload] = useState(false);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
+  const [search, setSearch] = useState("");
 
   const storedProducts = useDispatch();
 
   const navigate = useNavigate();
 
-  const search = useRef("");
 
   useEffect(() => {
     if (localStorage.getItem("cartItems") === null) {
@@ -37,10 +37,9 @@ export default function Nav(props) {
             : [],
       });
     }
-    console.log(user)
     if (user === null) {
     }
-  }, [props.user]);
+  }, []);
 
   useEffect(() => {
     axios
@@ -55,15 +54,18 @@ export default function Nav(props) {
 
   // search
   const searchHandler = (e) => {
-    setReload(true);
     e.preventDefault();
-    if (search.current.value.trim() === "") {
+    setReload(true);
+    if (search.value.trim() === "") {
       navigate(`/new-products`);
       props.reload(reload);
-    } else {
-      navigate(`/search/${search.current.value}`);
+    
+    }else {
+      navigate(`/search/${search.value}`);
       props.reload(reload);
     }
+
+    
   };
 
   const countItems = useSelector((state) => {
@@ -125,7 +127,7 @@ export default function Nav(props) {
 
                       <div className="relative w-full">
                         <input
-                          ref={search}
+                         onChange={(e) => setSearch(e.target)}
                           type="search"
                           id="search-dropdown"
                           className="block p-2 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg  border-l-2 border-2 focus:outline-none focus:bg-bgBlue border-mainBlue focus:border-mainBlue"
@@ -293,7 +295,7 @@ export default function Nav(props) {
 
                 <div className="relative w-full">
                   <input
-                    ref={search}
+                      onChange={(e) => setSearch(e.target)}
                     type="search"
                     id="search-dropdown"
                     className="block p-1 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg  border-l-2 border-2 focus:outline-none focus:bg-bgBlue border-mainBlue focus:border-mainBlue"

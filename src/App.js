@@ -19,6 +19,7 @@ import Category from './pages/client/Category';
 import Search from "./pages/client/Search";
 import Profile from "./pages/client/Profile";
 import ProfileRoutes from "./components/Router/ProfileRoutes";
+import Store from "./pages/client/Store";
 AOS.init();
 
 
@@ -41,6 +42,7 @@ function App() {
         <Route path="/show-product/:id" element = {<ShowProduct/>}/>
         <Route path="/category/:category" element = {<Category/>}/>
         <Route path="/search/:search" element = {<Search/>}/>
+        <Route path="/store/:user" element = {<Store/>}/>
         <Route
           path="/dashboard"
           element={<Dashboard />}

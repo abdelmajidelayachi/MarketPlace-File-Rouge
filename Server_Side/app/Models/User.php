@@ -135,10 +135,10 @@ class User extends DB
     }
   }
   // check current password
-  public function check_password_is_correct($email,$password)
+  public function check_password_is_correct($id,$password)
   {
-    $account = $this->conn->prepare('SELECT * FROM `' . $this->table . '` where email=:email');
-    $account->bindParam(':email', $email);
+    $account = $this->conn->prepare("SELECT * FROM $this->table  WHERE id=:id");
+    $account->bindParam(':id', $id);
     $account->execute();
     $row = $account->fetch();
     // var_dump( $row['password']);
@@ -149,6 +149,7 @@ class User extends DB
       // echo "false";
       return false;
     }
+    return;
 
   }
   // update profile
