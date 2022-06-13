@@ -13,17 +13,19 @@ const ShowProduct = () => {
   
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const getProductRequest = async (id) => {
+    const {data} = await axios
+    .get(
+      `http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/get_Product/${id}`
+    );
+    setProduct(data);
+    }
+
   
   useEffect(() => {
     const product_id_path = window.location.href.split("-").pop();
-    axios
-      .get(
-        `http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/get_Product/${product_id_path}`
-      )
-      .then((res) => {
-        setProduct(res.data);
-      })
-      .catch((error) => console.log(error));
+    getProductRequest(product_id_path);
   }, []);
 
   const AddToCartHandler = (items, numberOfItems) => {
@@ -204,7 +206,7 @@ const ShowProduct = () => {
               <button
                 onClick={() => {
                   click + 1 < 1 ? setErrorInput(true) : setErrorInput(false);
-                  click + 1 > 20 ? setErrorInput(true) : setErrorInput(false);
+                  click + 1 > 20 || click+1> product.quantity ? setErrorInput(true) : setErrorInput(false);
                   setClick(click + 1 > 20 ? 20 : click + 1);
                 }}
                 className="px-2.5 h-full font-extrabold"

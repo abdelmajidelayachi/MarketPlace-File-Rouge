@@ -48,7 +48,7 @@ function AsideBar(props) {
                   <li className="mr-3 flex-1">
                     <Link
                       to="/dashboard/transactions"
-                      className={`block py-1 md:py-3 pl-1 align-middle text-gray-800 no-underline ${props.active==="transaction"? "bg-mainBlue text-white pl-2 p-4 rounded-md font-semibold" :"pl-2" } derline hover:border-mainBlue`}
+                      className={`block py-1 md:py-3 pl-1 align-middle text-gray-800 no-underline ${props.active==="transactions"? "bg-mainBlue text-white pl-2 p-4 rounded-md font-semibold" :"pl-2" } derline hover:border-mainBlue`}
                     >
                       <i className="fa fa-wallet pr-0 md:pr-3"></i>
                       <span className="pb-1 md:pb-0 text-xs md:text-base block md:inline-block">

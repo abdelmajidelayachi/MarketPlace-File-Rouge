@@ -98,7 +98,7 @@ function Basket() {
                       <div className="flex  rounded-sm h-7 w-24">
                         <button
                           onClick={() => {
-                            if (product.quantity < 20) {
+                            if (product.quantity < 20 && product.quantity > product.product.quantity) {
                               dispatch({
                                 type: "INCREMENT_FROM_CART",
                                 payload: product.product.id,

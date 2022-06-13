@@ -58,7 +58,7 @@ const PaymentForm = (props) => {
       try {
         const { id } = paymentMethod;
         const response = await axios.post("http://localhost:4000/payment", {
-          amount: props.price * 100,
+          amount: (props.price +10)* 100,
           id,
         });
         if (response.data.success) {

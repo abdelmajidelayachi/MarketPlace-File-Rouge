@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+// import Axios for send request to server
+import axios from "axios";
 
 function Analytics() {
-  return (
-   
 
+  const [data, setData] = React.useState([]);
+
+  const getStatistics = async (idUser) => {
+    const {data}=await axios.get("http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/get_statistics/"+idUser);
+    setData(data);
+  }
+  useEffect(() => {
+    const idUser = JSON.parse(localStorage.getItem('user')).id;
+    console.log(idUser);
+    getStatistics(idUser);
+
+  },[]);
+
+  return (
       <div className="flex flex-wrap">
         <div className="w-full md:w-1/2 xl:w-1/3 p-6">
           {/* <!--Metric Card--> */}

@@ -6,20 +6,17 @@ import HeadBar from "../../components/admin/HeadBar";
 import Wrapper from "../../components/UI/Wrapper";
 
 function Dashboard() {
-
-  const navigate =  useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if(JSON.parse(localStorage.getItem("user")) === null){
+    if (JSON.parse(localStorage.getItem("user")) === null) {
       navigate("/sign-in");
     }
-    if(JSON.parse(localStorage.getItem("user")).role !== "seller"){
+    if (JSON.parse(localStorage.getItem("user")).role !== "seller") {
       navigate("/");
     }
-  }
-  , [])
+  }, []);
 
-  
   return (
     <Wrapper>
       <header>
@@ -31,14 +28,12 @@ function Dashboard() {
       <main>
         <div className="flex flex-col md:flex-row">
           <nav aria-label="alternative nav">
-            <AsideBar active="dashboard"/>
+            <AsideBar active="dashboard" />
           </nav>
-          <section>
-            <div className="main-content flex-1 bg-gray-100 mt-10 md:mt-14 pb-24 md:pb-5 ">
-              <div className="bg-gray-50 pt-3">
-                <div className="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
-                  <h1 className="font-bold pl-2">Analytics</h1>
-                </div>
+          <section className="">
+            <div className="main-content flex-1 bg-gray-100 mt-10 pt-8 md:mt-14 md:px-10  min-h-screen">
+              <div className="flex justify-between md:m-5 my-14 text-mainBlue">
+                <div className="text-3xl font-bold">Analytics</div>
               </div>
               <Analytics />
             </div>
