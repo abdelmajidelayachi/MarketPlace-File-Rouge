@@ -1,8 +1,41 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo/logoMshop.png";
+import { useNavigate } from "react-router-dom";
+import DropdownProfile from "../clients/dropdown/DropdownProfile";
+import { useDispatch } from "react-redux";
 
 function HeadBar() {
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || null
+  );
+  const [navProfile, setNavProfile] = useState(false);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    if (user === null) {
+      setUser(JSON.parse(localStorage.getItem("user")));
+      if (user === null) {
+        navigate("/sign-in");
+      }
+    }
+  }, []);
+
+  const logoutHandler = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+    dispatch({
+      type: "LOGIN_STATUS",
+      payload: false,
+    });
+    setNavProfile(false);
+    navigate("/");
+  };
+
+
   return (
     <div className="flex flex-wrap items-center justify-between">
       <div className="flex flex-shrink md:w-1/3 justify-center md:justify-start text-gray-900">
@@ -34,66 +67,24 @@ function HeadBar() {
         </span>
       </div> */}
 
-      <div className="flex w-full pt-2 content-center justify-between  md:w-1/3 md:justify-end">
-        <ul className="list-reset flex justify-between flex-1 md:flex-none items-center">
-          <li className="flex-1 md:flex-none md:mr-3">
-            <a
-              className="inline-block py-2 px-4  no-underline"
-              href="/"
+
+      <div className="flex pt-2 content-center justify-between  md:w-1/3 md:justify-end">
+        {user !== null && (
+            <button
+              onClick={() => setNavProfile(!navProfile)}
+              className="px-3 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
             >
-              Active
-            </a>
-          </li>
-          <li className="flex-1 md:flex-none md:mr-3">
-            <a
-              className="inline-block text-gray-800 no-underline hover:text-gray-900 hover:text-underline py-2 px-4"
-              href="/"
-            >
-              link
-            </a>
-          </li>
-          <li className="flex-1 md:flex-none md:mr-3">
-            <div className="relative inline-block">
-              <button className="drop-button  py-2 px-2">
-                {" "}
-                <span className="pr-2">
-                  <i className="em em-robot_face"></i>
-                </span>{" "}
-                Hi, User
-              </button>
-              <div
-                id="myDropdown"
-                className="dropdownlist absolute bg-mainBlue  right-0 mt-3 p-3 overflow-auto z-30 invisible"
-              >
-                <input
-                  type="text"
-                  className="drop-search p-2 text-gray-600"
-                  placeholder="Search.."
-                  id="myInput"
+              <div className="rounded-full w-12 h-12">
+                <img
+                  className="rounded-full"
+                  src={require(`../../assets/images/profiles/${user.profile_photo_path}`)}
+                  alt="account"
                 />
-                <a
-                  href="/"
-                  className="p-2 hover:bg-mainBlue  text-sm no-underline hover:no-underline block"
-                >
-                  <i className="fa fa-user fa-fw"></i> Profile
-                </a>
-                <a
-                  href="/"
-                  className="p-2 hover:bg-mainBlue  text-sm no-underline hover:no-underline block"
-                >
-                  <i className="fa fa-cog fa-fw"></i> Settings
-                </a>
-                <div className="border border-mainbg-mainBlue"></div>
-                <a
-                  href="/"
-                  className="p-2 hover:bg-mainBlue  text-sm no-underline hover:no-underline block"
-                >
-                  <i className="fas fa-sign-out-alt fa-fw"></i> Log Out
-                </a>
               </div>
-            </div>
-          </li>
-        </ul>
+            </button>
+          
+          )}
+          {navProfile && <DropdownProfile className="md:right-10 right-10 md:top-16 top-16 z-50" onClickLogout={logoutHandler} />}
       </div>
     </div>
   );

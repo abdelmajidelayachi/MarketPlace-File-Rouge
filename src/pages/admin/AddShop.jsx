@@ -53,12 +53,12 @@ function AddShop() {
     <Wrapper>
     
       <div className=" max-w-screen-xl m-auto ">
-        <Nav active="home" />
+        <Nav active="add" />
       </div>
-      <div className="w-full my-6 bg-gray-100 ">
-        <div className="bg-gray-100 max-w-screen-xl mx-auto mb-2">
-          <div className="w-10/12 flex flex-col justify-center  mx-auto bg-white px-10">
-          <h1 className="text-xl font-bold text-left flex justify-start pb-5 pt-12 ">Accept term and conditions</h1>
+      <div className="w-full my-6 bg-gray-100 p-10">
+        <div className="max-w-screen-xl mx-auto mb-2 bg-gray-100">
+          <div className="w-10/12 flex flex-col justify-center bg-white rounded-sm mx-auto px-10">
+          <h1 className="text-xl font-bold text-left flex justify-start pb-5 pt-12">Accept term and conditions</h1>
           <h1 className=" mx-auto text-left">
             Buying used and collectible items from an MShop seller is as easy
             as buying directly from MShop.com. To help you make the best buying
@@ -110,20 +110,20 @@ function AddShop() {
           </h1>
           <div className=" mt-5 flex items-center">
 
-            <input type="checkbox" name="" ref={conditionRef} className="rounded-full  " id="" />
-            <label className=" before:content-['*'] after:mr-0.5 before:text-red-500" htmlFor="condition">I accept the terms and conditions</label>   
+            <input type="checkbox" name="" ref={conditionRef} className="rounded-full  " id="checkBox" />
+            <label for='checkBox' className=" before:content-['*'] after:mr-0.5 before:text-red-500" htmlFor="condition">I accept the terms and conditions</label>   
           </div>
             {error && <div className="pl-5 text-red-500 text-sm">Please accept the terms and conditions</div>}
           <div className=" mb-10 mt-5">
-            <button onClick={addStoreHandler} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+            <button onClick={addStoreHandler} className="bg-blue-500 hover:bg-mainBlue text-white font-bold py-2 px-4 rounded-full">
               Continue
             </button>
             </div>
           </div>
          
         </div>
-        <Footer />
       </div>
+        <Footer />
     </Wrapper>
   );
 }

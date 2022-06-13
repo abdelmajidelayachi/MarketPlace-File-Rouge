@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const DropdownProfile = (props) => {
   return (
-    <div className='fixed md:right-48 right-5 md:top-32 top-12 z-50'>
+    <div className={`fixed ${props.className}`}>
     <div className=' flex flex-col items-start justify-start'>
       <ul className='ml-6 divide-gray-100 rounded-md bg-white  ring-1 ring-black ring-opacity-5'>
         <Link to="/profile">

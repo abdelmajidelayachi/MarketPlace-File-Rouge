@@ -62,7 +62,7 @@ const ShowProduct = () => {
       <div className="flex justify-around flex-wrap  mt-10 gap-4 md:px-10 px-4  md:mx-36 mx-2">
         <div className="bg-white p-2 mb-12">
           {product.length !== 0 && (
-            <div className="p-7 bg-gray-100">
+            <div className="p-7 bg-gray-100 sm:w-96 w-auto">
               <img
                 alt="e-commerce"
                 className="object-cover object-center mx-auto h-full"

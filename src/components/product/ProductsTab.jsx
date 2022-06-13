@@ -42,7 +42,7 @@ function ProductsTab() {
     <Wrapper>
       {addProductModal &&<AddProductModal edit={false} title="Add Product" product="" buttonText='Add product' onClose={cancelModalHandler} onClick={cancelModalHandler}/>}
       {productDeleted && <MessageModal title="Product Deleted" message="Product Deleted Successfully" onClick={() => setProductDeleted(false)}/>}
-      <div className="flex justify-between m-5"> 
+      <div className="flex justify-between md:m-5 my-14 text-mainBlue"> 
         <div className="text-3xl font-bold">Products</div>
         <div> 
           <button onClick={ShowAddProductModelHandler} className="hover:bg-blue-500 bg-blue-700 text-white font-bold py-2 px-4 rounded">

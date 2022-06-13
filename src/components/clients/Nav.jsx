@@ -206,7 +206,7 @@ export default function Nav(props) {
             </div>
           </div>
         </nav>
-        {navProfile && <DropdownProfile onClickLogout={logoutHandler} />}
+        {navProfile && <DropdownProfile className="md:right-48 right-8 md:top-32 top-12 z-50" onClickLogout={logoutHandler} />}
         <Navigation categorySelected={props.category} active={props.active} />
       </div>
       {/* mobile screen nav */}
@@ -272,7 +272,7 @@ export default function Nav(props) {
               )}
             </div>
           </div>
-          {navProfile && <DropdownProfile onClickLogout={logoutHandler} />}
+          {navProfile && <DropdownProfile className = "md:right-48 right-5 md:top-32 top-12 z-50w" onClickLogout={logoutHandler} />}
         </div>
         <div className="flex justify-between px-3 py-2">
           <div className="flex items-center w-12">

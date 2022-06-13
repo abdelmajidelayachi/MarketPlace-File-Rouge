@@ -21,11 +21,11 @@ function OrdersTab() {
   return (
     <Wrapper>
       {/* {productDeleted && <MessageModal title="Product Deleted" message="Product Deleted Successfully" onClick={() => setProductDeleted(false)}/>} */}
-      <div className="flex justify-between m-5"> 
+      <div className="flex justify-between md:m-5 my-14 text-mainBlue"> 
         <div className="text-3xl font-bold">Orders</div>
 
       </div>
-      <div className="relative overflow-x-auto min-h-full shadow-md sm:rounded-lg">
+      <div className="relative overflow-x-auto min-h-full shadow sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>

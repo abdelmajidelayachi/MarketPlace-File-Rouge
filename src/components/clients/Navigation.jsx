@@ -41,7 +41,9 @@ function Navigation(props) {
           <li>
             <Link
               to="/dashboard"
-              className={`block py-2 pr-4 pl-3 rounded md:bg-transparent hover:text-blue-700 md:p-0 `}
+              className={`block py-2 pr-4 pl-3 rounded md:bg-transparent  ${
+                props.active === "add" ? "text-blue-700 " : " text-gray-700 "
+              } hover:text-blue-700 md:p-0 `}
             >
               Dashboard
             </Link>
@@ -50,7 +52,9 @@ function Navigation(props) {
           <li>
             <Link
               to="/add-your-own-shop"
-              className={`block py-2 pr-4 pl-3  rounded md:bg-transparent hover:text-blue-700 md:p-0 `}
+              className={`block py-2 pr-4 pl-3  rounded md:bg-transparent  ${
+                props.active === "add" ? "text-blue-700 " : " text-gray-700 "
+              } hover:text-blue-700 md:p-0 `}
             >
               Add Shop
             </Link>
