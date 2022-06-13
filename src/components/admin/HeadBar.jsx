@@ -4,17 +4,17 @@ import logo from "../../assets/images/logo/logoMshop.png";
 
 function HeadBar() {
   return (
-    <div className="flex flex-wrap items-center">
+    <div className="flex flex-wrap items-center justify-between">
       <div className="flex flex-shrink md:w-1/3 justify-center md:justify-start text-gray-900">
         <Link
-          className="text-sm font-bold leading-relaxed inline-block mr-4 w-32  whitespace-nowrap uppercase bg-white ml-3 px-1 mt-2 text-gray-900"
+          className="text-sm font-bold leading-relaxed inline-block mr-4 w-32  whitespace-nowrap uppercase  ml-3 px-1 mt-2 text-gray-900"
           to="/"
         >
           <img src={logo} className="object-cover " alt="MShop" />
         </Link>
       </div>
 
-      <div className="flex md:w-1/3 justify-center md:justify-start text-white px-2">
+      {/* <div className="flex md:w-1/3 justify-center md:justify-start  px-2">
         <span className="relative w-full flex">
           <input
             type="search"
@@ -32,13 +32,13 @@ function HeadBar() {
             </svg>
           </div>
         </span>
-      </div>
+      </div> */}
 
-      <div className="flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end">
+      <div className="flex w-full pt-2 content-center justify-between  md:w-1/3 md:justify-end">
         <ul className="list-reset flex justify-between flex-1 md:flex-none items-center">
           <li className="flex-1 md:flex-none md:mr-3">
             <a
-              className="inline-block py-2 px-4 text-white no-underline"
+              className="inline-block py-2 px-4  no-underline"
               href="/"
             >
               Active
@@ -46,7 +46,7 @@ function HeadBar() {
           </li>
           <li className="flex-1 md:flex-none md:mr-3">
             <a
-              className="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
+              className="inline-block text-gray-800 no-underline hover:text-gray-900 hover:text-underline py-2 px-4"
               href="/"
             >
               link
@@ -54,7 +54,7 @@ function HeadBar() {
           </li>
           <li className="flex-1 md:flex-none md:mr-3">
             <div className="relative inline-block">
-              <button className="drop-button text-white py-2 px-2">
+              <button className="drop-button  py-2 px-2">
                 {" "}
                 <span className="pr-2">
                   <i className="em em-robot_face"></i>
@@ -63,7 +63,7 @@ function HeadBar() {
               </button>
               <div
                 id="myDropdown"
-                className="dropdownlist absolute bg-mainBlue text-white right-0 mt-3 p-3 overflow-auto z-30 invisible"
+                className="dropdownlist absolute bg-mainBlue  right-0 mt-3 p-3 overflow-auto z-30 invisible"
               >
                 <input
                   type="text"
@@ -73,20 +73,20 @@ function HeadBar() {
                 />
                 <a
                   href="/"
-                  className="p-2 hover:bg-mainBlue text-white text-sm no-underline hover:no-underline block"
+                  className="p-2 hover:bg-mainBlue  text-sm no-underline hover:no-underline block"
                 >
                   <i className="fa fa-user fa-fw"></i> Profile
                 </a>
                 <a
                   href="/"
-                  className="p-2 hover:bg-mainBlue text-white text-sm no-underline hover:no-underline block"
+                  className="p-2 hover:bg-mainBlue  text-sm no-underline hover:no-underline block"
                 >
                   <i className="fa fa-cog fa-fw"></i> Settings
                 </a>
                 <div className="border border-mainbg-mainBlue"></div>
                 <a
                   href="/"
-                  className="p-2 hover:bg-mainBlue text-white text-sm no-underline hover:no-underline block"
+                  className="p-2 hover:bg-mainBlue  text-sm no-underline hover:no-underline block"
                 >
                   <i className="fas fa-sign-out-alt fa-fw"></i> Log Out
                 </a>

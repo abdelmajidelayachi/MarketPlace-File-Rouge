@@ -184,4 +184,12 @@ class User extends DB
     $account->execute();
     return true;
   }
+
+  public function change_role_to_seller($id)
+  {
+    $account = $this->conn->prepare('UPDATE `' . $this->table . '` SET role= "seller" WHERE id=:id');
+    $account->bindParam(':id', $id);
+    $account->execute();
+    return true;
+  }
 }

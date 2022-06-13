@@ -8,7 +8,7 @@ import Loader from "../../components/UI/Loader";
 import Wrapper from "../../components/UI/Wrapper";
 import Footer from "../../layouts/Footer";
 
-function New() {
+function TopSeller() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const searchTerm = useSelector(state=>state.search) 
@@ -16,7 +16,6 @@ function New() {
 
   useEffect(() => {
     setLoading(true);
-    // console.log(searchTerm)
     axios
       .get(
         "http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/get_new_products"
@@ -42,7 +41,7 @@ function New() {
             <div className="flex flex-wrap justify-center lg:-m-4 md:mx-8 mx-6 gap-5">
               {products.map((product, index) => (
                 <Div key={index}>
-                  <ProductCardNew  product = {product}/>
+                  <ProductCardNew className=" lg:w-width_22 md:w-width-30 sm:w-width-45  p-3 w-full "  product = {product}/>
                 </Div>
                 ))}
             </div>
@@ -66,4 +65,4 @@ function New() {
   );
 }
 
-export default New;
+export default TopSeller;

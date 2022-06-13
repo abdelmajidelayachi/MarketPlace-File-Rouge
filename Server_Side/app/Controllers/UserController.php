@@ -160,4 +160,21 @@ class UserController
     }
   }
 
+  public function add_store()
+  {
+    $id = $_POST['id'];
+    $user = new User();
+    if($user->change_role_to_seller($id))
+    {
+      $user = $user->getUserInfo($id);
+      $json = json_encode(['success'=>true,'message'=>'success','user'=>$user]);
+      echo $json;
+      return;
+  }else{
+    $json = json_encode(['success'=>false,'message'=>'error']);
+    echo $json;
+    return;
+  }
+}
+
 }

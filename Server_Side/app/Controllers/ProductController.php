@@ -192,5 +192,7 @@ class ProductController
     echo $json;
     return;
   }
+
+  
 }
   

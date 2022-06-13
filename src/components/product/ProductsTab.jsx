@@ -25,15 +25,16 @@ function ProductsTab() {
     console.log(id);
     axios.delete(`http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/delete_product/${id}`)
     .then(res => {
-      console.log(res);
+      // console.log(res);
       if(res.status=== 200){
         setProductDeleted(true);
       }
-      // setProductDeleted(true);
+      setProductDeleted(true);
   })}
+
   useEffect( () => {
      axios.get(`http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/get_products/${JSON.parse(localStorage.getItem('user')).id}`).then(res => {  
-    setProducts(res.data);
+    setProducts(res.data.products);
     console.log(res.data);
   })}, [addProductModal,productDeleted,showEditModel]);
   
@@ -81,7 +82,44 @@ function ProductsTab() {
             </tr>
           </thead>
           <tbody>
-            {products.map(product => (
+            {/* {console.log(products)} */}
+            {/* {products.map(product => (
+              <tr key={product.id}>
+                <td className="px-6 py-4">
+                  <div className="text-sm">{product.product_name}</div>
+                </td>
+                <td className="px-6 py-4">
+                  <div className="text-sm">{product.category.name}</div>
+                </td>
+                <td className="px-6 py-4">
+                  <div className="text-sm">{product.price}</div>
+                </td>
+                <td className="px-6 py-4">
+                  <div className="text-sm">{product.quantity}</div>
+                </td>
+                <td className="px-6 py-4">
+                  <div className="text-sm">on</div>
+                </td>
+                <td className="px-6 py-4">
+                  <div className="text-sm">
+                    <FontAwesomeIcon icon={faEye} />
+                  </div>
+                </td>
+                <td className="px-6 py-4">
+                  <div className="text-sm">
+                    <FontAwesomeIcon icon={faPenToSquare} />
+                  </div>
+                </td>
+                <td className="px-6 py-4">
+                  <div className="text-sm">
+                    <FontAwesomeIcon icon={faTrashCan} onClick={() => deleteProductHandler(product.id)} />
+                  </div>
+                </td>
+              </tr>
+            ))} */}
+            {products
+            &&
+            products.map(product => (
                 <tr className="border-b odd:bg-white even:bg-gray-50" key={product.id} >
                 <th
                   scope="row"
@@ -89,7 +127,7 @@ function ProductsTab() {
                 >
                  {product.product_name}
                 </th>
-                <td className="px-6 py-4">{product.category_id}</td>
+                <td className="px-6 py-4 font-semibold">{product.category.name}</td>
                 <td className="px-6 py-4">{product.price}</td>
                 <td className="px-6 py-4">{product.quantity}</td>
                 <td className="px-4 py-4">
