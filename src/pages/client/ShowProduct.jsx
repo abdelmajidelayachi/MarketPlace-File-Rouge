@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Nav from "../../components/clients/Nav";
 import Wrapper from "../../components/UI/Wrapper";
 import Footer from "../../layouts/Footer";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 
@@ -11,11 +11,6 @@ const ShowProduct = () => {
   const [click, setClick] = useState(1);
   const [errorInput, setErrorInput] = useState(false);
   const [product, setProduct] = useState([]);
-  const [numberOfAvailableProducts, setNumberOfAvailableProducts] =
-    useState(20);
-  const [storedProducts, setStoredProducts] = useState(
-    JSON.parse(localStorage.getItem("cartItems"))
-  );
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

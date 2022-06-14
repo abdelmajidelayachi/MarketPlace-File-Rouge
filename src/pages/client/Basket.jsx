@@ -5,7 +5,7 @@ import Footer from "../../layouts/Footer";
 import { MdOutlineCancel } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
-import MessageModal from "../../components/UI/MessageModal";
+import MessageModal from "../../components/Modals/MessageModal";
 import { Link } from "react-router-dom";
 import CheckoutNav from "../../components/clients/CheckoutNav";
 import ErrorInput from "../../components/UI/ErrorInput";

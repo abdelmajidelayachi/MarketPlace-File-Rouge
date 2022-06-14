@@ -1,12 +1,12 @@
 import React from "react";
-import Card from "./Card";
-import Wrapper from "./Wrapper";
+import Card from "../UI/Card";
+import Wrapper from "../UI/Wrapper";
 
 function MessageModal(props) {
   //fixed top-0 left-0 w-full h-screen z-10
   return (
     <Wrapper>
-      <div onClick={props.onClick} className="fixed top-0 left-0 w-full h-screen z-10 bg-dropdown" />
+      <div onClick={props.onClick} className="fixed top-0 left-0 w-full h-screen z-20 bg-dropdown opacity-50" />
       <Card className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 md:w-1/4 w-full overflow-hidden">
         <header className={`p-4 ${props.className}`}>
           <h2 className={`font-bold text-2xl ${props.className}`}>

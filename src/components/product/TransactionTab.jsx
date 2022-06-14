@@ -4,7 +4,7 @@ import {useState,useEffect} from "react";
 import axios from "axios";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import MessageModal from '../UI/MessageModal';
+import MessageModal from '../Modals/MessageModal';
 
 function TransactionTab() {
   const [orders, setOrders] = useState([]);

@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo/logo.jpg";
 import ErrorInput from "../../components/UI/ErrorInput";
-import MessageModal from "../../components/UI/MessageModal";
+import MessageModal from "../../components/Modals/MessageModal";
 
 function Register() {
   // useState for error message

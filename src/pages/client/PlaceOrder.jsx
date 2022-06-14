@@ -8,7 +8,7 @@ import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FormAddress from "../../components/clients/placeOrder/FormAddress";
-import MessageModal from "../../components/UI/MessageModal";
+import MessageModal from "../../components/Modals/MessageModal";
 
 const CheckOut = () => {
   const products = useSelector((state) => state.cartItems);

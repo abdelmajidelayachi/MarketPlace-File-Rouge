@@ -3,7 +3,7 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import "./PaymentForm.css";
-import MessageModal from "../../UI/MessageModal";
+import MessageModal from "../../Modals/MessageModal";
 import Loader from "../../UI/Loader";
 import { useNavigate } from "react-router-dom";
 

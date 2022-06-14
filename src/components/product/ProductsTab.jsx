@@ -5,7 +5,8 @@ import {useState,useEffect} from "react";
 import axios from "axios";
 import {faPenToSquare,faEye,faTrashCan} from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import MessageModal from "../UI/MessageModal";
+import MessageModal from "../Modals/MessageModal";
+import DetailsProductModal from "../Modals/DetailsProductModal";
 
 function ProductsTab() {
   const [addProductModal, setAddProductModal] = React.useState(false);
@@ -22,10 +23,8 @@ function ProductsTab() {
   }
 
   const deleteProductHandler = (id) => {
-    console.log(id);
     axios.delete(`http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/delete_product/${id}`)
     .then(res => {
-      // console.log(res);
       if(res.status=== 200){
         setProductDeleted(true);
       }
@@ -35,7 +34,7 @@ function ProductsTab() {
   useEffect( () => {
      axios.get(`http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/get_products/${JSON.parse(localStorage.getItem('user')).id}`).then(res => {  
     setProducts(res.data.products);
-    console.log(res.data);
+    // console.log(res.data);
   })}, [addProductModal,productDeleted,showEditModel]);
   
   return (
@@ -82,41 +81,6 @@ function ProductsTab() {
             </tr>
           </thead>
           <tbody>
-            {/* {console.log(products)} */}
-            {/* {products.map(product => (
-              <tr key={product.id}>
-                <td className="px-6 py-4">
-                  <div className="text-sm">{product.product_name}</div>
-                </td>
-                <td className="px-6 py-4">
-                  <div className="text-sm">{product.category.name}</div>
-                </td>
-                <td className="px-6 py-4">
-                  <div className="text-sm">{product.price}</div>
-                </td>
-                <td className="px-6 py-4">
-                  <div className="text-sm">{product.quantity}</div>
-                </td>
-                <td className="px-6 py-4">
-                  <div className="text-sm">on</div>
-                </td>
-                <td className="px-6 py-4">
-                  <div className="text-sm">
-                    <FontAwesomeIcon icon={faEye} />
-                  </div>
-                </td>
-                <td className="px-6 py-4">
-                  <div className="text-sm">
-                    <FontAwesomeIcon icon={faPenToSquare} />
-                  </div>
-                </td>
-                <td className="px-6 py-4">
-                  <div className="text-sm">
-                    <FontAwesomeIcon icon={faTrashCan} onClick={() => deleteProductHandler(product.id)} />
-                  </div>
-                </td>
-              </tr>
-            ))} */}
             {products
             &&
             products.map(product => (
@@ -135,7 +99,7 @@ function ProductsTab() {
                 </td>
                 <td className="px-1 py-4">
                   <span onClick={()=>setShowProduct(product.id)} className="px-5 py-2 rounded-full cursor-pointer text-mainBlue"><FontAwesomeIcon size="xl" icon={faEye}/></span>
-                  {showProduct===product.id && <MessageModal product={product.product_name} message={product.id} title='Edit Product' onClick={()=>setShowProduct(false)}/>}
+                  {showProduct===product.id && <DetailsProductModal  product={product} title='Product details' onClick={()=>setShowProduct(false)}/>}
                 </td>
 
                 <td className="px-1 py-4">

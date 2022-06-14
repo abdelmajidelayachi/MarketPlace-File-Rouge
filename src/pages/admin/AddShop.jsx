@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Nav from "../../components/clients/Nav";
-import MessageModal from "../../components/UI/MessageModal";
+import MessageModal from "../../components/Modals/MessageModal";
 import Wrapper from "../../components/UI/Wrapper";
 import Footer from "../../layouts/Footer";
 import swal from 'sweetalert';
