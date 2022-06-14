@@ -8,9 +8,11 @@ import { useSelector, useDispatch } from "react-redux";
 import MessageModal from "../../components/UI/MessageModal";
 import { Link } from "react-router-dom";
 import CheckoutNav from "../../components/clients/CheckoutNav";
+import ErrorInput from "../../components/UI/ErrorInput";
 
 function Basket() {
   const [errorInput, setErrorInput] = useState(false);
+
   const [products, setProducts] = useState(
     JSON.parse(localStorage.getItem("cartItems"))
   );
@@ -30,14 +32,14 @@ function Basket() {
 
   return (
     <Wrapper className="">
-      {errorInput && (
+      {/* {errorInput && (
         <MessageModal
           className="bg-red-500"
           onClick={() => setErrorInput(false)}
           message="Number of items must be less than or equal to 20"
           title="ERROR OF NUMBER OF PRODUCT"
         />
-      )}
+      )} */}
       <div className="max-w-screen-xl m-auto">
         <Nav />
         <CheckoutNav active="card" />
@@ -69,9 +71,10 @@ function Basket() {
               Delete
             </div>
           </div>
+         
 
           {products &&
-            products.map((product) => 
+            products.map((product,index) => 
                 
                   <div key={product.product.id}
                   className="w-full flex md:flex-row flex-col my-5 py-2 border-b border-gray-300 mobile_card">
@@ -98,14 +101,15 @@ function Basket() {
                       <div className="flex  rounded-sm h-7 w-24">
                         <button
                           onClick={() => {
-                            if (product.quantity < 20 && product.quantity > product.product.quantity) {
+                            console.log(product.product.quantity, product.quantity);
+                            if (product.quantity < 20 && product.quantity < product.product.quantity) {
                               dispatch({
                                 type: "INCREMENT_FROM_CART",
                                 payload: product.product.id,
                               });
                               setErrorInput(false);
                             } else {
-                              setErrorInput(true);
+                              setErrorInput(index);
                             }
                           }}
                           className="w-7 h-7 flex items-center justify-center border-2 border-gray-500 rounded-full font-extrabold"
@@ -134,7 +138,10 @@ function Basket() {
                           -
                         </button>
                       </div>
+                      {(errorInput===index) && (
+                        <p className="text-red-500 text-sm font-semibold text-center">{product.quantity} is max of items on store</p>)}
                     </div>
+                   
                     <div className="text-lg md:w-2/12 w-full font-normal md:flex hidden  items-center justify-center ">
                           {product.product.price}
                         </div>
@@ -154,7 +161,7 @@ function Basket() {
                                 });
                                 setErrorInput(false);
                               } else {
-                                setErrorInput(true);
+                                setErrorInput(index);
                               }
                             }}
                             className="w-7 h-7 flex items-center justify-center border-2 border-gray-500 rounded-full font-extrabold"

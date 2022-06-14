@@ -3,7 +3,6 @@ import {createStore} from 'redux';
 const cartReducer=(state={cartItems:[],countItems:0,login:'false', category: "all",search:""},action)=>{
 
     if(action.type==='ADD_TO_CART'){
-      console.log(state.cartItems);
         const newCartItems=state.cartItems.concat(action.payload);
         const newCountItems=state.countItems+1;
         // console.log(newCountItems);

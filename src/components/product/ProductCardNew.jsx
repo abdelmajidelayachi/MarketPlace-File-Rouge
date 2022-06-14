@@ -26,7 +26,7 @@ const ProductCardNew = (props) => {
           <Link to={`/show-product/${linkProduct}`} ><h2 className="text-gray-900 title-font text-lg font-semibold hover:text-mainBlue">
             {props.product.product_name}
           </h2></Link>
-          <p className="text-sm font-semibold mt-2.5 h-14">{props.product.name}</p>
+          <p className="text-sm font-semibold mt-2.5 h-8">{props.product.name}</p>
           <div className="flex items-center my-2.5">
             <svg
               className="w-5 h-5 text-yellow-300"

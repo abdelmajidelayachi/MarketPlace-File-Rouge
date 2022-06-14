@@ -3,59 +3,62 @@ import React, { useEffect, useState } from "react";
 import Nav from "../../components/clients/Nav";
 import Wrapper from "../../components/UI/Wrapper";
 import Footer from "../../layouts/Footer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
 const ShowProduct = () => {
   const [click, setClick] = useState(1);
   const [errorInput, setErrorInput] = useState(false);
   const [product, setProduct] = useState([]);
-  
+  const [numberOfAvailableProducts, setNumberOfAvailableProducts] =
+    useState(20);
+  const [storedProducts, setStoredProducts] = useState(
+    JSON.parse(localStorage.getItem("cartItems"))
+  );
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const getProductRequest = async (id) => {
-    const {data} = await axios
-    .get(
+    const { data } = await axios.get(
       `http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/get_Product/${id}`
     );
     setProduct(data);
-    }
+  };
 
-  
   useEffect(() => {
     const product_id_path = window.location.href.split("-").pop();
     getProductRequest(product_id_path);
   }, []);
 
   const AddToCartHandler = (items, numberOfItems) => {
-    const storedProducts = JSON.parse(localStorage.getItem("cartItems"));
     let productExistStatus = false;
-    storedProducts.forEach((item) => {
+    const storedProduct = JSON.parse(localStorage.getItem("cartItems"));
+    storedProduct.forEach((item) => {
       if (item.product.id === items.id) {
         productExistStatus = true;
       } else {
         productExistStatus = false;
       }
     });
+
+    console.log(productExistStatus);
+
     if (!productExistStatus) {
       dispatch({
         type: "ADD_TO_CART",
         payload: { product: items, quantity: numberOfItems },
       });
     } else {
-      dispatch({
-        type: "MODIFY_CART_ITEM",
-        payload: { id: items.id, quantity: numberOfItems },
-      });
+      swal("Warning", "Check Cart For choose quantity", "warning");
     }
   };
 
-  const buyProductHandler =(items, numberOfItems)=>{
+  const buyProductHandler = (items, numberOfItems) => {
     AddToCartHandler(items, numberOfItems);
-    navigate("/card")
-    
-  }
+    navigate("/card");
+  };
   return (
     <Wrapper className="">
       <div className="max-w-screen-xl m-auto ">
@@ -110,7 +113,9 @@ const ShowProduct = () => {
           </div>
         </div>
         <div className="md:mt-3 ">
-          <h1 className="text-2xl flex justify-start font-semibold">{product.product_name}</h1>
+          <h1 className="text-2xl flex justify-start font-semibold">
+            {product.product_name}
+          </h1>
           <div className="text-gray-500 text-xs font-medium mt-1 text-wrap">
             {product.description}
           </div>
@@ -206,30 +211,26 @@ const ShowProduct = () => {
               <button
                 onClick={() => {
                   click + 1 < 1 ? setErrorInput(true) : setErrorInput(false);
-                  click + 1 > 20 || click+1> product.quantity ? setErrorInput(true) : setErrorInput(false);
-                  setClick(click + 1 > 20 ? 20 : click + 1);
+                  if (product.quantity <= click + 1) {
+                    setErrorInput(product.quantity);
+                    setClick(product.quantity);
+                  }else 
+                  if( click + 1 >= 20 ){
+                    setErrorInput(20);
+                    setClick(20);
+                  }
+                  else {
+                    setErrorInput(false);
+                    setClick( click + 1);
+                  }
                 }}
                 className="px-2.5 h-full font-extrabold"
               >
                 +
               </button>
-              <input
-                type="text"
-                step={1}
-                min={1}
-                max={20}
-                value={click}
-                onChange={(e) => {
-                  e.target.value > 0
-                    ? setErrorInput(false)
-                    : setErrorInput(true);
-                  e.target.value > 20
-                    ? setErrorInput(true)
-                    : setErrorInput(false);
-                  setClick(e.target.value);
-                }}
-                className="appearance-none px-1.5 h-full w-10 px-auto mb-1 border-x-2 border-gray-500 focus:outline-none"
-              />
+              <p className="appearance-none px-1.5 h-full w-14 px-auto mb-1 border-x-2 border-gray-500 focus:outline-none">
+                {click}
+              </p>
               <button
                 onClick={() => {
                   click - 1 < 1 ? setErrorInput(true) : setErrorInput(false);
@@ -244,21 +245,32 @@ const ShowProduct = () => {
           </div>
           {errorInput && (
             <p className="text-red-500 italic text-sm">
-              Number of Item must be positive and less then 20
+              Number of available items is {errorInput}
             </p>
           )}
           <div className="flex gap-10 my-10">
             <div className="text-gray-500 text-2sm font-normal">
               <p>
                 Seller :{" "}
-                {product.length!==0&&<Link to={`/store/${product.owner.first_name}-${product.owner.id}-${product.owner.last_name}`} className="underline text-mainBlue">{product.length !== 0 &&product.owner.first_name+''+product.owner.last_name}</Link>}
+                {product.length !== 0 && (
+                  <Link
+                    to={`/store/${product.owner.first_name}-${product.owner.id}-${product.owner.last_name}`}
+                    className="underline text-mainBlue"
+                  >
+                    {product.length !== 0 &&
+                      product.owner.first_name + "" + product.owner.last_name}
+                  </Link>
+                )}
               </p>
             </div>
             <div></div>
           </div>
 
           <div className="flex gap-5">
-            <button onClick={()=>buyProductHandler(product,click)} className="px-10 py-2.5 text-firstColor font-bold bg-buttonColor border-2 border-firstColor rounded-2">
+            <button
+              onClick={() => buyProductHandler(product, click)}
+              className="px-10 py-2.5 text-firstColor font-bold bg-buttonColor border-2 border-firstColor rounded-2"
+            >
               Buy Now
             </button>
             <button
