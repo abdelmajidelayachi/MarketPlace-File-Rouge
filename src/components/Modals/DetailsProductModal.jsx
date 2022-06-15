@@ -35,7 +35,7 @@ function DetailsProductModal(props) {
                 <h3>{props.product.productName} </h3>
               </div>
               <div className="flex text-xs capitalize text-gray-900 font-semibold gap-5">
-                <h3 className={`px-3 py-1 rounded-full ${props.product.status?"bg-green-600 text-gray-50":"bg-red-600 text-gray-50"}`}>{props.product.status?"In Stock":"Out of Stock"} </h3>
+                <h3 className={`px-3 py-1 rounded-full ${props.product.quantity>0?"bg-green-600 text-gray-50":"bg-red-600 text-gray-50"}`}>{props.product.quantity>0?"In Stock":"Out of Stock"} </h3>
                 <h3 className={`px-3 py-1 border border-gray-400 rounded-sm `}>{props.product.quantity} </h3>
                 
               </div>

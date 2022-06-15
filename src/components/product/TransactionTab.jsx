@@ -5,16 +5,17 @@ import axios from "axios";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MessageModal from '../Modals/MessageModal';
+import DetailsProductModal from "../Modals/DetailsProductModal";
 
 function TransactionTab() {
-  const [orders, setOrders] = useState([]);
+  const [transactions, setTransactions] = useState([]);
   const [showOrders,setShowOrders]= useState(false);
 
 
 
   useEffect( () => {
-     axios.get(`http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/order/get_orders/${JSON.parse(localStorage.getItem('user')).id}`).then(res => {  
-    setOrders(res.data);
+     axios.get(`http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/transaction/getTransaction//${JSON.parse(localStorage.getItem('user')).id}`).then(res => {  
+      setTransactions(res.data);
     console.log(res.data);
   })}, []);
   
@@ -30,17 +31,17 @@ function TransactionTab() {
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>
               <th scope="col" className="px-6 py-3">
-                  Order_id
+                  transaction_id
               </th>
     
               <th scope="col" className="px-6 py-3">
-                User
+                Buyer
               </th>
               <th scope="col" className="px-6 py-3">
-                Address
+                Amount
               </th>
               <th scope="col" className="px-6 py-3">
-                city/country
+                Amount For Store
               </th>
               <th scope="col" className="px-6 py-3">
                 status
@@ -52,23 +53,40 @@ function TransactionTab() {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order,index) => (
+            {transactions.map((transaction,index) => (
                 <tr className="border-b odd:bg-white even:bg-gray-50" key={index} >
                 <th
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                 >
-                 {order.order_id}
+                 {transaction.transaction_id}
                 </th>
-                <td className="px-6 py-4">{order.first_name +" "+order.last_name }</td>
-                <td className="px-6 py-4">{order.address}</td>
-                <td className="px-6 py-4">{order.city +','+order.country}</td>
+                <td className="px-6 py-4">{transaction.first_name +" "+transaction.last_name }</td>
+                <td className="px-6 py-4">${transaction.amount}</td>
+                <td className="px-6 py-4">${transaction.store_amount}</td>
                 <td className="px-4 py-4">
-                  <span className="px-5 py-2 bg-green-200 rounded-full text-green-600">passed</span>
+                  <span className="px-5 py-2 bg-green-200 rounded-full text-green-600">Confirmed</span>
                 </td>
                 <td className="px-1 py-4">
-                  <span onClick={()=>setShowOrders(order.id)} className="px-5 py-2 rounded-full cursor-pointer text-mainBlue"><FontAwesomeIcon size="xl" icon={faEye}/></span>
-                  {showOrders===order.id && <MessageModal product={order.id} message={order.images[0].path} title='Show ordered products' onClick={()=>setShowOrders(false)}/>}
+                  <span onClick={()=>setShowOrders(transaction.id)} className="px-5 py-2 rounded-full cursor-pointer text-mainBlue"><FontAwesomeIcon size="xl" icon={faEye}/></span>
+                  {showOrders === transaction.id && (
+                    <DetailsProductModal
+                    product={{
+                      productName:transaction.product_name,
+                      categoryName:transaction.category.name,
+                      image : transaction.images[0].path,
+                      status:transaction.status,
+                      quantity : transaction.quantity_ordered_products,
+                      description : transaction.description,
+                      price : transaction.price,
+  
+                    } 
+                    }
+                      
+                      title="Show ordered products"
+                      onClick={() => setShowOrders(false)}
+                    />
+                  )}
                   
                 </td>
               </tr>

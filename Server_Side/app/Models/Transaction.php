@@ -46,6 +46,16 @@ class Transaction extends DB
 
   }
 
+  public function get_order_transactions($id)
+  {
+    $sql = "SELECT * FROM `product_orders` INNER JOIN `users` ON product_orders.owner_id = users.id INNER JOIN `products`ON product_orders.product_id = products.id INNER JOIN `transactions`ON product_orders.transaction_id = transactions.id  WHERE product_orders.user_id = :id";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':id',$id);
+    $stmt->execute();
+    return $stmt->fetchAll();
+
+  }
+
 
 
 }
