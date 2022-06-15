@@ -49,7 +49,7 @@ class ProductController
     $product = new Product();
     $product = $product->getUserProducts($id);
     foreach ($product as $key => $value) {
-      $products['products'][$key]= $value;
+      $products['products'][$key] = $value;
       $product_images = new Product_images();
       $images = $product_images->get_product_images($value['id']);
       $products['products'][$key]['images'] = $images;
@@ -62,7 +62,6 @@ class ProductController
     $json = json_encode($products);
     echo $json;
     return;
-
   }
   public function get_products_by_category($id)
   {
@@ -78,7 +77,6 @@ class ProductController
     $json = json_encode($products);
     echo $json;
     return;
-
   }
   public function create_product()
   {
@@ -98,40 +96,35 @@ class ProductController
     $product = new Product();
     $result = $product->insert_Product($data);
     $image = new Product_images();
-    if($result['status'] == true){
-      $image->insert_image(['product_id'=>$result['id']['id'], 'path'=>$filename]);
+    if ($result['status'] == true) {
+      $image->insert_image(['product_id' => $result['id']['id'], 'path' => $filename]);
       move_uploaded_file($tempname, $folder);
-      $json = json_encode(['message'=>['success'=>'Product created successfully']]);
+      $json = json_encode(['message' => ['success' => 'Product created successfully']]);
       echo $json;
       return;
-      
+    } else {
+      echo json_encode(['error' => 'ERROR img']);
+      return;
     }
-    else{
-        echo json_encode(['error'=>'ERROR img']);
-        return;
-    }
-
-    
-    
   }
   //
-    public function get_product_search($search)
-    {
-      $product = new Product();
-      $products = $product->search_product($search);
-      foreach ($products as $key => $value) {
-        $product_images = new Product_images();
-        $images = $product_images->get_product_images($value['id']);
-        $products[$key]['images'] = $images;
-        $category = new Category();
-        $products[$key]['category'] = $category->select_category($value['category_id']);
-      }
-      $json = json_encode($products);
-      echo $json;
-      return;
+  public function get_product_search($search)
+  {
+    $product = new Product();
+    $products = $product->search_product($search);
+    foreach ($products as $key => $value) {
+      $product_images = new Product_images();
+      $images = $product_images->get_product_images($value['id']);
+      $products[$key]['images'] = $images;
+      $category = new Category();
+      $products[$key]['category'] = $category->select_category($value['category_id']);
     }
+    $json = json_encode($products);
+    echo $json;
+    return;
+  }
 
- // category 
+  // category 
 
   public function get_categories()
   {
@@ -179,7 +172,6 @@ class ProductController
     ]);
     echo $json;
     return;
-
   }
   public function delete_product($id)
   {
@@ -192,7 +184,4 @@ class ProductController
     echo $json;
     return;
   }
-
-  
 }
-  

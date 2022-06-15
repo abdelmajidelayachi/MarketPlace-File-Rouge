@@ -22,21 +22,21 @@ function DetailsProductModal(props) {
               <img
                 className="object-cover object-center mx-auto h-full block"
                 src={`${require("../../assets/images/uploads/" +
-                  props.product.images[0].path)}`}
+                  props.product.image)}`}
                 alt="product"
               />
             </div>
           
             <div className="flex flex-col md:pl-9 gap-3">
               <div className="flex text-base capitalize text-gray-700 ">
-                <h3>{props.product.category.name} </h3>
+                <h3>{props.product.categoryName} </h3>
               </div>
               <div className="flex text-2xl capitalize text-gray-900 font-semibold">
-                <h3>{props.product.product_name} </h3>
+                <h3>{props.product.productName} </h3>
               </div>
               <div className="flex text-xs capitalize text-gray-900 font-semibold gap-5">
                 <h3 className={`px-3 py-1 rounded-full ${props.product.status?"bg-green-600 text-gray-50":"bg-red-600 text-gray-50"}`}>{props.product.status?"In Stock":"Out of Stock"} </h3>
-                <h3 className={`px-3 py-1 border border-gray-400 rounded-sm ${props.product.status?"":"bg-red-600 text-gray-50"}`}>{props.product.quantity} </h3>
+                <h3 className={`px-3 py-1 border border-gray-400 rounded-sm `}>{props.product.quantity} </h3>
                 
               </div>
               <div className="flex  text-sm capitalize text-wrap text-gray-700 md:w-80">

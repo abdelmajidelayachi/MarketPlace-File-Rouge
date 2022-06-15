@@ -99,7 +99,18 @@ function ProductsTab() {
                 </td>
                 <td className="px-1 py-4">
                   <span onClick={()=>setShowProduct(product.id)} className="px-5 py-2 rounded-full cursor-pointer text-mainBlue"><FontAwesomeIcon size="xl" icon={faEye}/></span>
-                  {showProduct===product.id && <DetailsProductModal  product={product} title='Product details' onClick={()=>setShowProduct(false)}/>}
+                  {showProduct===product.id && <DetailsProductModal  
+                  product={{
+                    productName:product.product_name,
+                    categoryName:product.category.name,
+                    image : product.images[0].path,
+                    status:product.status,
+                    quantity : product.quantity,
+                    description : product.description,
+                    price : product.price,
+
+                  } 
+                  } title='Product details' onClick={()=>setShowProduct(false)}/>}
                 </td>
 
                 <td className="px-1 py-4">
