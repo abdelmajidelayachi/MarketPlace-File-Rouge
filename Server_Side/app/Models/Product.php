@@ -145,5 +145,16 @@ class Product extends DB
     echo 'update prod';
     return;
   }
+
+  // count all products for seller
+  public function count_All_products($id)
+  {
+    $sql = "SELECT SUM(quantity) FROM $this->table WHERE owner_id = :id";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    $result = $stmt->fetch();
+    return $result;
+  }
   
 }

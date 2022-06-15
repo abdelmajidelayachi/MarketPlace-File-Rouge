@@ -51,6 +51,29 @@ class Order extends DB
 
   }
 
+  // count all orders of user
+  public function count_orders($id)
+  {
+    $sql = "SELECT SUM(quantity_ordered_products) FROM `product_orders` WHERE user_id = :id";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':id',$id);
+    $stmt->execute();
+    return $stmt->fetch();
+  }
+
+  // get quantity and created_at of order
+  public function get_orders_time($id)
+  {
+    //time zone
+    date_default_timezone_set('Africa/Casablanca');
+    $last_week = date('Y-m-d', strtotime('-7 days'));
+    $sql = "SELECT quantity_ordered_products,created_at FROM `product_orders` WHERE user_id = :id AND created_at > '$last_week'";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':id',$id);
+    $stmt->execute();
+    return $stmt->fetchAll();
+  }
+
   
   
 }

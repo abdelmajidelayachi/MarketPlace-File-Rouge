@@ -1,25 +1,24 @@
 import React from 'react'
 import { Pie } from "react-chartjs-2";
-const data = {
-  labels: [
-    'Red',
-    'Blue',
-    'Yellow'
-  ],
-  datasets: [{
-    label: 'My First Dataset',
-    data: [300, 50, 100],
-    backgroundColor: [
-      'rgb(255, 99, 132)',
-      'rgb(54, 162, 235)',
-      'rgb(255, 205, 86)'
+
+
+
+const DoughnutChart = (props) => {
+  const data = {
+    labels: [
+      'Bought Products',
+      'Still Products',
     ],
-    hoverOffset: 4
-  }]
-};
-
-
-const DoughnutChart = () => {
+    datasets: [{
+      label: 'My First Dataset',
+      data: [props.data.orders, props.data.products],
+      backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgba(58, 54, 219, 1)',
+      ],
+      hoverOffset: 4
+    }]
+  };
   return (
    <Pie data={data}/>
   )

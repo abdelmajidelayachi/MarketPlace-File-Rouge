@@ -24,4 +24,29 @@ class AnalyticController
     echo json_encode($data);
     return;
   }
+
+  public function get_chart_doughnuts($id)
+  {
+    $product = new Product();
+    $product = $product->count_All_products($id);
+    
+    $order = new Order();
+    $orders = $order->count_orders($id);
+    $data['data']['products']=$product['0'] + $orders['0'];
+    $data['data']['orders']=$orders['0'];
+    echo json_encode($data);
+    return;
+  }
+
+  public function get_chart_line($id)
+  {
+    $order = new Order();
+    $orders = $order->get_orders_time($id);
+    foreach ($orders as $key => $value) {
+      $orders[$key]['created_at'] = date('d', strtotime($value['created_at']));
+    }
+    echo json_encode($orders);
+    return;
+  }
+
 }
