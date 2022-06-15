@@ -92,7 +92,7 @@ function ProductsTab() {
                  {product.product_name}
                 </th>
                 <td className="px-6 py-4 font-semibold">{product.category.name}</td>
-                <td className="px-6 py-4">{product.price}</td>
+                <td className="px-6 py-4">${product.price}</td>
                 <td className="px-6 py-4">{product.quantity}</td>
                 <td className="px-4 py-4">
                   <span className="px-5 py-2 bg-green-200 rounded-full text-green-600">On</span>

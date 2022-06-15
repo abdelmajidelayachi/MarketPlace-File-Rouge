@@ -192,4 +192,9 @@ class User extends DB
     $account->execute();
     return true;
   }
+
+  //count user 
+  
+
+
 }

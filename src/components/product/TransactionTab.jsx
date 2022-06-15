@@ -4,7 +4,6 @@ import {useState,useEffect} from "react";
 import axios from "axios";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import MessageModal from '../Modals/MessageModal';
 import DetailsProductModal from "../Modals/DetailsProductModal";
 
 function TransactionTab() {
@@ -14,7 +13,7 @@ function TransactionTab() {
 
 
   useEffect( () => {
-     axios.get(`http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/transaction/getTransaction//${JSON.parse(localStorage.getItem('user')).id}`).then(res => {  
+     axios.get(`http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/transaction/getTransaction/${JSON.parse(localStorage.getItem('user')).id}`).then(res => {  
       setTransactions(res.data);
     console.log(res.data);
   })}, []);
