@@ -1,12 +1,26 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import React, { useState } from 'react'
 import {faSquarePollVertical} from '@fortawesome/free-solid-svg-icons'
 import {faBoxesStacked} from '@fortawesome/free-solid-svg-icons'
 import {faGear,faRightToBracket} from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 
 function AsideBar(props) {
+
+  const storedProducts = useDispatch();
+  const navigate = useNavigate();
+
+  const logoutHandler = ()=>{
+      localStorage.removeItem("user");
+      storedProducts({
+        type: "LOGIN_STATUS",
+        payload: false,
+      });
+      navigate("/");
+  }
+
   return (
     <>
          <div className="bg-gray-50 shadow-xl h-20 fixed bottom-0 mt-12 md:relative md:min-h-full z-10 w-full md:w-48 content-center">
@@ -56,27 +70,16 @@ function AsideBar(props) {
                       </span>
                     </Link>
                   </li>
-                  <li className="mr-3 flex-1">
-                    <Link 
-                      to="/dashboard/setting"
-                      className={`block py-1 md:py-3 pl-1 align-middle text-gray-800 no-underline ${props.active==="setting"? "border-mainBlue" :"pl-2" } derline hover:border-mainBlue`}
-                    >
-                      <FontAwesomeIcon size='lg' className={`${props.active==="setting"? "text-white" : "" }`} icon={faGear} />
-                      <span className="pb-1 md:pb-0 text-xs md:pl-2 md:text-base block md:inline-block">
-                        Setting
-                      </span>
-                    </Link>
-                  </li>
-                  <li className="mr-3 md:flex-1 md:block hidden">
-                    <Link
-                      to="/dashboard/"
+                 
+                  <li className="mr-3 md:flex-1">
+                    <button onClick={logoutHandler}
                       className="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-gray-800 no-underline hover:border-mainBlue"
                     >
                       <FontAwesomeIcon size='lg' className={`${props.active==="logout"? "text-white pl-2" : "pl-2" }`} icon={faRightToBracket} />
                       <span className="pb-1 md:pl-2 md:pb-0 text-xs md:text-base block md:inline-block">
                         Logout
                       </span>
-                    </Link>
+                    </button>
                   </li>
                 </ul>
               </div>

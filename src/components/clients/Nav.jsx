@@ -19,7 +19,7 @@ export default function Nav(props) {
   const [reload, setReload] = useState(false);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
   const [search, setSearch] = useState("");
-
+  
   const storedProducts = useDispatch();
 
   const navigate = useNavigate();
@@ -100,13 +100,6 @@ export default function Nav(props) {
               >
                 <img src={logo} className="object-cover " alt="MShop" />
               </Link>
-              {/* <button
-              className="text-gray-900 cursor-pointer text-xl leading-none px-3 p-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
-              type="button"
-              onClick={() => setNavbarOpen(!navbarOpen)}
-            >
-              <i className="fas fa-bars"></i>
-            </button> */}
             </div>
 
             <div

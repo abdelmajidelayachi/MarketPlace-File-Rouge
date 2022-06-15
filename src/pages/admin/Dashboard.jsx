@@ -30,8 +30,8 @@ function Dashboard() {
           <nav aria-label="alternative nav">
             <AsideBar active="dashboard" />
           </nav>
-          <section className="w-full">
-            <div className="main-content flex-1 bg-gray-100 mt-10 pt-8 md:mt-14 md:px-10  min-h-screen">
+          <section className="w-full ">
+            <div className="main-content flex-1 bg-gray-100 mt-10 pt-8 md:mt-14 md:px-10  min-h-screen pb-24">
               <div className="flex justify-between md:m-5 my-14 text-mainBlue">
                 <div className="text-3xl font-bold">Analytics</div>
               </div>

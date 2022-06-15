@@ -33,6 +33,9 @@ module.exports = {
         'width-30': '30%',
         'width-45': '45%',
       },
+      zIndex : {
+        'max':'999'
+      },
       
       theme: {
         screens: {

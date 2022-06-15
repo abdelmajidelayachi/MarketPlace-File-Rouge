@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 // import Axios for send request to server
 import axios from "axios";
 import LineChart from "../Chart/LineChart";
+import DoughnutChart from "../Chart/DoughnutChart";
 
 function Analytics() {
 
@@ -88,11 +89,16 @@ function Analytics() {
           </div>
           {/* <!--/Metric Card--> */}
         </div>
-        <div className="w-full md:w-1/2 flex justify-start">
+        <div className="w-full flex md:flex-row flex-col justify-between">
+          <div className="flex md:w-1/2 mx-3">
           <LineChart/>
+          </div>
+          <div className="flex md:w-1/2 mx-3">
+            <div className="w-72 mx-auto mt-7">
+            <DoughnutChart/>
+            </div>
+          </div>
         </div>
-   
-        
     </div>
   );
 }
