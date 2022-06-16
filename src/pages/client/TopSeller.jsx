@@ -18,7 +18,7 @@ function TopSeller() {
     setLoading(true);
     axios
       .get(
-        "http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/get_new_products"
+        "http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/get_top_products"
       )
       .then((res) => {
         setProducts(res.data);

@@ -3,14 +3,15 @@ import React, { useEffect, useState } from "react";
 import Wrapper from "../UI/Wrapper";
 import { Formik, Form, Field } from "formik";
 import { InputField } from "./InputField";
-  import * as Yup from "yup";
+import * as Yup from "yup";
 import PreviewImage from "./PreviewImage";
 import axios from "axios";
 
 function AddProductModal(props) {
+  const [categories, setCategories] = useState([]);
+  const [imagesUpload, setImagesUpload] = useState([]);
+  const [imageUpload, setImageUpload] = useState(null);
 
-  const [categories , setCategories]=useState([]);
-  
   const validate = Yup.object({
     productName: Yup.string()
       .max(30, "Must be 30 characters or less")
@@ -24,67 +25,77 @@ function AddProductModal(props) {
     productDescription: Yup.string()
       .max(100, "Must be 100 characters or less")
       .required("Description Required"),
-    productImage: Yup.string().required("Image Required"),
-    // productCategory: Yup.string().required("Category Required"),
+    productCategory: Yup.string().required("Category Required"),
   });
 
   const submitEditProductHandler = (values) => {
-       const data =new FormData();
+    const data = new FormData();
+    data.append("product_name", values.productName);
+    data.append("price", values.productPrice);
+    data.append("quantity", values.productQuantity);
+    data.append("description", values.productDescription);
+    data.append("owner_id", JSON.parse(localStorage.getItem("user")).id);
+    data.append("category", values.productCategory);
+    data.append("category_id", "1");
+    data.append("status", "1");
+
+    axios
+      .post(
+        `http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/update_product/${props.product.id}`,
+        data
+      )
+      .then((res) => {
+        console.log(res);
+        props.onClose();
+      });
+  };
+
+  const submitAddProductHandler = async (values) => {
+    if(imagesUpload.length>0){
+      setImageUpload(null);
+      const data = new FormData();
        data.append("product_name", values.productName);
        data.append("price", values.productPrice);
        data.append("quantity", values.productQuantity);
        data.append("description", values.productDescription);
        data.append('owner_id', JSON.parse(localStorage.getItem('user')).id);
        data.append("category", values.productCategory);
-       data.append("category_id", '1');
+       Array.from(imagesUpload).forEach((image,index) => {
+        data.append(`image${index}`, image);
+    });
+       data.append("category_id", values.productCategory);
        data.append("status", '1');
-
-        axios.post(`http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/update_product/${props.product.id}`, data).then(res => {
-        console.log(res);
-        props.onClose();
-      });
-
-  }
-
-  const submitAddProductHandler = async (values) => {
-    console.log(values);
-       const data = new FormData();
-        data.append("product_name", values.productName);
-        data.append("price", values.productPrice);
-        data.append("quantity", values.productQuantity);
-        data.append("description", values.productDescription);
-        data.append('owner_id', JSON.parse(localStorage.getItem('user')).id);
-        data.append("category", values.productCategory);
-        data.append("image", values.productImage);
-        data.append("category_id", values.productCategory);
-        data.append("status", '1');
-
-        const response =await axios.post("http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/create_product", data
-        ,{ headers: {
-          'Content-Type': 'multipart/form-data'
-        },}
-        );
-        console.log(response);
-        if(response.status === 200){
-          console.log(response.data);
-          props.onClose();
-        }
+ 
+       const response =await axios.post("http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/create_product", data
+       ,{ headers: {
+         'Content-Type': 'multipart/form-data'
+       },}
+       );
+       console.log(response);
+       if(response.status === 200){
+         console.log(response.data);
+         props.onClose();
+       }
+    }else{
+      setImageUpload("Please upload an product images");
+    }
   };
 
-
-  useEffect(()=>{
-     axios.get("http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/get_categories").then(res=>{
-       setCategories(res.data);
-     }).catch(err=>console.log(err))
-  },[])
-
-
+  useEffect(() => {
+    axios
+      .get(
+        "http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/get_categories"
+      )
+      .then((res) => {
+        setCategories(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <Wrapper>
       {/* {console.log(props.product.id||'no id')} */}
       <div
-
         onClick={props.onClick}
         className="fixed top-0 left-0 w-full min-h-screen z-50 bg-dropdown"
       />
@@ -98,15 +109,29 @@ function AddProductModal(props) {
         <body className="p-4">
           <Formik
             initialValues={{
-              productName: props.product.product_name!==undefined ? props.product.product_name : "",
-              productPrice: props.product.price!==undefined ? props.product.price : "",
-              productDescription: props.product.description !==undefined ? props.product.description : "",
-              productCategory: props.product.category_id !==undefined ? props.product.category_id : "",
-              productImage: "",
-              productQuantity: props.product.quantity !==undefined ? props.product.quantity : "",
+              productName:
+                props.product.product_name !== undefined
+                  ? props.product.product_name
+                  : "",
+              productPrice:
+                props.product.price !== undefined ? props.product.price : "",
+              productDescription:
+                props.product.description !== undefined
+                  ? props.product.description
+                  : "",
+              productCategory:
+                props.product.category_id !== undefined
+                  ? props.product.category_id
+                  : "",
+              productQuantity:
+                props.product.quantity !== undefined
+                  ? props.product.quantity
+                  : "",
             }}
             validationSchema={validate}
-            onSubmit={props.edit?submitEditProductHandler:submitAddProductHandler}
+            onSubmit={
+              props.edit ? submitEditProductHandler : submitAddProductHandler
+            }
           >
             {(formik) => (
               <Form>
@@ -126,20 +151,49 @@ function AddProductModal(props) {
                       </svg>
 
                       <input
-                          id="file"
-                          name="productImage"
-                          type="file"
-                          className="hidden"
-                          onChange={(event) => {
-                            formik.setFieldValue("productImage", event.currentTarget.files[0]);
-                    }}/>
+                        id="file"
+                        name="productImage"
+                        type="file"
+                        className="hidden"
+                        onChange={(event) => {
+                          setImagesUpload(event.target.files);
+                        }}
+                        multiple
+                      />
                       <span className="pl-3">upload image</span>
                     </label>
                   </div>
                 </label>
-                <div className="p-2">
-                  {formik.values.productImage!==''&&<PreviewImage file={formik.values.productImage} className="h-16" /> }
-                  {/* <img className="h-16 " src={props/>} alt="test" /> */}
+                <div className="p-2 gap-2 flex">
+                  {imagesUpload.length > 0 &&
+                    Object.entries(imagesUpload).map((img,index) => {
+                      return (
+                          <PreviewImage
+                            file={img[1]}
+                            className="h-16 block relative  z-10 rounded overflow-hidden"
+                          />
+ 
+                      );
+                    })}
+                
+                  {imagesUpload.length > 0 && (
+                      <button type="button" className="" onClick={()=>
+                        setImagesUpload([])
+                      }>
+                        {" "}
+                        <svg
+                          className="fill-current md:h-10 md:w-10 h-8 w-8 text-red-500"
+                          role="button"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                        >
+                          <title>Delete</title>
+                          <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                        </svg>
+                      </button>)
+                  }
+                  {imageUpload&& (
+                    <p className="text-red-500 text-sm">{imageUpload}</p>)}
                 </div>
                 <label className="block mb-4">
                   <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
@@ -157,15 +211,23 @@ function AddProductModal(props) {
                   <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
                     Category
                   </span>
-                  <Field className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" as="select"  name="productCategory" >
-                  <option disabled value="">(Select a category) </option>
-                  {categories&&
-                      categories.map((category)=>{
-                        return (<option key={category.id} value={category.id}>{category.name}</option>)
-                      })
-                    }
+                  <Field
+                    className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+                    as="select"
+                    name="productCategory"
+                  >
+                    <option disabled value="">
+                      (Select a category){" "}
+                    </option>
+                    {categories &&
+                      categories.map((category) => {
+                        return (
+                          <option key={category.id} value={category.id}>
+                            {category.name}
+                          </option>
+                        );
+                      })}
                   </Field>
-                  
                 </label>
                 <label className="block mb-4">
                   <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">

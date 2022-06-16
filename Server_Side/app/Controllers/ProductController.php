@@ -30,6 +30,20 @@ class ProductController
     echo json_encode($result);
     return;
   }
+
+  public function get_top_products()
+  {
+    $product = new Product();
+    $result = $product->select_top_products();
+    $images = new Product_images();
+    foreach ($result as $key => $value) {
+      $result[$key]['images'] = $images->get_product_images($value['id']);
+      $category = new Category();
+      $products[$key]['category'] = $category->select_category($value['category_id']);
+    }
+    echo json_encode($result);
+    return;
+  }
   public function get_Product($id)
   {
     $product = new Product();
@@ -89,16 +103,19 @@ class ProductController
       'owner_id' => $_POST['owner_id'],
       'quantity' => $_POST['quantity'],
     ];
-
-    $filename = $_FILES["image"]["name"];
-    $tempname = $_FILES["image"]["tmp_name"];
-    $folder = APP . "/../../src/assets/images/uploads/" . $filename;
+    
+   
     $product = new Product();
     $result = $product->insert_Product($data);
     $image = new Product_images();
     if ($result['status'] == true) {
+     for ($i=0; $i < 3; $i++) { 
+      $filename = $_FILES["image$i"]['name'];
+      $tempname = $_FILES["image$i"]["tmp_name"];
+      $folder = APP . "/../../src/assets/images/uploads/" . $filename;
       $image->insert_image(['product_id' => $result['id']['id'], 'path' => $filename]);
       move_uploaded_file($tempname, $folder);
+     }
       $json = json_encode(['message' => ['success' => 'Product created successfully']]);
       echo $json;
       return;

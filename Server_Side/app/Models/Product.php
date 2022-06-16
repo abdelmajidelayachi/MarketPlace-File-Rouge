@@ -87,6 +87,15 @@ class Product extends DB
     return $result;
   }
 
+  public function select_top_products()
+  {
+    $sql = "SELECT * FROM $this->table  WHERE status = '1' ORDER BY number_orders DESC LIMIT 30";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;  
+  }
+
   public function getUserProducts($id)
   {
     $sql = "SELECT * FROM $this->table WHERE owner_id = :id ORDER BY id DESC";
@@ -136,10 +145,12 @@ class Product extends DB
   public function sub_buying_products($data)
   {
     $product = $this->selectOne($data['id']);
+    $orders_quantity = $data['quantity']+$product['number_orders'];
     $product_cal = $product['quantity']- $data['quantity'];
-    $sql = "UPDATE $this->table SET quantity = :quantity WHERE id = :id";
+    $sql = "UPDATE $this->table SET quantity = :quantity,number_orders=:number_orders WHERE id = :id";
     $stmt = $this->conn->prepare($sql);
     $stmt->bindParam(':quantity',$product_cal);
+    $stmt->bindParam(':number_orders',$orders_quantity);
     $stmt->bindParam(':id', $data['id']);
     $stmt->execute();
     echo 'update prod';

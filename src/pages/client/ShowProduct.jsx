@@ -11,6 +11,7 @@ const ShowProduct = () => {
   const [click, setClick] = useState(1);
   const [errorInput, setErrorInput] = useState(false);
   const [product, setProduct] = useState([]);
+  const [currentImage, setCurrentImage] = useState(0);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const ShowProduct = () => {
     const { data } = await axios.get(
       `http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/get_Product/${id}`
     );
+    console.log(data);
     setProduct(data);
   };
 
@@ -66,45 +68,26 @@ const ShowProduct = () => {
               <img
                 alt="e-commerce"
                 className="object-cover object-center mx-auto h-full"
-                src={require(`../../assets/images/uploads/${product.images[0].path}`)}
+                src={require(`../../assets/images/uploads/${product.images[currentImage].path}`)}
               />
             </div>
           )}
           <div className="flex gap-3">
-            <div className="flex items-center h-10 my-auto cursor-pointer">
-              <i className="fas fa-chevron-left text-2xl text-gray-500"></i>
-            </div>
+            
             {product.length !== 0 && (
-              <div className="p-1 w-24 my-4 bg-white border border-gray-600">
-                <img
-                  alt="e-commerce"
-                  className="mx-auto w-24"
-                  src={require(`../../assets/images/uploads/${product.images[0].path}`)}
-                />
-              </div>
-            )}
-            {product.length !== 0 && (
-              <div className="p-1 w-24 my-4 bg-white border border-gray-600">
-                <img
-                  alt="e-commerce"
-                  className="mx-auto w-24"
-                  src={require(`../../assets/images/uploads/${product.images[0].path}`)}
-                />
-              </div>
-            )}
-            {product.length !== 0 && (
-              <div className="p-1 w-24 my-4 bg-white border border-gray-600">
-                <img
-                  alt="e-commerce"
-                  className="mx-auto w-24"
-                  src={require(`../../assets/images/uploads/${product.images[0].path}`)}
-                />
-              </div>
-            )}
+              product.images.map((item, index) => (
 
-            <div className="flex items-center h-10 my-auto cursor-pointer">
-              <i className="fas fa-chevron-right text-2xl text-gray-500"></i>
-            </div>
+              <button type="button" onMouseOver={()=>setCurrentImage(index)} key={index} className="p-1 w-24 my-4 bg-white border border-gray-600">
+                <img
+                  alt="e-commerce"
+                  className="mx-auto w-24"
+                  src={require(`../../assets/images/uploads/${item.path}`)}
+                />
+              </button>
+            )))}
+            
+
+           
           </div>
         </div>
         <div className="md:mt-3 ">
@@ -163,7 +146,7 @@ const ShowProduct = () => {
             </div>
 
             <span className="text-gray-500 "></span>
-            <span className="text-gray-300 mx-2 "> 0 order </span>
+            <span className="text-gray-400 mx-2 "> {product&&product.number_orders} order </span>
             <span className="text-green-600 mx-2 ">Verified</span>
           </div>
 

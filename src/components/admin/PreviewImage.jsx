@@ -10,8 +10,8 @@ const PreviewImage = (props) => {
       setImagePreviewUrl(reader.result);
     };
   return (
-    <Wrapper>
-      <img src={imagePreviewUrl} alt="preview" className={`${props.className}`}/>
+    <Wrapper className={props.classNamew}>
+      <img src={imagePreviewUrl} alt="preview" className={`object-cover object-center mx-auto h-full block`}/>
     </Wrapper>
   )
 }

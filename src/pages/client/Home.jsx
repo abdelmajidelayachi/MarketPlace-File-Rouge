@@ -5,6 +5,7 @@ import Nav from "../../components/clients/Nav";
 import Footer from "../../layouts/Footer";
 // import Product from "../../components/product/ProductCard";
 import ScrollListProducts from "../../layouts/ScrollListProducts";
+import WhyUs from "../../layouts/WhyUs";
 
 function Home() {
   return (
@@ -18,6 +19,8 @@ function Home() {
           <Categories />
 
           {/* <ScrollListProducts/> */}
+          
+          <WhyUs/>
         </div>
         <Footer/>
       </div>  

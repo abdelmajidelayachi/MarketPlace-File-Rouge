@@ -1,10 +1,24 @@
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
 
 const ProductCardNew = (props) => {
   const linkProduct = props.product.product_name +'-'+props.product.id
+
+  const addToWishlist = async(id) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const formData = new FormData();
+    formData.append("user_id", user.id);
+    formData.append("product_id", id);
+    const { data } = await axios.post(
+      `http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/add_to_wishlist`,formData)
+    if (data.status === 200) {
+      alert("Product added to wishlist");
+    }
+  }
+
   return (
     // lg:w-width_22 md:w-width-30 sm:w-width-45  p-3 w-full 
       <div className={`${props.className} p-4 rounded bg-gray-100 shadow-md `} key={props.product.id}>
@@ -27,7 +41,7 @@ const ProductCardNew = (props) => {
             {props.product.product_name}
           </h2></Link>
           <p className="text-sm font-semibold mt-2.5 h-8">{props.product.name}</p>
-          <div className="flex items-center my-2.5">
+          {/* <div className="flex items-center my-2.5">
             <svg
               className="w-5 h-5 text-yellow-300"
               fill="currentColor"
@@ -71,7 +85,7 @@ const ProductCardNew = (props) => {
             <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded  ml-3">
               5.0
             </span>
-          </div>
+          </div> */}
            <div className="">
               <p className="text-xl text-black font-bold">${props.product.price}</p>
            </div>
@@ -82,7 +96,9 @@ const ProductCardNew = (props) => {
               </Link>
               </div>
               <div className="flex">
-                <button className="px-4 py-1 rounded-full bg-white border-2 text-blue-600 hover:text-white hover:bg-red-600"><i className="far fa-heart"></i>
+                <button type="button" onClick={addToWishlist}
+                
+                className="px-4 py-1 rounded-full bg-white border-2 text-blue-600 hover:text-white hover:bg-red-600"><i className="far fa-heart"></i>
                 </button>
               </div>
 

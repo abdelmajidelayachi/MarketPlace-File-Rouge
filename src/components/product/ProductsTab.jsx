@@ -34,7 +34,7 @@ function ProductsTab() {
   useEffect( () => {
      axios.get(`http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/get_products/${JSON.parse(localStorage.getItem('user')).id}`).then(res => {  
     setProducts(res.data.products);
-    // console.log(res.data);
+    console.log(res.data);
   })}, [addProductModal,productDeleted,showEditModel]);
   
   return (

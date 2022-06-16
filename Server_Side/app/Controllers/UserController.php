@@ -159,7 +159,7 @@ class UserController
       return;
     }
   }
-
+  
   public function add_store()
   {
     $id = $_POST['id'];
@@ -176,5 +176,6 @@ class UserController
     return;
   }
 }
+
 
 }
