@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useRef, useState } from "react";
 import logo from "../../assets/images/logo/logoMshop.png";
 // importing Icons
-import { faUser } from "@fortawesome/free-regular-svg-icons";
+import { faHeart, faUser } from "@fortawesome/free-regular-svg-icons";
 import Navigation from "./Navigation";
 import { Link, useNavigate } from "react-router-dom";
 import Wrapper from "../UI/Wrapper";
@@ -17,13 +17,14 @@ export default function Nav(props) {
   const [navProfile, setNavProfile] = useState(false);
   const [categories, setCategories] = useState([]);
   const [reload, setReload] = useState(false);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || null
+  );
   const [search, setSearch] = useState("");
-  
+
   const storedProducts = useDispatch();
 
   const navigate = useNavigate();
-
 
   useEffect(() => {
     if (localStorage.getItem("cartItems") === null) {
@@ -59,13 +60,10 @@ export default function Nav(props) {
     if (search.value.trim() === "") {
       navigate(`/new-products`);
       props.reload(reload);
-    
-    }else {
+    } else {
       navigate(`/search/${search.value}`);
       props.reload(reload);
     }
-
-    
   };
 
   const countItems = useSelector((state) => {
@@ -103,9 +101,7 @@ export default function Nav(props) {
             </div>
 
             <div
-              className={
-                "lg:flex flex-grow items-center" 
-              }
+              className={"lg:flex flex-grow items-center"}
               id="example-navbar-danger"
             >
               <div className="flex w-full justify-between">
@@ -120,7 +116,7 @@ export default function Nav(props) {
 
                       <div className="relative w-full">
                         <input
-                         onChange={(e) => setSearch(e.target)}
+                          onChange={(e) => setSearch(e.target)}
                           type="search"
                           id="search-dropdown"
                           className="block p-2 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg  border-l-2 border-2 focus:outline-none focus:bg-bgBlue border-mainBlue focus:border-mainBlue"
@@ -152,6 +148,21 @@ export default function Nav(props) {
                       </Link>
                     </li>
                   )}
+                  {/* wishlist */}
+                  {user !== null && (
+                    <li className="nav-item">
+                      <Link
+                        className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
+                        to="/wishlist"
+                      >
+                        <FontAwesomeIcon
+                          className="text-2xl leading-lg text-gray-900 opacity-7"
+                          icon={faHeart}
+                        />
+                      </Link>
+                    </li>
+                  )}
+
                   <li className="nav-item">
                     <Link
                       className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
@@ -181,7 +192,8 @@ export default function Nav(props) {
                   </li>
                   {user !== null && (
                     <li className="nav-item">
-                      <button  onClick={() => setNavProfile(!navProfile)}
+                      <button
+                        onClick={() => setNavProfile(!navProfile)}
                         className="px-3 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
                       >
                         <div className="rounded-full w-12 h-12">
@@ -199,19 +211,38 @@ export default function Nav(props) {
             </div>
           </div>
         </nav>
-        {navProfile && <DropdownProfile className="md:right-48 right-8 md:top-32 top-12 z-50" onClickLogout={logoutHandler} />}
+        {navProfile && (
+          <DropdownProfile
+            className="md:right-48 right-8 md:top-32 top-12 z-50"
+            onClickLogout={logoutHandler}
+          />
+        )}
         <Navigation categorySelected={props.category} active={props.active} />
       </div>
       {/* mobile screen nav */}
       <div className="w-full md:hidden block">
         <div className="flex justify-between px-3 py-2 mb-2">
           <div className="flex items-center w-24">
+          
             <Link to="/">
               <img src={logo} className="object-cover " alt="MShop" />
             </Link>
           </div>
           <div className="flex items-center gap-4">
             <div className="">
+            {user !== null && (
+                    <div className="nav-item">
+                      <Link
+                        className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
+                        to="/wishlist"
+                      >
+                        <FontAwesomeIcon
+                          className="text-2xl leading-lg text-gray-900 opacity-7"
+                          icon={faHeart}
+                        />
+                      </Link>
+                    </div>
+                  )}
               <Link
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
                 to="/card"
@@ -265,7 +296,12 @@ export default function Nav(props) {
               )}
             </div>
           </div>
-          {navProfile && <DropdownProfile className = "md:right-48 right-5 md:top-32 top-12 z-50w" onClickLogout={logoutHandler} />}
+          {navProfile && (
+            <DropdownProfile
+              className="md:right-48 right-5 md:top-32 top-12 z-50w"
+              onClickLogout={logoutHandler}
+            />
+          )}
         </div>
         <div className="flex justify-between px-3 py-2">
           <div className="flex items-center w-12">
@@ -288,7 +324,7 @@ export default function Nav(props) {
 
                 <div className="relative w-full">
                   <input
-                      onChange={(e) => setSearch(e.target)}
+                    onChange={(e) => setSearch(e.target)}
                     type="search"
                     id="search-dropdown"
                     className="block p-1 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg  border-l-2 border-2 focus:outline-none focus:bg-bgBlue border-mainBlue focus:border-mainBlue"

@@ -96,12 +96,12 @@ function Navigation(props) {
         </li>
         <li>
           <Link
-            to="/top-seller"
+            to="/top-sells"
             className={`block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 ${
               props.active === "top" ? "text-blue-700 " : "text-gray-700"
             } md:hover:text-blue-700 md:p-0`}
           >
-            Top seller
+            Top sells
           </Link>
         </li>
       </ul>

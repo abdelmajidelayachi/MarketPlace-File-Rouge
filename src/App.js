@@ -27,6 +27,7 @@ import './App.css'
 // aos animation
 import AOS from 'aos'
 import 'aos/dist/aos.css';
+import WishList from "./pages/client/WishList";
 AOS.init();
 
 function App() {
@@ -44,10 +45,11 @@ function App() {
 
           {/* products pages */}
         <Route path="/new-products" element={<New />} />
-        <Route path="/top-seller" element={<TopSeller />} />
+        <Route path="//top-sells" element={<TopSeller />} />
         <Route path="/card" element={<Basket />} />
         <Route path = "place-order" element={<PlaceOrder/>} />
         <Route path="/checkout" element={<CheckOut/>} />
+        <Route path='//wishlist' element={<WishList/>} />
 
         {/* search pages */}
         <Route path="/show-product/:id" element = {<ShowProduct/>}/>
