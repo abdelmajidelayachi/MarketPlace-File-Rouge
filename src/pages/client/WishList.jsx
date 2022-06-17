@@ -37,11 +37,11 @@ function WishList(props) {
     <Wrapper className="">
       {loading&&<Loader/>}
       <div className="max-w-screen-xl m-auto ">
-        <Nav active ="top"/>
+        <Nav active ="wishlist"/>
         {products.length >= 0 && (
         <section className="text-gray-600 body-font">
           <div className=" lg:px-5 md:px-3 px-2  py-24 mx-auto">
-            <div className="flex flex-wrap justify-center lg:-m-4 md:mx-8 mx-6 gap-5">
+            <div className="flex flex-wrap justify-start lg:-m-4 md:mx-8 mx-6 gap-5">
               {products.map((product, index) => (
                 <Div key={index}>
                   <ProductCardNew className=" lg:w-width_22 md:w-width-30 sm:w-width-45  p-3 w-full " setWishlist={()=>{setWishlistCartUpdating(!wishlistCartUpdating)}} wishlist={true}  product = {product}/>

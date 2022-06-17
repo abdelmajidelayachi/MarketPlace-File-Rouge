@@ -155,10 +155,21 @@ export default function Nav(props) {
                         className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
                         to="/wishlist"
                       >
-                        <FontAwesomeIcon
+                        {
+                          props.active==="wishlist" ? (
+                            <i className="fas fa-heart text-2xl leading-lg text-gray-900 opacity-7"></i>
+                            ) : (
+                              <FontAwesomeIcon
+                                className="text-2xl leading-lg text-gray-900 opacity-7"
+                                icon={faHeart}
+                              />
+                              
+                          )
+                        }
+                        {/* <FontAwesomeIcon
                           className="text-2xl leading-lg text-gray-900 opacity-7"
-                          icon={faHeart}
-                        />
+                          icon=
+                        /> */}
                       </Link>
                     </li>
                   )}
