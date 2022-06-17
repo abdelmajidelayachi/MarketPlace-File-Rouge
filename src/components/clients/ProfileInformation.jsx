@@ -120,7 +120,7 @@ const ProfileInformation = (props) => {
                   src={require(`../../assets/images/profiles/${user.profile_photo_path}`)}
                   alt=""
                 />}
-                  {formik.values.profile_picture!==''&&<PreviewImage file={formik.values.profile_picture} className="w-44 h-44 rounded-full" /> }
+                  {formik.values.profile_picture!==''&&<PreviewImage file={formik.values.profile_picture} className="w-44 h-44 rounded-full overflow-hidden" /> }
                 <div className="w-44 h-44 group hover:bg-gray-200 opacity-60 rounded-full absolute flex top-0 justify-center items-center cursor-pointer transition duration-500">
                   <img
                     className="hidden group-hover:block w-8"

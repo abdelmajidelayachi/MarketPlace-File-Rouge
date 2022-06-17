@@ -21,6 +21,7 @@ export default function Nav(props) {
     JSON.parse(localStorage.getItem("user")) || null
   );
   const [search, setSearch] = useState("");
+  
 
   const storedProducts = useDispatch();
 
@@ -59,10 +60,8 @@ export default function Nav(props) {
     setReload(true);
     if (search.value.trim() === "") {
       navigate(`/new-products`);
-      props.reload(reload);
     } else {
       navigate(`/search/${search.value}`);
-      props.reload(reload);
     }
   };
 
@@ -155,17 +154,14 @@ export default function Nav(props) {
                         className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
                         to="/wishlist"
                       >
-                        {
-                          props.active==="wishlist" ? (
-                            <i className="fas fa-heart text-2xl leading-lg text-gray-900 opacity-7"></i>
-                            ) : (
-                              <FontAwesomeIcon
-                                className="text-2xl leading-lg text-gray-900 opacity-7"
-                                icon={faHeart}
-                              />
-                              
-                          )
-                        }
+                        {props.active === "wishlist" ? (
+                          <i className="fas fa-heart text-2xl leading-lg text-mainBlue opacity-7"></i>
+                        ) : (
+                          <FontAwesomeIcon
+                            className="text-2xl leading-lg text-gray-900 opacity-7"
+                            icon={faHeart}
+                          />
+                        )}
                         {/* <FontAwesomeIcon
                           className="text-2xl leading-lg text-gray-900 opacity-7"
                           icon=
@@ -202,58 +198,51 @@ export default function Nav(props) {
                     </Link>
                   </li>
                   {user !== null && (
-                    <li className="nav-item">
-                      <button
-                        onClick={() => setNavProfile(!navProfile)}
-                        className="px-3 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
-                      >
-                        <div className="rounded-full w-12 h-12">
-                          <img
-                            className="rounded-full"
-                            src={require(`../../assets/images/profiles/${user.profile_photo_path}`)}
-                            alt="account"
-                          />
-                        </div>
-                      </button>
-                    </li>
-                  )}
+                <li className="nav-item">
+                <DropdownProfile image={user.profile_photo_path}
+                className="md:right-48 right-5 md:top-32 top-12 z-50w"
+                onClickLogout={logoutHandler}
+                />
+                </li>
+                    
+              )}
                 </ul>
               </div>
             </div>
           </div>
         </nav>
-        {navProfile && (
-          <DropdownProfile
-            className="md:right-48 right-8 md:top-32 top-12 z-50"
-            onClickLogout={logoutHandler}
-          />
-        )}
+       
         <Navigation categorySelected={props.category} active={props.active} />
       </div>
       {/* mobile screen nav */}
       <div className="w-full md:hidden block">
         <div className="flex justify-between px-3 py-2 mb-2">
           <div className="flex items-center w-24">
-          
             <Link to="/">
               <img src={logo} className="object-cover " alt="MShop" />
             </Link>
           </div>
           <div className="flex items-center gap-4">
             <div className="">
-            {user !== null && (
-                    <div className="nav-item">
-                      <Link
-                        className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
-                        to="/wishlist"
-                      >
-                        <FontAwesomeIcon
-                          className="text-2xl leading-lg text-gray-900 opacity-7"
-                          icon={faHeart}
-                        />
-                      </Link>
-                    </div>
-                  )}
+              {user !== null && (
+                <div className="nav-item">
+                  <Link
+                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
+                    to="/wishlist"
+                  >
+                    {props.active === "wishlist" ? (
+                      <i className="fas fa-heart text-2xl leading-lg text-mainBlue opacity-7"></i>
+                    ) : (
+                      <FontAwesomeIcon
+                        className="text-2xl leading-lg text-gray-900 opacity-7"
+                        icon={faHeart}
+                      />
+                    )}
+                  </Link>
+                </div>
+              )}
+            </div>
+            <div className="">
               <Link
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
                 to="/card"
@@ -280,6 +269,7 @@ export default function Nav(props) {
                 </span>
               </Link>
             </div>
+
             <div className="">
               {user === null ? (
                 <Link
@@ -292,36 +282,25 @@ export default function Nav(props) {
                   />
                 </Link>
               ) : (
-                <button
-                  onClick={() => setNavProfile(!navProfile)}
-                  className="px-3 flex items-center text-xs uppercase font-bold leading-snug text-gray-900 hover:opacity-75"
-                >
-                  <div className="rounded-full w-8 h-8">
-                    <img
-                      className="rounded-full"
-                      src={require(`../../assets/images/profiles/${user.profile_photo_path}`)}
-                      alt="account"
-                    />
-                  </div>
-                </button>
+                <DropdownProfile image={user.profile_photo_path}
+                className="md:right-48 right-5 md:top-32 top-12 z-50w"
+                onClickLogout={logoutHandler}
+              />
               )}
             </div>
           </div>
-          {navProfile && (
-            <DropdownProfile
-              className="md:right-48 right-5 md:top-32 top-12 z-50w"
-              onClickLogout={logoutHandler}
-            />
-          )}
+        
+          
         </div>
-        <div className="flex justify-between px-3 py-2">
+        <div className="flex justify-between flex-row-reverse px-3 py-2">
           <div className="flex items-center w-12">
             <button
               className="text-gray-900 cursor-pointer text-xl leading-none px-3 p-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
               type="button"
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
-              <i className="fas fa-bars fa-lg"></i>
+             
+              <DropdownMenu />
             </button>
           </div>
           <div className="flex items-center w-full">
@@ -329,7 +308,7 @@ export default function Nav(props) {
               <div className="flex w-full">
                 <DropdownCategory
                   mobile="true"
-                  reload={(e) => props.reload(e)}
+                  
                   categories={categories}
                 />
 
@@ -352,8 +331,8 @@ export default function Nav(props) {
             </form>
           </div>
         </div>
-        <div className={navbarOpen ? "block" : "hidden"}>
-          <DropdownMenu />
+        <div className="md:hidden">
+       
         </div>
       </div>
     </Wrapper>

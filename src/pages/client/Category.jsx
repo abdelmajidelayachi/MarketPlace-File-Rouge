@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, {  useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import Nav from "../../components/clients/Nav";
 import ProductCardNew from "../../components/product/ProductCardNew";
 import Div from "../../components/UI/Div";
@@ -10,11 +11,11 @@ import Footer from "../../layouts/Footer";
 function Category() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [reload,setReload]=useState(false)
+
+  const location = useLocation();
   
- const categoryHandler =(e)=>{
-    setReload(e)
- }
+
+
 
   useEffect(() => {
     setLoading(true);
@@ -27,7 +28,7 @@ function Category() {
         setProducts(response.data);
         setLoading(false);
       });
-  }, [reload]);
+  }, [location]);
 
   
 
@@ -35,7 +36,7 @@ function Category() {
     <Wrapper className="">
       {loading && <Loader />}
       <div className="max-w-screen-xl m-auto ">
-        <Nav reload={categoryHandler} active="category" />
+        <Nav  active="category" />
         {products.length>0
         &&
         <section className="text-gray-600 body-font">

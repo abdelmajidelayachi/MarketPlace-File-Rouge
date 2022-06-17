@@ -17,7 +17,7 @@ const ProductCardNew = (props) => {
       `http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/wishList/add_to_wishlist`,
       formData
     );
-    console.log(data);
+
     if (data.success === true) {
       swal("Good job!", "Product added successfully!", "success");
     } else {

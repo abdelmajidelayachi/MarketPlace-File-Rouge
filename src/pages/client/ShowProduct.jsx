@@ -98,7 +98,7 @@ const ShowProduct = () => {
             {product.description}
           </div>
           <div className="flex flex-wrap mt-1">
-            <div className="flex items-center my-1">
+            {/* <div className="flex items-center my-1">
               <svg
                 className="w-5 h-5 text-yellow-300"
                 fill="currentColor"
@@ -143,9 +143,9 @@ const ShowProduct = () => {
                 5.0
               </span>
               <span className="bg-gray-300 w-2 h-2 rounded-full mx-2"></span>
-            </div>
+            </div> */}
 
-            <span className="text-gray-500 "></span>
+            <span className="text-gray-600 ">Orders affected :</span>
             <span className="text-gray-400 mx-2 "> {product&&product.number_orders} order </span>
             <span className="text-green-600 mx-2 ">Verified</span>
           </div>
