@@ -2,27 +2,36 @@ import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, } from "react-router-dom";
 import swal from "sweetalert";
+
+// const navigate = useNavigate();
 
 const ProductCardNew = (props) => {
   const linkProduct = props.product.product_name + "-" + props.product.id;
 
   const addToWishlist = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
-    const formData = new FormData();
-    formData.append("user_id", user.id);
-    formData.append("product_id", props.product.id);
-    const { data } = await axios.post(
-      `http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/wishList/add_to_wishlist`,
-      formData
-    );
+    if (user===null) {
+      swal("Please Login First");
+    }else{
+      
+          const formData = new FormData();
+          formData.append("user_id", user.id);
+          formData.append("product_id", props.product.id);
+          const { data } = await axios.post(
+            `http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/wishList/add_to_wishlist`,
+            formData
+          );
+      
+          if (data.success === true) {
+            swal("Good job!", "Product added successfully!", "success");
+          } else {
+            swal("Warning", "The product are already in wishlist!", "info");
+          }
 
-    if (data.success === true) {
-      swal("Good job!", "Product added successfully!", "success");
-    } else {
-      swal("Warning", "The product are already in wishlist!", "info");
     }
+      
   };
 
   const removeFromWishlist = async(id) => {

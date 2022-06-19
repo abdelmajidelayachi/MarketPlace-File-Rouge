@@ -89,7 +89,7 @@ class Product extends DB
 
   public function select_top_products()
   {
-    $sql = "SELECT * FROM $this->table  WHERE status = '1' ORDER BY number_orders DESC LIMIT 30";
+    $sql = "SELECT * FROM $this->table  WHERE status = '1' ORDER BY number_orders DESC LIMIT 8";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
