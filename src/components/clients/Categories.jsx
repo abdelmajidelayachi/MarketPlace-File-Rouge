@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Category from "./Category";
-import cat1 from "../../assets/images/products/phone/phone1.jpg";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -22,7 +21,7 @@ function Categories() {
       <div className="container px-5 py-8 mx-auto">
         <div className="flex flex-wrap -m-4 min-h-56">
           {categories.map((category, index) => {
-            if(index!==0)
+            
             return <Link to={`/category/${category.name}-${category.id}`} key={index} className="p-4 lg:w-1/4 md:w-1/3 sm:w-1/2 w-full"><Category category={category} keyId={index}/></Link>;
           })}
         </div>

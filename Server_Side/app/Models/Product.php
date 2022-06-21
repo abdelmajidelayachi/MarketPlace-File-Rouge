@@ -79,9 +79,9 @@ class Product extends DB
 
   }
   // select all recent inserted products from products table
-  public function select_new_products()
+  public function select_new_products($id,$page_number)
   {
-    $sql = "SELECT $this->table.*,`categories`.name FROM $this->table INNER JOIN `categories` ON $this->table.category_id = categories.id WHERE status = '1' ORDER BY $this->table.id DESC LIMIT 30";
+    $sql = "SELECT $this->table.*,`categories`.name FROM $this->table INNER JOIN `categories` ON $this->table.category_id = categories.id WHERE status = '1' AND $this->table.id>$id ORDER BY $this->table.id ASC LIMIT $page_number";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -96,6 +96,28 @@ class Product extends DB
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;  
   }
+  // select last for pagination
+  public function select_last_pagination_id($number_product_in_page)
+  {
+    //SELECT id from products ORDER BY id limit 20;
+    $sql = "SELECT id FROM $this->table ORDER BY id limit $number_product_in_page";
+    $stmt = $this->conn->prepare($sql);
+    // $stmt->bindParam(':number_product',$number_product_in_page);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result; 
+
+  }
+  // count number of all product
+  public function count_product_number()
+  {
+    $sql = "SELECT COUNT(*) FROM $this->table";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetch();
+    return $result;
+  }
+
 
   // select products
   public function get_user_products($id)

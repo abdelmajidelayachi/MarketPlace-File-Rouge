@@ -8,28 +8,35 @@ import Loader from "../../components/UI/Loader";
 import Wrapper from "../../components/UI/Wrapper";
 import Pagination from "../../components/product/Pagination";
 import Footer from "../../layouts/Footer";
+import { useLocation } from "react-router-dom";
 
 function New() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const searchTerm = useSelector(state=>state.search) 
   
+  const location = useLocation();
 
   useEffect(() => {
     setLoading(true);
+    const current=!isNaN(window.location.href.split('=').at(-1))?window.location.href.split('=').at(-1):1;
+    console.log(current);
+    
     axios
       .get(
-        "http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/get_new_products"
+        `http://localhost/php%20projects/Fil_Rouge/Client_Side/Server_Side/public/product/get_new_products/${current}`
       )
       .then((res) => {
+        if(res.data){
         setProducts(res.data);
         setLoading(false);
+      }
       })
       .catch((err) => {
         console.log(err);
 
       });
-  }, [searchTerm]);
+  }, [searchTerm,location]);
 
   return (
     <Wrapper className="">
@@ -60,7 +67,7 @@ function New() {
                   </p>
                 </div>
               )}
-        <Pagination/>
+        <Pagination page='new-products'/>
       </div>
       <Footer/>
     </Wrapper>

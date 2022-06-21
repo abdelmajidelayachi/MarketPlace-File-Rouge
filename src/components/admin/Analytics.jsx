@@ -25,7 +25,6 @@ function Analytics() {
         idUser
     );
     setChartDoughnutData(data.data);
-    console.log(data.data);
   };
 
   const getChartLine = async (idUser) => {
@@ -34,7 +33,6 @@ function Analytics() {
         idUser
     );
     setChartLineData(data);
-    console.log(data);
   };
 
   useEffect(() => {

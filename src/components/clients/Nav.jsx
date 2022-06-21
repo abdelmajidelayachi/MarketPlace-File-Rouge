@@ -157,10 +157,7 @@ export default function Nav(props) {
                             icon={faHeart}
                           />
                         )}
-                        {/* <FontAwesomeIcon
-                          className="text-2xl leading-lg text-gray-900 opacity-7"
-                          icon=
-                        /> */}
+                       
                       </Link>
                     </li>
                   )}

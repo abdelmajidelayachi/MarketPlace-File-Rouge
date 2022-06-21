@@ -17,10 +17,19 @@ class ProductController
     return;
   }
 
-  public function get_new_products()
+  public function get_new_products($id)
   {
+    $page_number=8;
+    $product_total_page = $page_number * ($id-1);
     $product = new Product();
-    $result = $product->select_new_products();
+    if($product_total_page>0)
+    {
+      $find_row_of_last_pag = $product->select_last_pagination_id($product_total_page);
+      $find_id_of_last_pag=end($find_row_of_last_pag)['id'];
+    }else{
+      $find_id_of_last_pag = 0;
+    }
+    $result = $product->select_new_products($find_id_of_last_pag,$page_number);
     $images = new Product_images();
     foreach ($result as $key => $value) {
       $result[$key]['images'] = $images->get_product_images($value['id']);
@@ -29,6 +38,16 @@ class ProductController
     }
     echo json_encode($result);
     return;
+  }
+
+  // count number of products
+  public function count_all_products()
+  {
+    $product = new Product();
+    $count_number_of_pro= $product->count_product_number();
+    echo json_encode($count_number_of_pro);
+    return;
+
   }
 
   public function get_top_products()

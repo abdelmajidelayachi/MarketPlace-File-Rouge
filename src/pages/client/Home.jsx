@@ -3,8 +3,6 @@ import Ad from "../../components/clients/Ad";
 import Categories from "../../components/clients/Categories";
 import Nav from "../../components/clients/Nav";
 import Footer from "../../layouts/Footer";
-// import Product from "../../components/product/ProductCard";
-import ScrollListProducts from "../../layouts/ScrollListProducts";
 import WhyUs from "../../layouts/WhyUs";
 
 function Home() {
@@ -17,9 +15,6 @@ function Home() {
         <div className="bg-gray-100 max-w-screen-xl m-auto mb-2">
           <Ad />
           <Categories />
-
-          {/* <ScrollListProducts/> */}
-          
           <WhyUs/>
         </div>
         <Footer/>
