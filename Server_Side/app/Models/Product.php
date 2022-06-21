@@ -9,7 +9,7 @@ class Product extends DB
 
     $this->conn = $this->connect();
   }
-
+  // insert a new product in table products
   public function insert_Product($data)
   {
     $product = "SELECT * FROM $this->table WHERE product_name = :product_name AND category_id = :category_id AND owner_id = :owner_id";
@@ -44,6 +44,7 @@ class Product extends DB
     }
   }
 
+  // select all products from products table
   public function select_all_product()
   {
     $sql = "SELECT * FROM $this->table";
@@ -53,7 +54,7 @@ class Product extends DB
     return $result;
   }
 
-
+  // select a searching products from products table
   public function search_product($search)
   {
     $search = "%$search%";
@@ -65,7 +66,7 @@ class Product extends DB
     return $result;
   }
 
-
+  // select one product by id from products table
   public function selectOne($id)
   {
     $sql = "SELECT * FROM $this->table WHERE id=:id";
@@ -77,7 +78,7 @@ class Product extends DB
 
 
   }
-
+  // select all recent inserted products from products table
   public function select_new_products()
   {
     $sql = "SELECT $this->table.*,`categories`.name FROM $this->table INNER JOIN `categories` ON $this->table.category_id = categories.id WHERE status = '1' ORDER BY $this->table.id DESC LIMIT 30";
@@ -86,17 +87,18 @@ class Product extends DB
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
   }
-
+  // select 30 top ordered products
   public function select_top_products()
   {
-    $sql = "SELECT * FROM $this->table  WHERE status = '1' ORDER BY number_orders DESC LIMIT 8";
+    $sql = "SELECT * FROM $this->table  WHERE status = '1' ORDER BY number_orders DESC LIMIT 30";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;  
   }
 
-  public function getUserProducts($id)
+  // select products
+  public function get_user_products($id)
   {
     $sql = "SELECT * FROM $this->table WHERE owner_id = :id ORDER BY id DESC";
     $stmt = $this->conn->prepare($sql);
@@ -106,8 +108,8 @@ class Product extends DB
     return $result;
   }
 
-
-  public function getProductsByCategory($id)
+  // select all product by category
+  public function get_products_by_category($id)
   {
     $sql = "SELECT $this->table.*,`categories`.name FROM $this->table INNER JOIN `categories` ON $this->table.category_id = categories.id WHERE $this->table.category_id = :id AND $this->table.status = '1' ORDER BY $this->table.id DESC";
     $stmt = $this->conn->prepare($sql);
@@ -117,7 +119,7 @@ class Product extends DB
     return $result;
   }
 
-
+  // update product
   public function update_product($data,$id)
   {
     $sql = "UPDATE $this->table SET product_name = :product_name, description = :description, price = :price, category_id = :category_id, status = :status, owner_id = :owner_id, quantity = :quantity WHERE id = :id";
@@ -133,7 +135,7 @@ class Product extends DB
     $stmt->execute();
     return "Product updated successfully";
   }
-
+  // delete product by id
   public function delete_product($id)
   {
     $sql = "DELETE FROM $this->table WHERE id = :id";
@@ -142,6 +144,8 @@ class Product extends DB
     $stmt->execute();
     return "Product deleted successfully";
   }
+
+  // subtract quantity from product quantity after order
   public function sub_buying_products($data)
   {
     $product = $this->selectOne($data['id']);

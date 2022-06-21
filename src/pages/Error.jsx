@@ -1,7 +1,6 @@
 import React from "react";
 import Nav from "../components/clients/Nav";
 import Wrapper from "../components/UI/Wrapper";
-import gifError from "../assets/images/404.gif";
 import { Link } from "react-router-dom";
 
 function Error() {
@@ -10,32 +9,27 @@ function Error() {
       <div className="max-w-screen-xl m-auto ">
         <Nav />
       </div>
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <div className="md:w-1/2">
-          <h1
-            className="text-5xl text-gray-800 font-extrabold mb-4"
-            style={{ textSize: "80px" }}
-          >
-            Something went wrong. 
-          </h1>
-          <h1
-            className="text-5xl text-gray-800 font-extrabold"
-            style={{ textSize: "80px" }}
-          >
-             This page doesn’t exist
-          </h1>
-          <Link to="/"  className="mt-6 flex items-center cursor-pointer">
-            {" "}
-            <span className="text-4xl uppercase font-bold text-mainBlue mt-4">
+      <div className="bg-white h-full px-4 py-16 sm:px-6 sm:py-24 md:grid md:place-items-center lg:px-8">
+    <div className="max-w-max mx-auto">
+      <main className="sm:flex">
+        <p className="text-4xl font-extrabold text-indigo-600 sm:text-5xl">404</p>
+        <div className="sm:ml-6">
+          <div className="sm:border-l sm:border-gray-200 sm:pl-6">
+            <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">Page not found</h1>
+            <p className="mt-1 text-base  text-gray-500">Please check the URL in the address bar and try again.</p>
+          </div>
+          <div className="mt-10 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6">
+            <Link to="/"
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
               Go back home
-            </span>{" "}
-            <span className="h-6 text-4xl font-bold mt-1 pt-1 text-mainBlue">
-            <i className=" absolute ml-3 fas fa-angle-down fa-lg -rotate-90"></i>
-            </span>
-          </Link>
+            </Link>
+           
+          </div>
         </div>
-        <img className="absolute z-10 bottom-0 right-0 md:flex hidden " src={gifError} alt="404" />
-      </div>
+      </main>
+    </div>
+  </div>
     </Wrapper>
   );
 }

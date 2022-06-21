@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../assets/images/logo/logoMshop.png";
 // importing Icons
 import { faHeart, faUser } from "@fortawesome/free-regular-svg-icons";
 import Navigation from "./Navigation";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Wrapper from "../UI/Wrapper";
 import { useSelector, useDispatch } from "react-redux";
 import DropdownCategory from "../clients/DropdownCategory";
@@ -14,19 +14,16 @@ import DropdownProfile from "./dropdown/DropdownProfile";
 
 export default function Nav(props) {
   const [navbarOpen, setNavbarOpen] = useState(false);
-  const [navProfile, setNavProfile] = useState(false);
   const [categories, setCategories] = useState([]);
-  const [reload, setReload] = useState(false);
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("user")) || null
   );
   const [search, setSearch] = useState("");
-  
-
   const storedProducts = useDispatch();
-
+  const location = useLocation();
   const navigate = useNavigate();
-
+  
+  //get empty array of products items in local storage if not exist
   useEffect(() => {
     if (localStorage.getItem("cartItems") === null) {
       localStorage.setItem("cartItems", JSON.stringify([]));
@@ -39,10 +36,10 @@ export default function Nav(props) {
             : [],
       });
     }
-    if (user === null) {
-    }
-  }, []);
 
+  }, [location]);
+
+  // get all categories name
   useEffect(() => {
     axios
       .get(
@@ -57,14 +54,13 @@ export default function Nav(props) {
   // search
   const searchHandler = (e) => {
     e.preventDefault();
-    setReload(true);
     if (search.value.trim() === "") {
       navigate(`/new-products`);
     } else {
       navigate(`/search/${search.value}`);
     }
   };
-
+  // count products in cart
   const countItems = useSelector((state) => {
     let countItem = 0;
     state.cartItems.map((item) => (countItem += item.quantity));
@@ -78,7 +74,6 @@ export default function Nav(props) {
       type: "LOGIN_STATUS",
       payload: false,
     });
-    setNavProfile(false);
     navigate("/");
   };
 

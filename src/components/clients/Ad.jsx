@@ -1,7 +1,7 @@
 import React from 'react'
 import Slider from './Slider'
-import ad1 from "../../assets/images/ads/hero_1.png";
-import ad2 from "../../assets/images/ads/hero_2.png";
+import ad1 from "../../assets/images/ads/ad1.jpg";
+import ad2 from "../../assets/images/ads/ad10.jpg";
 import ad3 from "../../assets/images/ads/hero_3.png";
 
 function Ad() {

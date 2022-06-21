@@ -1,6 +1,6 @@
 import React from "react";
-import ad1 from "../../assets/images/ads/hero_1.png";
-import ad2 from "../../assets/images/ads/hero_2.png";
+import ad1 from "../../assets/images/ads/ad1.jpg";
+import ad2 from "../../assets/images/ads/ad9.jpg";
 // import ad3 from "../../assets/images/ads/hero_3.png";
 
 const advertedProducts = [ad1, ad2];

@@ -6,6 +6,7 @@ import ProductCardNew from "../../components/product/ProductCardNew";
 import Div from "../../components/UI/Div";
 import Loader from "../../components/UI/Loader";
 import Wrapper from "../../components/UI/Wrapper";
+import Pagination from "../../components/product/Pagination";
 import Footer from "../../layouts/Footer";
 
 function New() {
@@ -59,6 +60,7 @@ function New() {
                   </p>
                 </div>
               )}
+        <Pagination/>
       </div>
       <Footer/>
     </Wrapper>

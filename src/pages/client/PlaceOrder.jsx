@@ -188,9 +188,6 @@ const CheckOut = () => {
                             <span className="text-gray-800 text-xl font-normal">
                               {product.product.product_name}
                             </span>
-                            <span className="text-bold text-lg">
-                              {product.product.category_id}
-                            </span>
                             <span className="text-sm font-normal w-10/12">
                               {product.product.description}
                             </span>

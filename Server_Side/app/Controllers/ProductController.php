@@ -61,7 +61,7 @@ class ProductController
   public function get_products($id)
   {
     $product = new Product();
-    $product = $product->getUserProducts($id);
+    $product = $product->get_user_products($id);
     foreach ($product as $key => $value) {
       $products['products'][$key] = $value;
       $product_images = new Product_images();
@@ -80,7 +80,7 @@ class ProductController
   public function get_products_by_category($id)
   {
     $products = new Product();
-    $products = $products->getProductsByCategory($id);
+    $products = $products->get_products_by_category($id);
     foreach ($products as $key => $value) {
       $product_images = new Product_images();
       $images = $product_images->get_product_images($value['id']);

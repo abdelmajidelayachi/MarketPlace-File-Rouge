@@ -11,7 +11,7 @@ class Transaction extends DB
   }
 
 
-
+  // insert transaction
   public function insert_transaction($data)
   {
     $sql = "INSERT INTO $this->table (from_user_id, to_user_id,amount,order_id,store_amount) VALUES (:from_user_id, :to_user_id,:amount,:order_id,:store_amount)";

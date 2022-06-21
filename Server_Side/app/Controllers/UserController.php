@@ -102,7 +102,7 @@ class UserController
       if(isset($_FILES['image']["name"]))
       {
   
-        $filename = $_FILES["image"]["name"];
+        $filename = time().$_FILES["image"]["name"];
         $tempname = $_FILES["image"]["tmp_name"];
         $folder = APP . "/../../src/assets/images/profiles/" . $filename;
         $photo = $filename;
