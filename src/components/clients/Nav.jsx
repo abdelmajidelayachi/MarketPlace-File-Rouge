@@ -191,7 +191,7 @@ export default function Nav(props) {
                   </li>
                   {user !== null && (
                 <li className="nav-item">
-                <DropdownProfile image={user.profile_photo_path}
+                <DropdownProfile image={user.profile_photo_path} linkStore={`${user.first_name}-${user.id}-${user.last_name}`}
                 className="md:right-48 right-5 md:top-32 top-12 z-50w"
                 onClickLogout={logoutHandler}
                 />
@@ -274,7 +274,7 @@ export default function Nav(props) {
                   />
                 </Link>
               ) : (
-                <DropdownProfile image={user.profile_photo_path}
+                <DropdownProfile image={user.profile_photo_path} linkStore={`${user.first_name}-${user.id}-${user.last_name}`}
                 className="md:right-48 right-5 md:top-32 top-12 z-50w"
                 onClickLogout={logoutHandler}
               />

@@ -41,7 +41,7 @@ function Category() {
         &&
         <section className="text-gray-600 body-font">
           <div className="container px-5 py-24 mx-auto">
-            <div className="flex flex-wrap -m-4 gap-5">
+            <div className="flex flex-wrap justify-start -m-4 gap-5">
               {products.map((product, index) => (
                 <Div key={index}>
                   <ProductCardNew  className=" lg:w-width_22 md:w-width-30 sm:w-width-45  p-3 w-11/12 mx-auto " product={product} />

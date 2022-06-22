@@ -29,6 +29,7 @@ function AddProductModal(props) {
   });
 
   const submitEditProductHandler = (values) => {
+    console.log(values);
     const data = new FormData();
     data.append("product_name", values.productName);
     data.append("price", values.productPrice);
@@ -36,7 +37,7 @@ function AddProductModal(props) {
     data.append("description", values.productDescription);
     data.append("owner_id", JSON.parse(localStorage.getItem("user")).id);
     data.append("category", values.productCategory);
-    data.append("category_id", "1");
+    data.append("category_id",values.productCategory);
     data.append("status", "1");
 
     axios
@@ -51,6 +52,7 @@ function AddProductModal(props) {
   };
 
   const submitAddProductHandler = async (values) => {
+    console.log(values);
     if(imagesUpload.length>0){
       setImageUpload(null);
       const data = new FormData();

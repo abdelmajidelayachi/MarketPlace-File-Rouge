@@ -1,8 +1,10 @@
 import { Menu, Transition } from "@headlessui/react";
+import userEvent from "@testing-library/user-event";
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 
 const DropdownProfile = (props) => {
+  const user = JSON.parse(localStorage.getItem('user'))
   return (
     <div className="md:mt-0 mt-1 text-right">
       <Menu as="div" className="relative inline-block text-left">
@@ -40,6 +42,21 @@ const DropdownProfile = (props) => {
                   </Link>
                 )}
               </Menu.Item>
+              {
+                user.role==="seller"&&<Menu.Item key="store">
+                {({ active }) => (
+                  <Link
+                    to={`/store/${props.linkStore}`}
+                    className={`${
+                      active ? "bg-blue-500 text-white" : "text-gray-900"
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  >
+                    My store
+                  </Link>
+                )}
+              </Menu.Item>
+              }
+              
               <Menu.Item key="logout">
                 {({ active }) => (
                   <button
