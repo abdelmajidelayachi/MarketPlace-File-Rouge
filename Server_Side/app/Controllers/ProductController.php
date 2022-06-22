@@ -131,7 +131,7 @@ class ProductController
      for ($i=0; $i < 3; $i++) { 
       $filename = $_FILES["image$i"]['name'];
       $tempname = $_FILES["image$i"]["tmp_name"];
-      $folder = APP . "/../../src/assets/images/uploads/" . $filename;
+      $folder = APP . "/../../client_side/src/assets/images/uploads/" . $filename;
       $image->insert_image(['product_id' => $result['id']['id'], 'path' => $filename]);
       move_uploaded_file($tempname, $folder);
      }

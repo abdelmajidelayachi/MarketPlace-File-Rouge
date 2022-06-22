@@ -104,7 +104,7 @@ class UserController
   
         $filename = time().$_FILES["image"]["name"];
         $tempname = $_FILES["image"]["tmp_name"];
-        $folder = APP . "/../../src/assets/images/profiles/" . $filename;
+        $folder = APP . "/../../client_side/src/assets/images/profiles/" . $filename;
         $photo = $filename;
 
         if($user->update_image($data['id'],$photo))
