@@ -13,6 +13,10 @@ This Marketplace eCommerce application is built with React and Laravel. It is de
 - Cart and checkout
 - Payment integration with various payment gateways
 - Email notifications
+- Add to wishlist
+- View profile
+- View store of seller
+- Report seller for client
 
 ## Technologies Used
 
