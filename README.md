@@ -1,6 +1,6 @@
 # Marketplace eCommerce Application
 
-This Marketplace eCommerce application is built with React and Laravel. It is designed for sellers to showcase their products, and for clients to browse and purchase these products. The admin panel allows the application to be managed easily.
+This Marketplace eCommerce application is built with React and Php. It is designed for sellers to showcase their products, and for clients to browse and purchase these products. The admin panel allows the application to be managed easily.
 
 ## Features
 
@@ -21,7 +21,7 @@ This Marketplace eCommerce application is built with React and Laravel. It is de
 ## Technologies Used
 
 - React: a JavaScript library for building user interfaces
-- Laravel: a PHP web application framework
+- php : for backend,
 - MySQL: a relational database management system
 - Git: a version control system for tracking changes in code
 
